@@ -1,9 +1,32 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'mongoid-rspec'
-require 'spec'
-require 'spec/autorun'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
+MODELS = File.join(File.dirname(__FILE__), "models")
+$LOAD_PATH.unshift(MODELS)
 
-Spec::Runner.configure do |config|
-  
+require "rubygems"
+require "bundler"
+Bundler.setup
+
+require 'rspec'
+require 'rspec/core'
+require 'rspec/expectations'
+require 'mongoid'
+
+Mongoid.configure do |config|
+  name = "mongoid-rspec-test"
+  host = "localhost"
+  config.master = Mongo::Connection.new.db(name)
+end
+
+Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
+
+require 'mongoid-rspec'
+
+Rspec.configure do |config|
+  config.include Rspec::Matchers
+  config.include Mongoid::Matchers
+  config.mock_with :rspec
+  config.after :all do
+    Mongoid.master.collections.each(&:drop)
+  end
 end
