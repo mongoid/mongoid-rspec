@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "mongoid-rspec"
     gem.summary = %Q{RSpec matchers for Mongoid}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{RSpec matches for Mongoid models, including association and validation matchers}
     gem.email = "evansagge@gmail.com"
     gem.homepage = "http://github.com/evansagge/mongoid-rspec"
     gem.authors = ["Evan Sagge"]
