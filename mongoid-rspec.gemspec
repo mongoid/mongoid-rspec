@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mongoid-rspec}
-  s.version = "1.0.0"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Evan Sagge"]
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
      "lib/matchers/validations/presence_of.rb",
      "lib/matchers/validations/uniqueness_of.rb",
      "lib/mongoid-rspec.rb",
+     "mongoid-rspec.gemspec",
      "spec/models/article.rb",
      "spec/models/comment.rb",
      "spec/models/profile.rb",
