@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mongoid-rspec}
-  s.version = "1.0.4"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Evan Sagge"]
-  s.date = %q{2010-05-24}
+  s.date = %q{2010-06-02}
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
   s.email = %q{evansagge@gmail.com}
   s.extra_rdoc_files = [

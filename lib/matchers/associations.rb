@@ -88,17 +88,17 @@ module Mongoid
         def type_description(type = nil, passive = true)
           type ||= @association[:type]
           case type.name
-          when "Mongoid::Associations::EmbedsOne"
+          when EMBEDS_ONE.name
             (passive ? 'embed' : 'embeds') << ' one'
-          when "Mongoid::Associations::EmbedsMany"
+          when EMBEDS_MANY.name
             (passive ? 'embed' : 'embeds') << ' many'
-          when "Mongoid::Associations::EmbeddedIn"
+          when EMBEDDED_IN.name
             (passive ? 'be' : 'is') << ' embedded in'
-          when "Mongoid::Associations::HasOneRelated"
+          when HAS_ONE.name
             (passive ? 'have' : 'has') << ' one related'
-          when "Mongoid::Associations::HasManyRelated"
+          when HAS_MANY.name
             (passive ? 'have' : 'has') << ' many related'          
-          when "Mongoid::Associations::BelongsToRelated"
+          when BELONGS_TO.name
             (passive ? 'belong' : 'belongs') << ' to related'
           else
             raise "Unknown association type"
