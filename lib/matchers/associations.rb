@@ -1,6 +1,14 @@
 module Mongoid
   module Matchers
     module Associations
+      HAS_MANY = defined?(Mongoid::Associations::HasManyRelated) ? Mongoid::Associations::HasManyRelated : Mongoid::Associations::ReferencesMany
+      HAS_ONE = defined?(Mongoid::Associations::HasOneRelated) ? Mongoid::Associations::HasOneRelated : Mongoid::Associations::ReferencesOne
+      BELONGS_TO = defined?(Mongoid::Associations::BelongsToRelated) ? Mongoid::Associations::BelongsToRelated : Mongoid::Associations::ReferencedIn
+      EMBEDS_MANY = Mongoid::Associations::EmbedsMany
+      EMBEDS_ONE = Mongoid::Associations::EmbedsOne
+      EMBEDDED_IN = Mongoid::Associations::EmbeddedIn
+
+      
       class HaveAssociationMatcher
         def initialize(name, association_type)
           @association = {}
@@ -21,7 +29,7 @@ module Mongoid
         end
         
         def as_inverse_of(association_inverse_name)
-          raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [Mongoid::Associations::BelongsToRelated, Mongoid::Associations::EmbeddedIn].include?(@association[:type])
+          raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [BELONGS_TO, EMBEDDED_IN].include?(@association[:type])
           @association[:inverse_of] = association_inverse_name.to_s
           @expectation_message << " which is an inverse of #{@association[:inverse_of].inspect}"
           self
@@ -99,27 +107,27 @@ module Mongoid
       end      
       
       def embed_one(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::EmbedsOne)
+        HaveAssociationMatcher.new(association_name, EMBEDS_ONE)
       end
       
       def embed_many(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::EmbedsMany)
+        HaveAssociationMatcher.new(association_name, EMBEDS_MANY)
       end    
       
       def be_embedded_in(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::EmbeddedIn)
+        HaveAssociationMatcher.new(association_name, EMBEDDED_IN)
       end
       
       def have_one_related(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::HasOneRelated)
+        HaveAssociationMatcher.new(association_name, HAS_ONE)
       end        
       
       def have_many_related(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::HasManyRelated)
+        HaveAssociationMatcher.new(association_name, HAS_MANY)
       end        
       
       def belong_to_related(association_name)
-        HaveAssociationMatcher.new(association_name, Mongoid::Associations::BelongsToRelated)
+        HaveAssociationMatcher.new(association_name, BELONGS_TO)
       end      
     end 
   end
