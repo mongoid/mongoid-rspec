@@ -1,3 +1,5 @@
+require 'mongoid/associations'
+
 module Mongoid
   module Matchers
     module Associations
