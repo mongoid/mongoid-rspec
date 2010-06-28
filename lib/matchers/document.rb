@@ -91,7 +91,7 @@ module Mongoid
   end
 end
 
-Rspec::Matchers.define :have_instance_method do |name|
+RSpec::Matchers.define :have_instance_method do |name|
   match do |klass|
     klass.instance_methods.include?(name.to_sym)
   end

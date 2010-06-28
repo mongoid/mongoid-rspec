@@ -22,8 +22,8 @@ Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) 
 
 require 'mongoid-rspec'
 
-Rspec.configure do |config|
-  config.include Rspec::Matchers
+RSpec.configure do |config|
+  config.include RSpec::Matchers
   config.include Mongoid::Matchers
   config.mock_with :rspec
   config.after :all do
