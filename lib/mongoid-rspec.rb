@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mongoid'
+require 'rspec'
 require 'matchers/document'
 require 'matchers/associations'
 require 'matchers/validations'
