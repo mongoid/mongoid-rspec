@@ -10,7 +10,7 @@ begin
     gem.email = "evansagge@gmail.com"
     gem.homepage = "http://github.com/evansagge/mongoid-rspec"
     gem.authors = ["Evan Sagge"]
-    gem.add_dependency "mongoid", ">= 2.0.0.beta3"
+    gem.add_dependency "mongoid", ">= 2.0.0.beta10"
     gem.add_dependency "bson_ext", ">= 0.20.1"    
     gem.add_dependency "rspec-rails", ">= 2.0.0.beta.7"      
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
