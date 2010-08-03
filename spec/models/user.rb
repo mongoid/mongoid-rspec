@@ -5,8 +5,8 @@ class User
   field :email
   field :role
   
-  has_many_related :articles
-  has_many_related :comments
+  references_many :articles
+  references_many :comments
   
   embeds_one :profile
   

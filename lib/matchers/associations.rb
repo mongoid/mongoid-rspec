@@ -16,12 +16,12 @@ module Mongoid
           @association = {}
           @association[:name] = name.to_s
           @association[:type] = association_type
-          begin
-            @association[:class] = name.to_s.classify.constantize
-          rescue
-          end
+          # begin
+          #   @association[:class] = name.to_s.classify.constantize
+          # rescue
+          # end
           @expectation_message = "#{type_description} #{@association[:name].inspect}"
-          @expectation_message << " of type #{@association[:class].inspect}"
+          @expectation_message << " of type #{@association[:class].inspect}" unless @association[:class].nil?
         end
         
         def of_type(klass)
@@ -56,7 +56,7 @@ module Mongoid
             @positive_result_message = "#{@actual.inspect} #{type_description(association.association, false)} #{@association[:name]}"
           end
           
-          if @association[:class] != association.klass
+          if !@association[:class].nil? and @association[:class] != association.klass
             @negative_result_message = "#{@positive_result_message} of type #{association.klass.inspect}"
             return false
           else
@@ -97,11 +97,11 @@ module Mongoid
           when EMBEDDED_IN.name
             (passive ? 'be' : 'is') << ' embedded in'
           when HAS_ONE.name
-            (passive ? 'have' : 'has') << ' one related'
+            (passive ? 'reference' : 'references') << ' one'
           when HAS_MANY.name
-            (passive ? 'have' : 'has') << ' many related'          
+            (passive ? 'reference' : 'references') << ' many'          
           when BELONGS_TO.name
-            (passive ? 'belong' : 'belongs') << ' to related'
+            (passive ? 'be referenced in' : 'referenced in')
           else
             raise "Unknown association type"
           end
@@ -123,14 +123,17 @@ module Mongoid
       def have_one_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_ONE)
       end        
+      alias :reference_one :have_one_related
       
       def have_many_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_MANY)
-      end        
+      end     
+      alias :reference_many :have_many_related   
       
       def belong_to_related(association_name)
         HaveAssociationMatcher.new(association_name, BELONGS_TO)
-      end      
+      end     
+      alias :be_referenced_in :belong_to_related 
     end 
   end
 end
