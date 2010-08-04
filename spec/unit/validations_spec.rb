@@ -8,7 +8,7 @@ describe "Validations" do
     it { should validate_associated(:profile) }
     it { should validate_inclusion_of(:role).to_allow("admin", "member") }
   end
-  
+
   describe Profile do
     it { should validate_numericality_of(:age) }
   end

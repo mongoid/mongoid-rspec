@@ -1,3 +1,0 @@
-= mongoid-rspec
-
-RSpec matchers for Mongoid
