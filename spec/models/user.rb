@@ -7,6 +7,7 @@ class User
   
   references_many :articles
   references_many :comments
+  references_many :children, :stored_as => :array, :class_name => "User"
   
   embeds_one :profile
   

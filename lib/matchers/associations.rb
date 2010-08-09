@@ -4,6 +4,7 @@ module Mongoid
   module Matchers
     module Associations
       HAS_MANY = defined?(Mongoid::Associations::HasManyRelated) ? Mongoid::Associations::HasManyRelated : Mongoid::Associations::ReferencesMany
+      HAS_MANY_AS_ARRAY = Mongoid::Associations::ReferencesManyAsArray
       HAS_ONE = defined?(Mongoid::Associations::HasOneRelated) ? Mongoid::Associations::HasOneRelated : Mongoid::Associations::ReferencesOne
       BELONGS_TO = defined?(Mongoid::Associations::BelongsToRelated) ? Mongoid::Associations::BelongsToRelated : Mongoid::Associations::ReferencedIn
       EMBEDS_MANY = Mongoid::Associations::EmbedsMany
@@ -34,6 +35,11 @@ module Mongoid
           raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [BELONGS_TO, EMBEDDED_IN].include?(@association[:type])
           @association[:inverse_of] = association_inverse_name.to_s
           @expectation_message << " which is an inverse of #{@association[:inverse_of].inspect}"
+          self
+        end
+        
+        def stored_as(store_as)
+          @association[:type] = HAS_MANY_AS_ARRAY if store_as == :array
           self
         end
         
@@ -99,11 +105,13 @@ module Mongoid
           when HAS_ONE.name
             (passive ? 'reference' : 'references') << ' one'
           when HAS_MANY.name
-            (passive ? 'reference' : 'references') << ' many'          
+            (passive ? 'reference' : 'references') << ' many'
+          when HAS_MANY_AS_ARRAY.name
+            (passive ? 'reference' : 'references') << ' many as array'
           when BELONGS_TO.name
             (passive ? 'be referenced in' : 'referenced in')
           else
-            raise "Unknown association type"
+            raise "Unknown association type '%s'" % type
           end
         end
       end      
