@@ -12,7 +12,7 @@ begin
     gem.authors = ["Evan Sagge"]
     gem.add_dependency "mongoid", ">= 2.0.0.beta.15"
     gem.add_dependency "bson_ext", ">= 1.0.4"
-    gem.add_dependency "rspec-rails", ">= 2.0.0.beta.19"
+    gem.add_dependency "rspec", ">= 2.0.0.beta.19"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
