@@ -5,16 +5,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mongoid-rspec}
-  s.version = "1.2.0"
+  s.version = "1.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Evan Sagge"]
-  s.date = %q{2010-08-03}
+  s.date = %q{2010-08-25}
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
   s.email = %q{evansagge@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.markdown"
   ]
   s.files = [
     ".bundle/config",
@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
      "Gemfile",
      "Gemfile.lock",
      "LICENSE",
-     "README.rdoc",
+     "README.markdown",
      "Rakefile",
      "VERSION",
      "lib/matchers/associations.rb",
@@ -70,16 +70,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
       s.add_runtime_dependency(%q<bson_ext>, [">= 1.0.4"])
-      s.add_runtime_dependency(%q<rspec-rails>, [">= 2.0.0.beta.19"])
+      s.add_runtime_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
     else
       s.add_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
       s.add_dependency(%q<bson_ext>, [">= 1.0.4"])
-      s.add_dependency(%q<rspec-rails>, [">= 2.0.0.beta.19"])
+      s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
     end
   else
     s.add_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
     s.add_dependency(%q<bson_ext>, [">= 1.0.4"])
-    s.add_dependency(%q<rspec-rails>, [">= 2.0.0.beta.19"])
+    s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
   end
 end
 
