@@ -37,6 +37,10 @@ Validation Matchers
       it { should validate_inclusion_of(:role).to_allow("admin", "member") }
       it { should validate_numericality_of(:age) }
     end
+    
+    describe Article do
+      it { should validate_length_of(:title) }
+    end
 
 Others
 -
