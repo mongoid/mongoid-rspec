@@ -100,3 +100,27 @@ RSpec::Matchers.define :have_instance_method do |name|
     "have instance method #{name.to_s}"
   end
 end
+
+RSpec::Matchers.define :be_mongoid_document do
+  match do |doc|
+    doc.class.included_modules.should include(Mongoid::Document)
+  end
+end
+
+RSpec::Matchers.define :be_versioned_document do
+  match do |doc|
+    doc.class.included_modules.should include(Mongoid::Versioning)
+  end
+end
+
+RSpec::Matchers.define :be_timestamped_document do
+  match do |doc|
+    doc.class.included_modules.should include(Mongoid::Timestamps)
+  end
+end
+
+RSpec::Matchers.define :be_paranoid_document do
+  match do |doc|
+    doc.class.included_modules.should include(Mongoid::Paranoia)
+  end
+end
