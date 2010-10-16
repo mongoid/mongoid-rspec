@@ -48,3 +48,15 @@ Others
       # useful if you use factory_girl and have Factory(:user) defined for User
       it { should save }
     end
+
+Use
+-
+add in Gemfile
+
+    gem 'mongoid-rspec'
+    
+drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
+
+    RSpec.configure do |configuration|
+      configuration.include Mongoid::Matchers
+    end
