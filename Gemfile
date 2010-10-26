@@ -9,3 +9,5 @@ gem 'redgreen'
 gem 'rspec', ">= 2.0.0.beta.19"
 
 gem 'jeweler', ">=1.4.0"
+
+gem 'ruby-debug19'
