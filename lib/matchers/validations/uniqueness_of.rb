@@ -30,23 +30,12 @@ module Mongoid
         def matches?(actual)
           return false unless @result = super(actual)
           
-          if [@validator.options[:scope]].flatten == @scope
-            @positive_result_message = @positive_result_message << "scope to #{@validator.options[:scope]}"
-          else
-            @negative_result_message = @negative_result_message << "scope to #{@validator.options[:scope]}"
-          end if @scope
-          
-          if @validator.options[:allow_blank] == @allow_blank
-            @positive_result_message = @positive_result_message << " with blank values allowed"
-          else
-            @negative_result_message = @negative_result_message << " with no blank values allowed"
-          end if @allow_blank
-          
+          check_scope if @scope
+          check_allow_blank if @allow_blank
           check_case_sensitivity if @case_insensitive
-
           check_expected_message if @expected_message
           
-          finished_result
+          @result
         end
 
         def description
@@ -60,26 +49,44 @@ module Mongoid
         
         private
 
-        def finished_result
-          !@negative_result_message.blank?
+        def check_allow_blank
+          if @validator.options[:allow_blank] == @allow_blank
+            @positive_result_message << " with blank values allowed"
+          else
+            @negative_result_message << " with no blank values allowed"
+            @result = false
+          end
+        end
+
+        def check_scope
+          message = "scope to #{@validator.options[:scope]}"
+          if [@validator.options[:scope]].flatten == @scope
+            @positive_result_message << message
+          else
+            @negative_result_message << message
+            @result = false
+          end
         end
         
         def check_case_sensitivity
           if @validator.options[:case_sensitive] == false
-            @positive_result_message = @positive_result_message << " with case insensitive values"
+            @positive_result_message << " with case insensitive values"
           else
-            @negative_result_message = @negative_result_message << " without case insensitive values"
+            @negative_result_message << " without case insensitive values"
+            @result = false
           end
         end
 
         def check_expected_message
           actual_message = @validator.options[:message]
           if actual_message.nil?
-            @negative_result_message = @negative_result_message << " with no custom message"
+            @negative_result_message << " with no custom message"
+            @result = false
           elsif actual_message == @expected_message
-            @positive_result_message = @positive_result_message << " with custom message '#{@expected_message}'"
+            @positive_result_message << " with custom message '#{@expected_message}'"
           else
-            @negative_result_message = @negative_result_message << " got message '#{actual_message}'"
+            @negative_result_message << " got message '#{actual_message}'"
+            @result = false
           end
         end
       end

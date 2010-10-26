@@ -12,7 +12,7 @@ class User
   embeds_one :profile
   
   validates :login, :presence => true, :uniqueness => true, :format => { :with => /^[\w\-]+$/ }
-  validates_uniqueness_of :email, :case_sensitive => false#, :message => "is already taken"
+  validates_uniqueness_of :email, :case_sensitive => false, :message => "is already taken"
   validates :role, :presence => true, :inclusion => { :in => ["admin", "moderator", "member"]}  
   validates :profile, :presence => true, :associated => true
   
