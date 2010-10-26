@@ -12,7 +12,7 @@ class User
   embeds_one :profile
   
   validates :login, :presence => true, :uniqueness => true, :format => { :with => /^[\w\-]+$/ }
-  validates :email, :presence => true, :uniqueness => true
+  validates_uniqueness_of :email
   validates :role, :presence => true, :inclusion => { :in => ["admin", "moderator", "member"]}  
   validates :profile, :presence => true, :associated => true
   
