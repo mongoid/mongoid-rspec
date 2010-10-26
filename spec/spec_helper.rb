@@ -4,6 +4,7 @@ MODELS = File.join(File.dirname(__FILE__), "models")
 $LOAD_PATH.unshift(MODELS)
 
 require "rubygems"
+require 'ruby-debug'
 require "bundler"
 Bundler.setup
 
