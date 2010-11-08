@@ -70,16 +70,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
       s.add_runtime_dependency(%q<bson_ext>, [">= 1.0.4"])
-      s.add_runtime_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
+      s.add_runtime_dependency(%q<rspec>, [">= 2.0.0"])
     else
       s.add_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
       s.add_dependency(%q<bson_ext>, [">= 1.0.4"])
-      s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
+      s.add_dependency(%q<rspec>, [">= 2.0.0"])
     end
   else
     s.add_dependency(%q<mongoid>, [">= 2.0.0.beta.15"])
     s.add_dependency(%q<bson_ext>, [">= 1.0.4"])
-    s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
+    s.add_dependency(%q<rspec>, [">= 2.0.0"])
   end
 end
 
