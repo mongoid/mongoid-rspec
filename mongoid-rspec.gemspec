@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     ".document",
     ".rvmrc",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.markdown",
     "Rakefile",
