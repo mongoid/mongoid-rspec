@@ -5,14 +5,15 @@ class User
   field :email
   field :role
   
+  referenced_in :site, :inverse_of => :users
   references_many :articles
   references_many :comments
   references_many :children, :stored_as => :array, :class_name => "User"
   
   embeds_one :profile
   
-  validates :login, :presence => true, :uniqueness => true, :format => { :with => /^[\w\-]+$/ }
-  validates :email, :presence => true, :uniqueness => true
+  validates :login, :presence => true, :uniqueness => { :scope => :site }, :format => { :with => /^[\w\-]+$/ }
+  validates :email, :uniqueness => { :case_sensitive => false, :scope => :site, :message => "is already taken" }
   validates :role, :presence => true, :inclusion => { :in => ["admin", "moderator", "member"]}  
   validates :profile, :presence => true, :associated => true
   
