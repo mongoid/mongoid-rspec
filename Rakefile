@@ -12,7 +12,6 @@ begin
     gem.authors = ["Evan Sagge"]
     gem.add_dependency "mongoid", "~> 2.0.0"
     gem.add_dependency "rspec", "~> 2"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
