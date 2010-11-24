@@ -36,10 +36,11 @@ Validation Matchers
       it { should validate_associated(:profile) }
       it { should validate_inclusion_of(:role).to_allow("admin", "member") }
       it { should validate_numericality_of(:age) }
+      it { should validate_length_of(:us_phone).as_exactly(7) }
     end
     
     describe Article do
-      it { should validate_length_of(:title) }
+      it { should validate_length_of(:title).within(4..100) }
     end
 
 Others
