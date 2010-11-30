@@ -6,7 +6,7 @@ class Article
   field :published, :type => Boolean, :default => false
   
   embeds_many :comments
-  referenced_in :user, :inverse_of => :articles
+  referenced_in :author, :class_name => 'User', :inverse_of => :articles
   
   validates :title, :presence => true
   

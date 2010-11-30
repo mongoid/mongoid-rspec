@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "Associations" do
   describe User do
-    it { should reference_many :articles }
-    it { should reference_many :comments }    
+    it { should reference_many(:articles).with_foreign_key(:author_id) }
+    it { should reference_many :comments }
     it { should embed_one :profile }
-    it { should reference_many(:children).stored_as(:array) }
+    it { should reference_many(:children).of_type(User).stored_as(:array) }
   end
   
   describe Profile do
@@ -13,7 +13,7 @@ describe "Associations" do
   end
   
   describe Article do
-    it { should be_referenced_in(:user).as_inverse_of(:articles) }
+    it { should be_referenced_in(:author).of_type(User).as_inverse_of(:articles) }
     it { should embed_many(:comments) }
   end
   

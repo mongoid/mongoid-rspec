@@ -42,7 +42,13 @@ module Mongoid
           @association[:type] = HAS_MANY_AS_ARRAY if store_as == :array
           self
         end
-        
+
+        def with_foreign_key(foreign_key)
+          @association[:foreign_key] = foreign_key.to_s
+          @expectation_message << " using foreign key #{@association[:foreign_key].inspect}"
+          self
+        end
+
         def matches?(actual)
           @actual = actual.is_a?(Class) ? actual : actual.class
           association = @actual.associations[@association[:name]]
@@ -77,7 +83,16 @@ module Mongoid
               @positive_result_message = "#{@positive_result_message} which is an inverse of #{association.inverse_of}"
             end
           end
-          
+
+          if @association[:foreign_key]
+            if association.foreign_key != @association[:foreign_key]
+              @negative_result_message = "#{@positive_result_message} with foreign key #{association.foreign_key.inspect}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} with foreign key #{association.foreign_key.inspect}"
+            end
+          end
+
           true
         end
         

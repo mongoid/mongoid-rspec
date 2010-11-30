@@ -6,7 +6,7 @@ class User
   field :role
   
   referenced_in :site, :inverse_of => :users
-  references_many :articles
+  references_many :articles, :foreign_key => :author_id
   references_many :comments
   references_many :children, :stored_as => :array, :class_name => "User"
   
