@@ -36,6 +36,7 @@ Validation Matchers
       it { should validate_associated(:profile) }
       it { should validate_inclusion_of(:role).to_allow("admin", "member") }
       it { should validate_numericality_of(:age) }
+      it { should validate_confirmation_of(:email) }
     end
     
     describe Article do
