@@ -16,7 +16,7 @@ describe "Validations" do
   end
 
   describe Profile do
-    it { should validate_numericality_of(:age) }
+    it { should validate_numericality_of(:age).greater_than(0) }
   end
   
   describe Article do

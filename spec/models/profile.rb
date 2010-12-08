@@ -7,5 +7,5 @@ class Profile
   
   embedded_in :user, :inverse_of => :profile
   
-  validates_numericality_of :age
+  validates_numericality_of :age, :greater_than => 0
 end
