@@ -20,6 +20,6 @@ describe "Validations" do
   end
   
   describe Article do
-    it { should validate_length_of(:title) }
+    it { should validate_length_of(:title).within(8..16) }
   end
 end
