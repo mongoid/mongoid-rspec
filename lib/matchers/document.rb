@@ -57,37 +57,6 @@ module Mongoid
       HaveFieldMatcher.new(*args)
     end
     alias_method :have_fields, :have_field
-
-    class SaveMatcher
-      def initialize(attributes = {})
-        @attributes = attributes
-      end
-
-      def matches?(actual)
-        @actual = actual.is_a?(Class) ?
-          ( defined?(::Factory) ? ::Factory.build(actual.name.underscore, @attributes) : actual.new(@attributes)) :
-          actual
-        @actual.valid? and @actual.save
-      end
-
-      def failure_message_for_should
-        "Expected #{@actual.inspect} to save properly, got #{@actual.errors.full_messages.to_sentence}"
-      end
-
-      def failure_message_for_should_not
-        "Expected #{@actual.inspect} to not save, got saved instead"
-      end
-
-      def description
-        "save properly"
-      end
-    end
-
-    def save(attributes = {})
-      SaveMatcher.new(attributes)
-    end
-    alias_method :save_properly, :save
-
   end
 end
 
