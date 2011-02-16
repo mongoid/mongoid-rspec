@@ -10,7 +10,7 @@ begin
     gem.email = "evansagge@gmail.com"
     gem.homepage = "http://github.com/evansagge/mongoid-rspec"
     gem.authors = ["Evan Sagge"]
-    gem.add_dependency "mongoid", "~> 2.0.0"
+    gem.add_dependency "mongoid", "~> 2.0.0.rc.7"
     gem.add_dependency "rspec", "~> 2"
   end
   Jeweler::GemcutterTasks.new
