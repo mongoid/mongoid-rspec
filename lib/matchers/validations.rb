@@ -26,7 +26,7 @@ module Mongoid
         
         def failure_message_for_should  
           "Expected #{@klass.inspect} to #{description}, got #{@negative_result_message}"  
-        end  
+        end
       
         def failure_message_for_should_not  
           "Expected #{@klass.inspect} to not #{description}, got #{@positive_result_message}"  
