@@ -14,7 +14,7 @@ describe "Associations" do
   
   describe Article do
     it { should be_referenced_in(:user).as_inverse_of(:articles) }
-    it { should embed_many(:comments) }
+    it { should embed_many(:comments).of_type(Comment) }
   end
   
   describe Comment do
