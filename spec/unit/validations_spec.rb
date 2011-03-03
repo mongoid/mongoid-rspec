@@ -13,6 +13,7 @@ describe "Validations" do
     it { should validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
     it { should validate_associated(:profile) }
     it { should validate_inclusion_of(:role).to_allow("admin", "member") }
+    it { should validate_confirmation_of(:email) }
   end
 
   describe Profile do
