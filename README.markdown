@@ -3,7 +3,6 @@ mongoid-rspec
 
 RSpec matchers for Mongoid.
 
-
 Association Matchers
 -
     describe User do
@@ -80,3 +79,9 @@ drop in existing or dedicated support file in spec/support (spec/support/mongoid
     RSpec.configure do |configuration|
       configuration.include Mongoid::Matchers
     end
+    
+Acknowledgement
+-
+Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make 
+this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/evansagge/mongoid-rspec/contributors) 
+to this project.
