@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "lib/matchers/document.rb",
     "lib/matchers/validations.rb",
     "lib/matchers/validations/associated.rb",
+    "lib/matchers/validations/confirmation_of.rb",
     "lib/matchers/validations/format_of.rb",
     "lib/matchers/validations/inclusion_of.rb",
     "lib/matchers/validations/length_of.rb",
@@ -69,16 +70,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mongoid-rspec>, [">= 0"])
-      s.add_runtime_dependency(%q<mongoid>, ["= 2.0.0.beta.20"])
+      s.add_runtime_dependency(%q<mongoid>, ["~> 2.0.0.rc.7"])
       s.add_runtime_dependency(%q<rspec>, ["~> 2"])
     else
       s.add_dependency(%q<mongoid-rspec>, [">= 0"])
-      s.add_dependency(%q<mongoid>, ["= 2.0.0.beta.20"])
+      s.add_dependency(%q<mongoid>, ["~> 2.0.0.rc.7"])
       s.add_dependency(%q<rspec>, ["~> 2"])
     end
   else
     s.add_dependency(%q<mongoid-rspec>, [">= 0"])
-    s.add_dependency(%q<mongoid>, ["= 2.0.0.beta.20"])
+    s.add_dependency(%q<mongoid>, ["~> 2.0.0.rc.7"])
     s.add_dependency(%q<rspec>, ["~> 2"])
   end
 end
