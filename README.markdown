@@ -66,6 +66,10 @@ Others
 
       # useful if you use factory_girl and have Factory(:user) defined for User
       it { should save }
+      
+      it { should be_timestamped_document } # if you're declaring `include Mongoid::Timestamps`
+      it { should be_versioned_document } # if you're declaring `include Mongoid::Versioning`
+      it { should be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
     end
 
 Use
