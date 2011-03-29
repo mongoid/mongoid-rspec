@@ -20,7 +20,7 @@ GEM
     i18n (0.5.0)
     mongo (1.2.4)
       bson (>= 1.2.4)
-    mongoid (2.0.0.rc.7)
+    mongoid (2.0.0.rc.8)
       activemodel (~> 3.0)
       mongo (~> 1.2)
       tzinfo (~> 0.3.22)
@@ -33,7 +33,7 @@ GEM
     rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.5.0)
-    tzinfo (0.3.24)
+    tzinfo (0.3.25)
     will_paginate (3.0.pre2)
 
 PLATFORMS

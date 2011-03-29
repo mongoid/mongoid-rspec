@@ -5,7 +5,7 @@ describe "Validations" do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
   end
-  
+
   describe User do
     it { should validate_presence_of(:login) }
     it { should validate_uniqueness_of(:login).scoped_to(:site) }
@@ -19,8 +19,12 @@ describe "Validations" do
   describe Profile do
     it { should validate_numericality_of(:age).greater_than(0) }
   end
-  
+
   describe Article do
     it { should validate_length_of(:title).within(8..16) }
+  end
+
+  describe MovieArticle do
+    it { should validate_numericality_of(:rating).greater_than(0).less_than(6) }
   end
 end
