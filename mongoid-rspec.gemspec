@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/models/article.rb",
     "spec/models/comment.rb",
+    "spec/models/permalink.rb",
     "spec/models/profile.rb",
     "spec/models/record.rb",
     "spec/models/site.rb",
