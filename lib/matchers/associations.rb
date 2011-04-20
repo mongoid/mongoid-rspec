@@ -72,7 +72,7 @@ module Mongoid
             @negative_result_message = "#{@positive_result_message} of type #{metadata.klass.inspect}"
             return false
           else
-            @positive_result_message = "#{@positive_result_message} of type #{metadata.klass.inspect}"
+            @positive_result_message = "#{@positive_result_message}#{" of type #{metadata.klass.inspect}" if @association[:class]}"
           end
 
           if @association[:inverse_of]
