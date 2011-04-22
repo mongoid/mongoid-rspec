@@ -39,6 +39,12 @@ module Mongoid
           self
         end
         
+        def with_dependent(method_name)
+          @association[:dependent] = method_name  
+          @expectation_message << " which specifies dependent as #{@association[:dependent].to_s}"
+          self
+        end
+        
         def stored_as(store_as)
           raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
         end
@@ -84,6 +90,15 @@ module Mongoid
             end
           end
 
+          if @association[:dependent]
+            if @association[:dependent].to_s != metadata.dependent.to_s
+              @negative_result_message = "#{@positive_result_message} which specified dependent as #{metadata.dependent}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which specified dependent as #{metadata.dependent}"
+            end
+          end
+          
           if @association[:foreign_key]
             if metadata.foreign_key != @association[:foreign_key]
               @negative_result_message = "#{@positive_result_message} with foreign key #{metadata.foreign_key.inspect}"

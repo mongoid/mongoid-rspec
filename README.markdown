@@ -14,6 +14,9 @@ Association Matchers
   
       it { should reference_many :comments }
       it { should have_many :comments }
+      
+      #can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
+      it { should have_many(:comments).with_dependent(:destroy) }
   
       it { should embed_one :profile }
   
