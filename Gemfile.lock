@@ -1,9 +1,8 @@
 PATH
   remote: .
   specs:
-    mongoid-rspec (1.4.1)
-      mongoid (~> 2.0.0.rc.7)
-      mongoid-rspec
+    mongoid-rspec (1.4.2)
+      mongoid (~> 2.0)
       rspec (~> 2)
 
 GEM
