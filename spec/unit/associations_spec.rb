@@ -35,4 +35,8 @@ describe "Associations" do
   describe Record do
     it { should be_referenced_in(:user).as_inverse_of(:record) }
   end
+
+  describe Permalink do
+    it { should be_embedded_in(:linkable).as_inverse_of(:link) }
+  end
 end
