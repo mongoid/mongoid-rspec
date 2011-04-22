@@ -25,6 +25,8 @@ describe "Validations" do
   end
 
   describe MovieArticle do
-    it { should validate_numericality_of(:rating).greater_than(0).less_than(6) }
+    it { should validate_numericality_of(:rating).greater_than(0) }
+    it { should validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
+    it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }    
   end
 end
