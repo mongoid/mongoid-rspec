@@ -39,4 +39,8 @@ describe "Associations" do
   describe Permalink do
     it { should be_embedded_in(:linkable).as_inverse_of(:link) }
   end
+
+  describe Site do
+    it { should reference_many(:users).as_inverse_of(:site) }
+  end
 end
