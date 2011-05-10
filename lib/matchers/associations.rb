@@ -33,7 +33,7 @@ module Mongoid
         end
 
         def as_inverse_of(association_inverse_name)
-          raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [BELONGS_TO, EMBEDDED_IN].include?(@association[:type])
+          raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [HAS_MANY, HAS_AND_BELONGS_TO_MANY, BELONGS_TO, EMBEDDED_IN].include?(@association[:type])
           @association[:inverse_of] = association_inverse_name.to_s
           @expectation_message << " which is an inverse of #{@association[:inverse_of].inspect}"
           self
