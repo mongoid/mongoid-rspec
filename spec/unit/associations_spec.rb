@@ -8,8 +8,8 @@ describe "Associations" do
     it { should reference_one(:record) }
     it { should have_one(:record) }    
     
-    it { should reference_many(:comments).with_dependent(:destroy) }
-    it { should have_many(:comments).with_dependent(:destroy) }
+    it { should reference_many(:comments).with_dependent(:destroy).with_autosave }
+    it { should have_many(:comments).with_dependent(:destroy).with_autosave }
     
     it { should embed_one :profile }
     

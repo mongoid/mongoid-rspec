@@ -17,6 +17,8 @@ Association Matchers
       
       #can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
       it { should have_many(:comments).with_dependent(:destroy) }
+      #can verify autosave is set to true
+      it { should have_many(:comments).with_autosave }
   
       it { should embed_one :profile }
   
