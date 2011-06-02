@@ -24,8 +24,8 @@ module Mongoid
             if @type and @klass.fields[attr].type != @type
               error << " of type #{@klass.fields[attr].type}"
             end
-
-            if @default and @klass.fields[attr].default != @default
+            
+            if !@default.nil? and !@klass.fields[attr].default.nil? and @klass.fields[attr].default != @default
               error << " with default value of #{@klass.fields[attr].default}"
             end
 
@@ -48,7 +48,7 @@ module Mongoid
       def description
         desc = "have #{@attributes.size > 1 ? 'fields' : 'field'} named #{@attributes.collect(&:inspect).to_sentence}"
         desc << " of type #{@type.inspect}" if @type
-        desc << " with default value of #{@default.inspect}" if @default
+        desc << " with default value of #{@default.inspect}" if !@default.nil?
         desc
       end
     end

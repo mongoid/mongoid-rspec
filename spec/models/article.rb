@@ -7,6 +7,7 @@ class Article
   field :title
   field :content
   field :published, :type => Boolean, :default => false
+  field :allow_comments, :type => Boolean, :default => true
   
   embeds_many :comments
   embeds_one :permalink
