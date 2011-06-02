@@ -1,5 +1,8 @@
 class Article
   include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Paranoia
+  include Mongoid::Versioning
   
   field :title
   field :content
