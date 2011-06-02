@@ -9,7 +9,7 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 task :test => :spec
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 require "mongoid-rspec/version"
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
