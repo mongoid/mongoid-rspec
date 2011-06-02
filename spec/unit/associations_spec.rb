@@ -25,6 +25,7 @@ describe "Associations" do
     it { should be_referenced_in(:author).of_type(User).as_inverse_of(:articles) }
     it { should belong_to(:author).of_type(User).as_inverse_of(:articles) }
     it { should embed_many(:comments) }
+    it { should embed_one(:permalink) }    
   end
 
   describe Comment do
