@@ -72,24 +72,24 @@ end
 
 RSpec::Matchers.define :be_mongoid_document do
   match do |doc|
-    doc.class.included_modules.should include(Mongoid::Document)
+    doc.class.included_modules.include?(Mongoid::Document).should be_true
   end
 end
 
 RSpec::Matchers.define :be_versioned_document do
   match do |doc|
-    doc.class.included_modules.should include(Mongoid::Versioning)
+    doc.class.included_modules.include?(Mongoid::Versioning).should be_true
   end
 end
 
 RSpec::Matchers.define :be_timestamped_document do
   match do |doc|
-    doc.class.included_modules.should include(Mongoid::Timestamps)
+    doc.class.included_modules.include?(Mongoid::Timestamps).should be_true
   end
 end
 
 RSpec::Matchers.define :be_paranoid_document do
   match do |doc|
-    doc.class.included_modules.should include(Mongoid::Paranoia)
+    doc.class.included_modules.include?(Mongoid::Paranoia).should be_true
   end
 end
