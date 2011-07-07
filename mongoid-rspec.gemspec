@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "mongoid-rspec"
   s.version     = Mongoid::Rspec::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors = ["Evan Sagge"]
-  s.email = %q{evansagge@gmail.com}  
-  s.homepage = %q{http://github.com/evansagge/mongoid-rspec}    
-  s.summary = %q{RSpec matchers for Mongoid}  
+  s.authors     = ["Evan Sagge"]
+  s.email       = %q{evansagge@gmail.com}  
+  s.homepage    = %q{http://github.com/evansagge/mongoid-rspec}    
+  s.summary     = %q{RSpec matchers for Mongoid}  
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
     
   s.rubyforge_project = "mongoid-rspec"
@@ -19,6 +19,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   
-  s.add_runtime_dependency(%q<mongoid>, ["~> 2.0"])
-  s.add_runtime_dependency(%q<rspec>, ["~> 2"])    
+  # s.add_runtime_dependency(%q<mongoid>, ["~> 2.0"])
+  # s.add_runtime_dependency(%q<rspec>, ["~> 2"])    
+  
+  s.add_dependency 'rake'
+  s.add_dependency 'mongoid', '~> 2.0'
+  s.add_dependency 'rspec', '~> 2'
 end
