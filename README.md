@@ -82,6 +82,9 @@ Others
       it { should have_field(:active).of_type(Boolean).with_default_value_of(false) }
       it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
 
+      it { should have_index(:last_name) }
+      it { should have_index(:email).with_options(:unique => true) }
+
       # useful if you use factory_girl and have Factory(:user) defined for User
       it { should save }
       
