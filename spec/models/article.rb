@@ -11,7 +11,7 @@ class Article
   
   embeds_many :comments
   embeds_one :permalink
-  referenced_in :author, :class_name => 'User', :inverse_of => :articles
+  referenced_in :author, :class_name => 'User', :inverse_of => :articles, :index => true
   
   validates :title, :presence => true
   

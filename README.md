@@ -33,6 +33,7 @@ Association Matchers
     describe Article do
       it { should be_referenced_in(:author).of_type(User).as_inverse_of(:articles) }
       it { should belong_to(:author).of_type(User).as_inverse_of(:articles) }
+      it { should belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
       it { should embed_many(:comments) }
     end
 

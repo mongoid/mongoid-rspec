@@ -51,6 +51,12 @@ module Mongoid
           self
         end
         
+        def with_index
+          @association[:index] = true
+          @expectation_message << " which specifies index as #{@association[:index].to_s}"
+          self
+        end
+        
         def stored_as(store_as)
           raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
         end
@@ -111,6 +117,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} which set autosave"
+            end
+          end
+
+          if @association[:index]
+            if metadata.index != true
+              @negative_result_message = "#{@positive_result_message} which did not set index"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set index"
             end
           end
           
