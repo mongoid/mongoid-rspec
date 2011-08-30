@@ -1,5 +1,5 @@
 class MovieArticle < Article
-  field :rating, :type => Numeric
+  field :rating, :type => Float
   field :classification, :type => Integer
   
   validates_numericality_of :rating, :greater_than => 0, :less_than_or_equal_to => 5
