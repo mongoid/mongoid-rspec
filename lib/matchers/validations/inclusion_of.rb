@@ -7,7 +7,7 @@ module Mongoid
         end
         
         def to_allow(*values)
-          @allowed_values = [values].flatten
+          @allowed_values = values.map(&:to_a).flatten
           self
         end
         
@@ -15,7 +15,7 @@ module Mongoid
           return false unless result = super(actual)
           
           if @allowed_values
-            not_allowed_values = @allowed_values - @validator.options[:in]
+            not_allowed_values = @allowed_values - @validator.options[:in].to_a
             if not_allowed_values.empty?
               @positive_result_message = @positive_result_message << " allowing all values mentioned"
             else
