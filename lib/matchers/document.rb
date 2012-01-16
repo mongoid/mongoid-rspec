@@ -25,7 +25,11 @@ module Mongoid
               error << " of type #{@klass.fields[attr].type}"
             end
             
-            if !@default.nil? and !@klass.fields[attr].default.nil? and @klass.fields[attr].default != @default
+            # Mongoid 3.0 renames the default attribute to default_val, adding
+            # this check for 2.0 and 3.0 compatibility.
+            default_val = Mongoid::VERSION.to_f >= 3 ? @klass.fields[attr].default_val : @klass.fields[attr].default
+
+            if !@default.nil? and !default_val.nil? and default_val != @default
               error << " with default value of #{@klass.fields[attr].default}"
             end
 
