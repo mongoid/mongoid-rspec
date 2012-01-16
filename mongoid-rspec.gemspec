@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   # s.add_runtime_dependency(%q<rspec>, ["~> 2"])    
   
   s.add_dependency 'rake'#, '~> 0.9.2'
-  s.add_dependency 'mongoid', '~> 2.0'
+  s.add_dependency 'mongoid', '>= 2.0'
   s.add_dependency 'rspec', '~> 2'
 end
