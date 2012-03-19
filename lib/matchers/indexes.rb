@@ -14,7 +14,7 @@ module Mongoid
         @klass = klass.is_a?(Class) ? klass : klass.class
         @errors = []
         
-        if @klass.index_options[@index_fields].nil?
+        unless @klass.index_options[@index_fields]
           @errors.push "no index for #{@index_fields}"
         else
           if !@options.nil? && !@options.empty?
