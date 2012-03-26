@@ -14,6 +14,9 @@ describe "Validations" do
     it { should validate_associated(:profile) }
     it { should validate_inclusion_of(:role).to_allow("admin", "member") }
     it { should validate_confirmation_of(:email) }
+    it { should validate_presence_of(:age) }
+    it { should validate_numericality_of(:age) }
+    it { should validate_inclusion_of(:age).to_allow(23..42) }
   end
 
   describe Profile do
