@@ -7,7 +7,7 @@ module Mongoid
         end
         
         def scoped_to(*scope)
-          @scope = [scope].flatten
+          @scope = [scope].flatten.map(&:to_sym)
           self
         end        
         alias_method :scoped_on, :scoped_to
@@ -59,8 +59,8 @@ module Mongoid
         end
 
         def check_scope
-          message = "scope to #{@validator.options[:scope]}"
-          if [@validator.options[:scope]].flatten == @scope
+          message = " scope to #{@validator.options[:scope]}"
+          if [@validator.options[:scope]].flatten.map(&:to_sym) == @scope
             @positive_result_message << message
           else
             @negative_result_message << message
