@@ -29,7 +29,7 @@ module Mongoid
 
         def description
           options_desc = []
-          options_desc << " allowing the ff. values: #{@not_allowed_values}" if @not_allowed_values
+          options_desc << " not allowing the ff. values: #{@not_allowed_values}" if @not_allowed_values
           super << options_desc.to_sentence
         end
       end
