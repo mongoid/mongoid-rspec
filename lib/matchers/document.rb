@@ -109,3 +109,13 @@ RSpec::Matchers.define :be_paranoid_document do
     "be a paranoid Mongoid document"
   end      
 end
+
+RSpec::Matchers.define :be_multiparameted_document do
+  match do |doc|
+    doc.class.included_modules.include?(Mongoid::MultiParameterAttributes)
+  end
+
+  description do
+    "be a multiparameted Mongoid document"
+  end
+end

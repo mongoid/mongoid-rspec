@@ -3,6 +3,7 @@ class Article
   include Mongoid::Timestamps
   include Mongoid::Paranoia
   include Mongoid::Versioning
+  include Mongoid::MultiParameterAttributes
   
   field :title
   field :content
