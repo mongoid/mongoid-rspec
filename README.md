@@ -54,14 +54,20 @@ Validation Matchers
     end
 
     describe User do
-      it { should validate_presence_of(:login) }
-      it { should validate_uniqueness_of(:login).scoped_to(:site) }
-      it { should validate_uniqueness_of(:email).case_insensitive.with_message("is already taken") }
-      it { should validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
-      it { should validate_associated(:profile) }
-      it { should validate_inclusion_of(:role).to_allow("admin", "member") }
-      it { should validate_confirmation_of(:email) }
-    end
+	    it { should validate_presence_of(:login) }
+	    it { should validate_uniqueness_of(:login).scoped_to(:site) }
+	    it { should validate_uniqueness_of(:email).case_insensitive.with_message("is already taken") }
+	    it { should validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
+	    it { should validate_associated(:profile) }
+	    it { should validate_exclusion_of(:login).to_not_allow("super", "index", "edit") }
+	    it { should validate_inclusion_of(:role).to_allow("admin", "member") }
+	    it { should validate_confirmation_of(:email) }
+	    it { should validate_presence_of(:age).on(:create, :update) }
+		# The on matcher can take var args or an array. Validations do not fail if on is not specified.
+	    it { should validate_numericality_of(:age).on(:create, :update) }
+	    it { should validate_inclusion_of(:age).to_allow(23..42).on([:create, :update]) }
+	    it { should validate_presence_of(:password).on(:create) }
+	  end
 
     describe Article do
       it { should validate_length_of(:title).within(8..16) }
