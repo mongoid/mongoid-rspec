@@ -22,6 +22,7 @@ describe "Validations" do
 
   describe Profile do
     it { should validate_numericality_of(:age).greater_than(0) }
+    it { should validate_acceptance_of(:terms_of_service) }
   end
 
   describe Article do
