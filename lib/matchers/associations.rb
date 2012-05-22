@@ -38,25 +38,25 @@ module Mongoid
           @expectation_message << " which is an inverse of #{@association[:inverse_of].inspect}"
           self
         end
-        
+
         def with_dependent(method_name)
-          @association[:dependent] = method_name  
+          @association[:dependent] = method_name
           @expectation_message << " which specifies dependent as #{@association[:dependent].to_s}"
           self
         end
 
         def with_autosave
-          @association[:autosave] = true  
+          @association[:autosave] = true
           @expectation_message << " which specifies autosave as #{@association[:autosave].to_s}"
           self
         end
-        
+
         def with_index
           @association[:index] = true
           @expectation_message << " which specifies index as #{@association[:index].to_s}"
           self
         end
-        
+
         def stored_as(store_as)
           raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
         end
@@ -128,7 +128,7 @@ module Mongoid
               @positive_result_message = "#{@positive_result_message} which set index"
             end
           end
-          
+
           if @association[:foreign_key]
             if metadata.foreign_key != @association[:foreign_key]
               @negative_result_message = "#{@positive_result_message} with foreign key #{metadata.foreign_key.inspect}"
@@ -191,24 +191,20 @@ module Mongoid
       def have_one_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_ONE)
       end
-      alias :reference_one :have_one_related
       alias :have_one :have_one_related
 
       def have_many_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_MANY)
       end
-      alias :reference_many :have_many_related
       alias :have_many :have_many_related
 
       def have_and_belong_to_many(association_name)
         HaveAssociationMatcher.new(association_name, HAS_AND_BELONGS_TO_MANY)
       end
-      alias :reference_and_be_referenced_in_many :have_and_belong_to_many
 
       def belong_to_related(association_name)
         HaveAssociationMatcher.new(association_name, BELONGS_TO)
       end
-      alias :be_referenced_in :belong_to_related
       alias :belong_to :belong_to_related
     end
   end

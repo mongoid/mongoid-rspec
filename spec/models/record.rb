@@ -1,5 +1,5 @@
 class Record
   include Mongoid::Document
-  
-  referenced_in :user, :inverse_of => :record
-end  
+
+  belongs_to :user, :inverse_of => :record
+end
