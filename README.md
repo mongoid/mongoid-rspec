@@ -94,6 +94,7 @@ Others
       it { should be_timestamped_document } # if you're declaring `include Mongoid::Timestamps`
       it { should be_versioned_document } # if you're declaring `include Mongoid::Versioning`
       it { should be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
+      it { should be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
     end
     
     describe Log do
