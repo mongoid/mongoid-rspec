@@ -5,6 +5,7 @@ class User
   field :email
   field :role
   field :age, type: Integer
+  field :password, type: String
 
   belongs_to :site, :inverse_of => :users
   has_many :articles, :foreign_key => :author_id
@@ -18,7 +19,8 @@ class User
   validates :email, :uniqueness => { :case_sensitive => false, :scope => :site, :message => "is already taken" }, :confirmation => true
   validates :role, :presence => true, :inclusion => { :in => ["admin", "moderator", "member"]}
   validates :profile, :presence => true, :associated => true
-  validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }
+  validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }, :on => [:create, :update]
+  validates :password, :presence => true, :on => :create
 
   def admin?
     false
