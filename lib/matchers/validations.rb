@@ -7,12 +7,13 @@ module Mongoid
         def initialize(field, validation_type)
           @field = field.to_s
           @type = validation_type.to_s
+          @options = {}
         end
                 
         def matches?(actual)
           @klass = actual.is_a?(Class) ? actual : actual.class
           
-          @validator = @klass.validators_on(@field).detect{|v| v.kind.to_s == @type }
+          @validator = @klass.validators_on(@field).detect{|v| v.kind.to_s == @type}
           
           if @validator
             @negative_result_message = "#{@type.inspect} validator on #{@field.inspect}"
@@ -21,8 +22,9 @@ module Mongoid
             @negative_result_message = "no #{@type.inspect} validator on #{@field.inspect}"
             return false
           end
-          
-          true
+          @result = true
+          check_on if @options[:on]          
+          @result
         end
         
         def failure_message_for_should  
@@ -35,6 +37,21 @@ module Mongoid
         
         def description
           "validate #{@type} of #{@field.inspect}"
+        end
+        
+        def on(*on_method)
+          @options[:on] = on_method.flatten
+          self
+        end  
+        
+        def check_on
+          message = " on methods: #{@validator.options[:on]}"
+          if [@validator.options[:on]].flatten == @options[:on]
+            @positive_result_message << message
+          else
+            @negative_result_message << message
+            @result = false
+          end
         end
       end     
     end
