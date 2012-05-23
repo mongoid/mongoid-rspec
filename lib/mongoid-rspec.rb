@@ -16,6 +16,7 @@ require 'matchers/validations/length_of'
 require 'matchers/validations/numericality_of'
 require 'matchers/validations/presence_of'
 require 'matchers/validations/uniqueness_of'
+require 'matchers/validations/acceptance_of'
 
 module Mongoid
   module Matchers

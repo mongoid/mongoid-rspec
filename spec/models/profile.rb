@@ -8,7 +8,8 @@ class Profile
   embedded_in :user, :inverse_of => :profile
   
   validates_numericality_of :age, :greater_than => 0
-  
+  validates_acceptance_of :terms_of_service
+
   index(
       [
         [ :first_name, Mongo::ASCENDING ],
