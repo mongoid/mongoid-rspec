@@ -35,4 +35,9 @@ describe "Validations" do
     it { should validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
     it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }
   end
+
+  describe Person do
+    it { should custom_validate(:ssn).with_validator(SsnValidator) }
+    it { should_not custom_validate(:name) }
+  end
 end
