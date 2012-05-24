@@ -78,6 +78,11 @@ Validation Matchers
       it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }    
     end
 
+    describe Person do
+       # in order to be able to use the custom_validate matcher, the custom validator class (in this case SsnValidator)
+       # should redefine the kind method to return :custom, i.e. "def self.kind() :custom end"
+      it { should custom_validate(:ssn).with_validator(SsnValidator) }
+    end
 Others
 -
     describe User do
