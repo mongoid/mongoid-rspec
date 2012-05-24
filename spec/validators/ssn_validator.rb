@@ -4,9 +4,7 @@ class SsnValidator <  ActiveModel::EachValidator
     record.errors[attribute] << "#{value} is not a valid Social Security Number" unless valid_ssn?(record, attribute, value)
   end
 
-  def self.kind
-    :custom
-  end
+  def self.kind() :custom end
 
   def valid_ssn?(record, attribute, value)
     # irrelevant here how validation is done
