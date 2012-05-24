@@ -43,7 +43,7 @@ module Mongoid
           options_desc << " scoped to #{@scope.inspect}" if @scope
           options_desc << " allowing blank values" if @allow_blank
           options_desc << " allowing case insensitive values" if @case_insensitive
-          options_desc << " with message '#{@expected_message}'" if @case_insensitive
+          options_desc << " with message '#{@expected_message}'" if @expected_message
           super << options_desc.to_sentence
         end
         
