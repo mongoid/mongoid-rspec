@@ -2,10 +2,12 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mongoid'
 require 'rspec'
+require "active_model"
 require 'matchers/document'
 require 'matchers/associations'
 require 'matchers/collections'
 require 'matchers/indexes'
+require 'matchers/allow_mass_assignment'
 require 'matchers/validations'
 require 'matchers/validations/associated'
 require 'matchers/validations/confirmation_of'
