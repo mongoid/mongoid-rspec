@@ -18,6 +18,6 @@ class Article
 
   validates_length_of :title, :minimum => 8, :maximum => 16
 
-  index :title, :unique => true, :background => true
-  index :published
+  index({ title: 1 }, { unique: true, background: true })
+  index({ published: 1 })
 end

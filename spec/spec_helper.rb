@@ -9,15 +9,13 @@ require "rubygems"
 require "bundler"
 Bundler.setup
 
+require 'mongoid'
 require 'rspec'
 require 'rspec/core'
 require 'rspec/expectations'
-require 'mongoid'
 
 Mongoid.configure do |config|
-  name = "mongoid-rspec-test"
-  host = "localhost"
-  config.master = Mongo::Connection.new.db(name)
+  config.connect_to("mongoid-rspec-test")
 end
 
 Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
@@ -29,6 +27,6 @@ RSpec.configure do |config|
   config.include Mongoid::Matchers
   config.mock_with :rspec
   config.after :all do
-    Mongoid.master.collections.each(&:drop)
+    Mongoid::Config.purge!
   end
 end

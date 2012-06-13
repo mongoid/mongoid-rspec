@@ -1,4 +1,4 @@
 class Log
   include Mongoid::Document
-  store_in :logs
+  store_in collection: "logs"
 end

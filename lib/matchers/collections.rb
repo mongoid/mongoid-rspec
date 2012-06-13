@@ -1,6 +1,6 @@
 RSpec::Matchers.define :be_stored_in do |collection_name|
   match do |doc|
-    doc.collection_name == collection_name.to_s
+    doc.class.collection_name == collection_name
   end
 
   description do
