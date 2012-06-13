@@ -22,6 +22,9 @@ class User
   validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }, :on => [:create, :update]
   validates :password, :presence => true, :on => :create
 
+  attr_accessible :login, :email, :age, :password
+  attr_accessible :role, :as => :admin
+
   def admin?
     false
   end
