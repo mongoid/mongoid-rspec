@@ -10,10 +10,5 @@ class Profile
   validates_numericality_of :age, :greater_than => 0
   validates_acceptance_of :terms_of_service
 
-  index(
-      [
-        [ :first_name, Mongo::ASCENDING ],
-        [ :last_name, Mongo::ASCENDING ]
-      ]
-  )
+  index({first_name: 1, last_name: 1 })
 end
