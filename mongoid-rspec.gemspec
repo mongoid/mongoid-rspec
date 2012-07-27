@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'rake'
-  s.add_dependency 'mongoid', '>= 3.0.0.rc'
+  s.add_dependency 'mongoid', '>= 3.0.1'
   s.add_dependency 'rspec', '>= 2.9'
 end
