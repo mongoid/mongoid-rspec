@@ -6,6 +6,7 @@ class User
   field :role
   field :age, type: Integer
   field :password, type: String
+  field :provider_uid
 
   belongs_to :site, :inverse_of => :users
   has_many :articles, :foreign_key => :author_id
@@ -20,7 +21,8 @@ class User
   validates :role, :presence => true, :inclusion => { :in => ["admin", "moderator", "member"]}
   validates :profile, :presence => true, :associated => true
   validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }, :on => [:create, :update]
-  validates :password, :presence => true, :on => :create
+  validates :password, :presence => true, :on => [:create, :update]
+  validates :provider_uid, presence: true
 
   attr_accessible :login, :email, :age, :password
   attr_accessible :role, :as => :admin
