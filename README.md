@@ -95,9 +95,6 @@ Others
       it { should have_index_for(:last_name) }
       it { should have_index_for(:email).with_options(:unique => true) }
 
-      # useful if you use factory_girl and have Factory(:user) defined for User
-      it { should save }
-
       it { should be_timestamped_document } # if you're declaring `include
       Mongoid::Timestamps` or any of `include Mongoid::Timestamps::Created` and `Mongoid::Timestamps::Updated`
       it { should be_timestamped_document.with(:created) }
