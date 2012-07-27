@@ -1,6 +1,8 @@
 mongoid-rspec
 =
 
+http://rubygems.org/gems/mongoid-rspec
+
 RSpec matchers for Mongoid 3.x.
 
 For Mongoid 2.x, use [mongoid-rspec 1.4.5](http://rubygems.org/gems/mongoid-rspec/versions/1.4.5)
