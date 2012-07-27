@@ -1,25 +1,27 @@
 mongoid-rspec
 =
 
-RSpec matchers for Mongoid.
+RSpec matchers for Mongoid 3.x.
+
+For Mongoid 2.x, use [mongoid-rspec 1.4.5](http://rubygems.org/gems/mongoid-rspec/versions/1.4.5)
 
 Association Matchers
 -
     describe User do
       it { should have_many(:articles).with_foreign_key(:author_id) }
-  
-      it { should have_one(:record) }    
-  
+
+      it { should have_one(:record) }
+
       it { should have_many :comments }
-      
+
       #can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
       it { should have_many(:comments).with_dependent(:destroy) }
       #can verify autosave is set to true
       it { should have_many(:comments).with_autosave }
-  
+
       it { should embed_one :profile }
 
-      it { should have_and_belong_to_many(:children) }  
+      it { should have_and_belong_to_many(:children) }
       it { should have_and_belong_to_many(:children).of_type(User) }
     end
 
@@ -68,14 +70,14 @@ Validation Matchers
     describe Article do
       it { should validate_length_of(:title).within(8..16) }
     end
-    
+
     describe Profile do
       it { should validate_numericality_of(:age).greater_than(0) }
-    end    
+    end
 
     describe MovieArticle do
       it { should validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
-      it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }    
+      it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }
     end
 
     describe Person do
@@ -95,31 +97,31 @@ Others
 
       # useful if you use factory_girl and have Factory(:user) defined for User
       it { should save }
-      
+
       it { should be_timestamped_document } # if you're declaring `include Mongoid::Timestamps`
       it { should be_versioned_document } # if you're declaring `include Mongoid::Versioning`
       it { should be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
       it { should be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
     end
-    
+
     describe Log do
       it { should be_stored_in :logs }
-    end    
+    end
 
 Use
 -
 add in Gemfile
 
     gem 'mongoid-rspec'
-    
+
 drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
 
     RSpec.configure do |configuration|
       configuration.include Mongoid::Matchers
     end
-    
+
 Acknowledgement
 -
-Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make 
-this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/evansagge/mongoid-rspec/contributors) 
+Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make
+this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/evansagge/mongoid-rspec/contributors)
 to this project.
