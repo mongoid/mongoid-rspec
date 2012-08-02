@@ -25,7 +25,7 @@ class User
   validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }, :on => [:create, :update]
   validates :password, :presence => true, :on => [:create, :update]
   validates :provider_uid, presence: true
-  validates :locale, :inclusion => {:in => lambda { Locale.available_locales } }
+  validates :locale, :inclusion => {:in => lambda { [:en, :ru] } }
 
   attr_accessible :login, :email, :age, :password
   attr_accessible :role, :as => :admin
