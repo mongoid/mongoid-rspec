@@ -46,6 +46,19 @@ Association Matchers
       it { should belong_to(:user).as_inverse_of(:record) }
     end
 
+Mass Assignment Matcher
+-
+    describe User do
+      it { should allow_mass_assignment_of(:login) }
+      it { should allow_mass_assignment_of(:email) }
+      it { should allow_mass_assignment_of(:age) }
+      it { should allow_mass_assignment_of(:password) }
+      it { should allow_mass_assignment_of(:password) }
+      it { should allow_mass_assignment_of(:role).as(:admin) }
+
+      it { should_not allow_mass_assignment_of(:role) }
+    end
+
 Validation Matchers
 -
     describe Site do
