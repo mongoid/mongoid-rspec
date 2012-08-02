@@ -101,15 +101,24 @@ Validation Matchers
        # should redefine the kind method to return :custom, i.e. "def self.kind() :custom end"
       it { should custom_validate(:ssn).with_validator(SsnValidator) }
     end
+
+Index Matcher
+-
+    describe Article do
+      it { should have_index_for(published: 1) }
+      it { should have_index_for(title: 1).with_options(unique: true, background: true) }
+    end
+
+    describe Profile do
+      it { should have_index_for(first_name: 1, last_name: 1) }
+    end
+
 Others
 -
     describe User do
       it { should have_fields(:email, :login) }
       it { should have_field(:active).of_type(Boolean).with_default_value_of(false) }
       it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
-
-      it { should have_index_for(:last_name) }
-      it { should have_index_for(:email).with_options(:unique => true) }
 
       it { should be_timestamped_document } # if you're declaring `include
       Mongoid::Timestamps` or any of `include Mongoid::Timestamps::Created` and `Mongoid::Timestamps::Updated`
