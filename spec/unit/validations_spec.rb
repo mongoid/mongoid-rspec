@@ -20,6 +20,7 @@ describe "Validations" do
     it { should validate_inclusion_of(:age).to_allow(23..42).on([:create, :update]) }
     it { should validate_presence_of(:password).on(:create) }
     it { should validate_presence_of(:provider_uid).on(:create) }
+    it { should validate_inclusion_of(:locale).to_allow([:en, :ru]) }
   end
 
   describe Profile do

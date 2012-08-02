@@ -15,7 +15,14 @@ module Mongoid
           return false unless result = super(actual)
           
           if @allowed_values
-            not_allowed_values = @allowed_values - @validator.options[:in].to_a
+            raw_validator_allowed_values = @validator.options[:in]
+
+            validator_allowed_values = case raw_validator_allowed_values 
+            when Range then raw_validator_allowed_values.to_a
+            when Proc then raw_validator_allowed_values.call
+            else raw_validator_allowed_values end
+
+            not_allowed_values = @allowed_values - validator_allowed_values
             if not_allowed_values.empty?
               @positive_result_message = @positive_result_message << " allowing all values mentioned"
             else
