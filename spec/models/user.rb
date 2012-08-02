@@ -8,6 +8,7 @@ class User
   field :age, type: Integer
   field :password, type: String
   field :provider_uid
+  field :locale
 
   belongs_to :site, :inverse_of => :users
   has_many :articles, :foreign_key => :author_id
@@ -24,6 +25,7 @@ class User
   validates :age, :presence => true, :numericality => true, :inclusion => { :in => 23..42 }, :on => [:create, :update]
   validates :password, :presence => true, :on => [:create, :update]
   validates :provider_uid, presence: true
+  validates :locale, :inclusion => {:in => lambda { Locale.available_locales } }
 
   attr_accessible :login, :email, :age, :password
   attr_accessible :role, :as => :admin
