@@ -13,13 +13,13 @@ module Mongoid
         
         def matches?(actual)
           return false unless result = super(actual)
-          
+
           if @allowed_values
             raw_validator_allowed_values = @validator.options[:in]
 
             validator_allowed_values = case raw_validator_allowed_values 
             when Range then raw_validator_allowed_values.to_a
-            when Proc then raw_validator_allowed_values.call
+            when Proc then raw_validator_allowed_values.call(actual)
             else raw_validator_allowed_values end
 
             not_allowed_values = @allowed_values - validator_allowed_values
