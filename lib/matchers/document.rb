@@ -9,6 +9,11 @@ module Mongoid
         @type = type
         self
       end
+      
+      def with_alias(field_alias)
+        @field_alias = field_alias
+        self
+      end
 
       def with_default_value_of(default)
         @default = default
@@ -27,6 +32,10 @@ module Mongoid
 
             if !@default.nil? and !@klass.fields[attr].default_val.nil? and @klass.fields[attr].default_val != @default
               error << " with default value of #{@klass.fields[attr].default_val}"
+            end
+            
+            if @field_alias and @klass.fields[attr].options[:as] != @field_alias
+              error << " with alias #{@klass.fields[attr].options[:as]}"
             end
 
             @errors.push("field #{attr.inspect}" << error) unless error.blank?
@@ -48,6 +57,7 @@ module Mongoid
       def description
         desc = "have #{@attributes.size > 1 ? 'fields' : 'field'} named #{@attributes.collect(&:inspect).to_sentence}"
         desc << " of type #{@type.inspect}" if @type
+        desc << " with alias #{@field_alias}" if @field_alias
         desc << " with default value of #{@default.inspect}" if !@default.nil?
         desc
       end
