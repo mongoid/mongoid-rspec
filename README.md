@@ -118,6 +118,7 @@ Others
     describe User do
       it { should have_fields(:email, :login) }
       it { should have_field(:active).of_type(Boolean).with_default_value_of(false) }
+      it { should have_field(:s).with_alias(:status) }
       it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
 
       it { should be_timestamped_document } # if you're declaring `include
