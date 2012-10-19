@@ -2,7 +2,7 @@ module Mongoid
   module Matchers
     class HaveIndexForMatcher # :nodoc:
       def initialize(index_fields)
-        @index_fields = index_fields
+        @index_fields = index_fields.symbolize_keys!
       end
       
       def with_options(options = {})
