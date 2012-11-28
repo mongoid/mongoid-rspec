@@ -119,7 +119,6 @@ Others
 -
     describe User do
       it { should have_fields(:email, :login) }
-      it { should have_field(:active).of_type(Boolean).with_default_value_of(false) }
       it { should have_field(:s).with_alias(:status) }
       it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
 
@@ -135,6 +134,13 @@ Others
 
     describe Log do
       it { should be_stored_in :logs }
+    end
+
+    describe Article do
+      it { should have_field(:published).of_type(Boolean).with_default_value_of(false) }
+      it { should have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
+      it { should_not have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
+      it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
     end
 
 Use
