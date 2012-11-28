@@ -30,10 +30,14 @@ module Mongoid
               error << " of type #{@klass.fields[attr].type}"
             end
 
-            if !@default.nil? and !@klass.fields[attr].default_val.nil? and @klass.fields[attr].default_val != @default
-              error << " with default value of #{@klass.fields[attr].default_val}"
+            if !@default.nil?
+              if @klass.fields[attr].default_val.nil?
+                error << " with default not set"
+              elsif @klass.fields[attr].default_val != @default
+                error << " with default value of #{@klass.fields[attr].default_val}"
+              end
             end
-            
+
             if @field_alias and @klass.fields[attr].options[:as] != @field_alias
               error << " with alias #{@klass.fields[attr].options[:as]}"
             end

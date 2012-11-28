@@ -9,6 +9,7 @@ class Article
   field :content
   field :published, :type => Boolean, :default => false
   field :allow_comments, :type => Boolean, :default => true
+  field :number_of_comments, :type => Integer
 
   embeds_many :comments
   embeds_one :permalink
