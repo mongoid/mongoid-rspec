@@ -4,31 +4,31 @@ module Mongoid
       def initialize(index_fields)
         @index_fields = index_fields.symbolize_keys!
       end
-      
-      def with_options(options = {})
+
+      def with_options(options = { })
         @options = options
         self
       end
-      
+
       def matches?(klass)
-        @klass = klass.is_a?(Class) ? klass : klass.class
+        @klass  = klass.is_a?(Class) ? klass : klass.class
         @errors = []
-        
+
         unless @klass.index_options[@index_fields]
           @errors.push "no index for #{@index_fields}"
         else
           if !@options.nil? && !@options.empty?
             @options.each do |option, option_value|
-              if @klass.index_options[@index_fields].include?(option) && @klass.index_options[@index_fields][option] != option_value
+              if @klass.index_options[@index_fields][option] != option_value
                 @errors.push "index for #{@index_fields.inspect} with options of #{@klass.index_options[@index_fields].inspect}"
               end
             end
           end
         end
-        
+
         @errors.empty?
       end
-      
+
       def failure_message_for_should
         "Expected #{@klass.inspect} to #{description}, got #{@errors.to_sentence}"
       end
