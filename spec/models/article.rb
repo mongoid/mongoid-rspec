@@ -5,7 +5,7 @@ class Article
   include Mongoid::Versioning
   include Mongoid::MultiParameterAttributes
 
-  field :title
+  field :title, :localize => true
   field :content
   field :published, :type => Boolean, :default => false
   field :allow_comments, :type => Boolean, :default => true
