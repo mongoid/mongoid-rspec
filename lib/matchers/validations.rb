@@ -36,7 +36,7 @@ module Mongoid
         end
 
         def description
-          desc = "validate #{@type} of #{@field.inspect}"
+          desc = "have #{@type.inspect} validator on #{@field.inspect}"
           desc << " on #{@options[:on]}" if @options[:on]
           desc
         end

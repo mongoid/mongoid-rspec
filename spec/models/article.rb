@@ -17,7 +17,8 @@ class Article
 
   validates :title, :presence => true
 
-  validates_length_of :title, :minimum => 8, :maximum => 16
+  validates_length_of :title, :within => 8..16
+  validates_length_of :content, :minimum => 200
 
   index({ title: 1 }, { unique: true, background: true })
   index({ published: 1 })

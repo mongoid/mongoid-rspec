@@ -30,6 +30,8 @@ describe "Validations" do
 
   describe Article do
     it { should validate_length_of(:title).within(8..16) }
+    it { should_not validate_length_of(:content).greater_than(200).less_than(16) }
+    it { should validate_length_of(:content).greater_than(200) }
   end
 
   describe MovieArticle do

@@ -10,11 +10,13 @@ module Mongoid
           @maximum = value
           self
         end
+        alias :less_than :with_maximum
 
         def with_minimum(value)
           @minimum = value
           self
         end
+        alias :greater_than :with_minimum
 
         def within(value)
           @within = value
@@ -41,53 +43,80 @@ module Mongoid
 
         def description
           options_desc = []
-          options_desc << " with maximum #{@maximum}" if @maximum
-          options_desc << " with minimum #{@minimum}" if @minimum
-          options_desc << " within range #{@within}" if @within
-          options_desc << " as exactly #{@is}" if @is
-          super << options_desc.to_sentence
+          options_desc << "with minimum of #{@minimum}" if @minimum
+          options_desc << "with maximum of #{@maximum}" if @maximum
+          options_desc << "within the range of #{@within}" if @within
+          options_desc << "as exactly #{@is}" if @is
+          super << " #{options_desc.to_sentence}"
         end
 
         private
 
         def check_maximum
-          actual = @validator.options[:maximum]
-          if actual == @maximum
+          if actual_max.nil?
+            @negative_result_message << " with no maximum"
+            @result = false
+          elsif actual_max == @maximum
             @positive_result_message << " with maximum of #{@maximum}"
           else
-            @negative_result_message << " with maximum of #{actual}"
+            @negative_result_message << " with maximum of #{actual_max}"
             @result = false
           end
         end
 
         def check_minimum
-          actual = @validator.options[:minimum]
-          if actual == @minimum
+          if actual_min.nil?
+            @negative_result_message << " with no minimum"
+            @result = false
+          elsif actual_min == @minimum
             @positive_result_message << " with minimum of #{@minimum}"
           else
-            @negative_result_message << " with minimum of #{actual}"
+            @negative_result_message << " with minimum of #{actual_min}"
             @result = false
           end
         end
 
         def check_range
           min, max = [@within.min, @within.max]
-          actual = @validator.options
-          if actual[:minimum] == min && actual[:maximum] == max
-            @positive_result_message << " with range #{@within.inspect}"
+          if !actual_min.nil? and actual_max.nil?
+            @negative_result_message << " with no minimum but with maximum of #{actual_max}"
+            @result = false
+          elsif actual_min.nil? and !actual_max.nil?
+            @negative_result_message << " with minimum_of #{actual_min} but no maximum"
+            @result = false
+          elsif actual_min.nil? and actual_max.nil?
+            @negative_result_message << " with no minimum and maximum"
+            @result = false
+          elsif actual_min == min && actual_max == max
+            @positive_result_message << " within the range of #{@within.inspect}"
           else
-            @negative_result_message << " with range #{(actual[:minimum]..actual[:maximum]).inspect}"
+            @negative_result_message << " within the range of #{(actual_min..actual_max).inspect}"
             @result = false
           end
         end
 
         def check_exact
-          actual = @validator.options[:is]
-          if actual == @is
-            @positive_result_message << " is exactly #{@is}"
+          if actual_is == @is
+            @positive_result_message << " as exactly #{@is}"
           else
-            @negative_result_message << " is exactly #{actual}"
+            @negative_result_message << " as exactly #{actual_is}"
             @result = false
+          end
+        end
+
+        def actual_is
+          actual_is = @validator.options[:is]
+        end
+
+        def actual_min
+          @validator.options[:minimum] || ((@validator.options[:in] || @validator.options[:within]).try(&:min)).tap do |x|
+            puts "minimum: #{x}, #{@validator.options}"
+          end
+        end
+
+        def actual_max
+          @validator.options[:maximum] || ((@validator.options[:in] || @validator.options[:within]).try(&:max)).tap do |x|
+            puts "maximum: #{x}"
           end
         end
       end
