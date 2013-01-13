@@ -5,6 +5,11 @@ module Mongoid
         @attributes = attrs.collect(&:to_s)
       end
 
+      def localized
+        @localized = true
+        self
+      end
+
       def of_type(type)
         @type = type
         self
@@ -43,6 +48,13 @@ module Mongoid
             end
 
             @errors.push("field #{attr.inspect}" << error) unless error.blank?
+
+            if @localized
+              unless @klass.fields[attr].localized?
+                @errors.push "is not localized #{attr.inspect}"
+              end
+            end
+            
           else
             @errors.push "no field named #{attr.inspect}"
           end
