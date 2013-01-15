@@ -109,15 +109,11 @@ module Mongoid
         end
 
         def actual_min
-          @validator.options[:minimum] || ((@validator.options[:in] || @validator.options[:within]).try(&:min)).tap do |x|
-            puts "minimum: #{x}, #{@validator.options}"
-          end
+          @validator.options[:minimum] || ((@validator.options[:in] || @validator.options[:within]).try(&:min))
         end
 
         def actual_max
-          @validator.options[:maximum] || ((@validator.options[:in] || @validator.options[:within]).try(&:max)).tap do |x|
-            puts "maximum: #{x}"
-          end
+          @validator.options[:maximum] || ((@validator.options[:in] || @validator.options[:within]).try(&:max))
         end
       end
 
