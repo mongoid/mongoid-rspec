@@ -30,6 +30,7 @@ class User
   attr_accessible :login, :email, :age, :password
   attr_accessible :role, :as => :admin
 
+  accepts_nested_attributes_for :articles
   def admin?
     false
   end
