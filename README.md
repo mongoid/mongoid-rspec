@@ -9,6 +9,18 @@ RSpec matchers for Mongoid 3.x.
 
 For Mongoid 2.x, use [mongoid-rspec 1.4.5](http://rubygems.org/gems/mongoid-rspec/versions/1.4.5)
 
+Installation
+-
+Add to your Gemfile
+
+    gem 'mongoid-rspec'
+
+Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
+
+    RSpec.configure do |configuration|
+      configuration.include Mongoid::Matchers
+    end
+
 Association Matchers
 -
     describe User do
@@ -152,18 +164,6 @@ Others
       it { should have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
       it { should_not have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
       it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
-    end
-
-Use
--
-add in Gemfile
-
-    gem 'mongoid-rspec'
-
-drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
-
-    RSpec.configure do |configuration|
-      configuration.include Mongoid::Matchers
     end
 
 Acknowledgement
