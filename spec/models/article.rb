@@ -23,4 +23,6 @@ class Article
   index({ title: 1 }, { unique: true, background: true })
   index({ published: 1 })
   index({ 'permalink._id' => 1 })
+
+  accepts_nested_attributes_for :permalink
 end
