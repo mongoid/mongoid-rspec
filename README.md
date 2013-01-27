@@ -166,6 +166,11 @@ Others
       it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
     end
 
+Known issues
+-
+
+accept_nested_attributes_for matcher must test options [issue 91](https://github.com/evansagge/mongoid-rspec/issues/91).
+
 Acknowledgement
 -
 Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make
