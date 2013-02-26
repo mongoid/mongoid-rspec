@@ -57,6 +57,12 @@ module Mongoid
           self
         end
 
+        def with_autobuild
+          @association[:autobuild] = true
+          @expectation_message << " which specifies autobuild as #{@association[:autobuild].to_s}"
+          self
+        end
+
         def stored_as(store_as)
           raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
         end
@@ -117,6 +123,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} which set autosave"
+            end
+          end
+
+          if @association[:autobuild]
+            if metadata.autobuilding? != true
+              @negative_result_message = "#{@positive_result_message} which did not set autobuild"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set autobuild"
             end
           end
 

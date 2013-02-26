@@ -27,6 +27,8 @@ Association Matchers
       it { should have_many(:articles).with_foreign_key(:author_id) }
 
       it { should have_one(:record) }
+      #can verify autobuild is set to true
+      it { should have_one(:record).with_autobuild }
 
       it { should have_many :comments }
 
