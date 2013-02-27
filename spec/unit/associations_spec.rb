@@ -4,7 +4,7 @@ describe "Associations" do
   describe User do
     it { should have_many(:articles).with_foreign_key(:author_id) }
 
-    it { should have_one(:record) }
+    it { should have_one(:record).with_autobuild }
 
     it { should have_many(:comments).with_dependent(:destroy).with_autosave }
 
