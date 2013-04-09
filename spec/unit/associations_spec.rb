@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Associations" do
   describe User do
-    it { should have_many(:articles).with_foreign_key(:author_id) }
+    it { should have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
     it { should have_one(:record).with_autobuild }
 
