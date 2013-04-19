@@ -11,7 +11,7 @@ class User
   field :locale
 
   belongs_to :site, :inverse_of => :users
-  has_many :articles, :foreign_key => :author_id
+  has_many :articles, :foreign_key => :author_id, :order => :title
   has_many :comments, :dependent => :destroy, :autosave => true
   has_and_belongs_to_many :children, :class_name => "User"
   has_one :record, :autobuild => true

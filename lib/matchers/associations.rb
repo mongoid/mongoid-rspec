@@ -39,6 +39,13 @@ module Mongoid
           self
         end
 
+        def ordered_by(association_field_name)
+          raise "#{@association[:type].inspect} does not respond to :order" unless [HAS_MANY, HAS_AND_BELONGS_TO_MANY, EMBEDS_MANY].include?(@association[:type])
+          @association[:order] = association_field_name.to_s
+          @expectation_message << " ordered by #{@association[:order].inspect}"
+          self
+        end
+
         def with_dependent(method_name)
           @association[:dependent] = method_name
           @expectation_message << " which specifies dependent as #{@association[:dependent].to_s}"
@@ -105,6 +112,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} which is an inverse of #{metadata.inverse_of}"
+            end
+          end
+
+          if @association[:order]
+            if @association[:order].to_s != metadata.order.to_s
+              @negative_result_message = "#{@positive_result_message} ordered by #{metadata.order}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} ordered by #{metadata.order}"
             end
           end
 

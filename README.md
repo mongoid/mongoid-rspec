@@ -24,7 +24,7 @@ Drop in existing or dedicated support file in spec/support (spec/support/mongoid
 Association Matchers
 -
     describe User do
-      it { should have_many(:articles).with_foreign_key(:author_id) }
+      it { should have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
       it { should have_one(:record) }
       #can verify autobuild is set to true
