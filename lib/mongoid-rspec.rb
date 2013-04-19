@@ -5,6 +5,7 @@ require 'rspec'
 require "active_model"
 require 'matchers/document'
 require 'matchers/associations'
+require 'matchers/callbacks'
 require 'matchers/collections'
 require 'matchers/indexes'
 require 'matchers/allow_mass_assignment'
