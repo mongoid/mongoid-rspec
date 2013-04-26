@@ -33,6 +33,8 @@ describe "Validations" do
     it { should validate_length_of(:title).within(8..16) }
     it { should_not validate_length_of(:content).greater_than(200).less_than(16) }
     it { should validate_length_of(:content).greater_than(200) }
+    it { should validate_inclusion_of(:status).to_allow([:pending]).on( :create ) }
+    it { should validate_inclusion_of(:status).to_allow([:approved, :rejected]).on( :update ) }
   end
 
   describe MovieArticle do
