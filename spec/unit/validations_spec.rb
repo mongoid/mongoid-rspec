@@ -26,6 +26,7 @@ describe "Validations" do
   describe Profile do
     it { should validate_numericality_of(:age).greater_than(0) }
     it { should validate_acceptance_of(:terms_of_service) }
+    it { should validate_length_of(:hobbies).with_minimum(1).with_message("requires at least one hobby") }
   end
 
   describe Article do
