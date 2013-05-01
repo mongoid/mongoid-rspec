@@ -2,6 +2,8 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateLengthOfMatcher < HaveValidationMatcher
+        include WithMessage
+
         def initialize(name)
           super(name, :length)
         end
