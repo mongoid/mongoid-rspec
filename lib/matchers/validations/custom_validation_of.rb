@@ -2,17 +2,13 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateWithCustomValidatorMatcher < HaveValidationMatcher
+        include WithMessage
         def initialize(field)
           super(field, :custom)
         end
 
         def with_validator(custom_validator)
           @custom_validator = custom_validator
-          self
-        end
-
-        def with_message(message)
-          @expected_message = message
           self
         end
 
@@ -38,19 +34,6 @@ module Mongoid
             @positive_result_message << " with custom validator of type #{@custom_validator.name}"
           else
             @negative_result_message << " with custom validator not of type #{@custom_validator.name}"
-            @result = false
-          end
-        end
-
-        def check_expected_message
-          actual_message = @validator.options[:message]
-          if actual_message.nil?
-            @negative_result_message << " with no custom message"
-            @result = false
-          elsif actual_message == @expected_message
-            @positive_result_message << " with custom message '#{@expected_message}'"
-          else
-            @negative_result_message << " got message '#{actual_message}'"
             @result = false
           end
         end
