@@ -13,7 +13,9 @@ module Mongoid
         def matches?(actual)
           @klass = actual.is_a?(Class) ? actual : actual.class
 
-          @validator = @klass.validators_on(@field).detect{|v| v.kind.to_s == @type}
+          @validator = @klass.validators_on(@field).detect{ |v|
+            v.kind.to_s == @type and (!v.options[:on] or on_options_matches?(v))
+          }
 
           if @validator
             @negative_result_message = "#{@type.inspect} validator on #{@field.inspect}"
@@ -52,13 +54,23 @@ module Mongoid
           if validator_on_methods.any?
             message = " on methods: #{validator_on_methods}"
 
-            if (@options[:on] - validator_on_methods).empty?
+            if on_options_covered_by?( @validator )
               @positive_result_message << message
             else
               @negative_result_message << message
               @result = false
             end
           end
+        end
+
+        private
+
+        def on_options_matches?( validator )
+          @options[:on] and validator.options[:on] and on_options_covered_by?( validator )
+        end
+
+        def on_options_covered_by?( validator )
+          ([@options[:on]].flatten - [validator.options[:on]].flatten).empty?
         end
       end
     end
