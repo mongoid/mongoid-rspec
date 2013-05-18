@@ -65,11 +65,11 @@ module Mongoid
 
         private
 
-        def on_options_matches?( validator )
-          @options[:on] and validator.options[:on] and on_options_covered_by?( validator )
+        def on_options_matches?(validator)
+          @options[:on] and validator.options[:on] and on_options_covered_by?(validator)
         end
 
-        def on_options_covered_by?( validator )
+        def on_options_covered_by?(validator)
           ([@options[:on]].flatten - [validator.options[:on]].flatten).empty?
         end
       end
