@@ -43,6 +43,12 @@ module Mongoid
           raise "#{@association[:type].inspect} does not respond to :order" unless [HAS_MANY, HAS_AND_BELONGS_TO_MANY, EMBEDS_MANY].include?(@association[:type])
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
+
+          if association_field_name.is_a? Origin::Key
+            @association[:order_operator] = association_field_name.operator
+            @expectation_message << " #{order_way(@association[:order_operator])}"
+          end
+
           self
         end
 
@@ -121,6 +127,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} ordered by #{metadata.order}"
+            end
+          end
+
+          if @association[:order_operator]
+            if @association[:order_operator] != metadata.order.operator
+              @negative_result_message = "#{@positive_result_message} #{order_way(@association[:order_operator] * -1)}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} #{order_way(@association[:order_operator])}"
             end
           end
 
@@ -204,6 +219,12 @@ module Mongoid
           else
             raise "Unknown association type '%s'" % type
           end
+        end
+
+        private
+
+        def order_way(operator)
+          [nil, "ascending", "descending"][operator]
         end
       end
 

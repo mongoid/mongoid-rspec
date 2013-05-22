@@ -37,6 +37,6 @@ describe "Associations" do
   end
 
   describe Site do
-    it { should have_many(:users).as_inverse_of(:site) }
+    it { should have_many(:users).as_inverse_of(:site).ordered_by(:email.desc) }
   end
 end
