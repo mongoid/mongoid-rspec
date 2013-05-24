@@ -62,6 +62,10 @@ Association Matchers
       it { should belong_to(:user).as_inverse_of(:record) }
     end
 
+    describe Site do
+      it { should have_many(:users).as_inverse_of(:site).ordered_by(:email.asc) }
+    end
+
 Mass Assignment Matcher
 -
     describe User do

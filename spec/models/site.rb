@@ -3,7 +3,7 @@ class Site
 
   field :name
 
-  has_many :users, :inverse_of => :site
+  has_many :users, :inverse_of => :site, :order => :email.desc
 
   validates :name, :presence => true, :uniqueness => true
 
