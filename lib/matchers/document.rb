@@ -14,7 +14,7 @@ module Mongoid
         @type = type
         self
       end
-      
+
       def with_alias(field_alias)
         @field_alias = field_alias
         self
@@ -54,7 +54,7 @@ module Mongoid
                 @errors.push "is not localized #{attr.inspect}"
               end
             end
-            
+
           else
             @errors.push "no field named #{attr.inspect}"
           end

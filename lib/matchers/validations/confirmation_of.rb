@@ -1,9 +1,9 @@
 module Mongoid
   module Matchers
-    module Validations  
+    module Validations
       def validate_confirmation_of(field)
         HaveValidationMatcher.new(field, :confirmation)
       end
     end
   end
-end  
+end

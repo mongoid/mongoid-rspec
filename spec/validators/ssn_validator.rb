@@ -1,7 +1,9 @@
 class SsnValidator <  ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    record.errors[attribute] << "#{value} is not a valid Social Security Number" unless valid_ssn?(record, attribute, value)
+    unless valid_ssn?(record, attribute, value)
+      record.errors[attribute] << "#{value} is not a valid Social Security Number"
+    end
   end
 
   def self.kind() :custom end

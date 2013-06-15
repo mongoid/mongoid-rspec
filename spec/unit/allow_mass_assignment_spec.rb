@@ -8,7 +8,7 @@ describe "AllowMassAssignment" do
     it { should allow_mass_assignment_of(:password) }
     it { should allow_mass_assignment_of(:password) }
     it { should allow_mass_assignment_of(:role).as(:admin) }
-    
+
     it { should_not allow_mass_assignment_of(:role) }
   end
 end
