@@ -170,8 +170,9 @@ describe User do
   it { should have_field(:s).with_alias(:status) }
   it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
 
-  it { should be_timestamped_document } # if you're declaring `include
-  Mongoid::Timestamps` or any of `include Mongoid::Timestamps::Created` and `Mongoid::Timestamps::Updated`
+  # if you're declaring 'include Mongoid::Timestamps'
+  # or any of 'include Mongoid::Timestamps::Created' and 'Mongoid::Timestamps::Updated'
+  it { should be_timestamped_document }
   it { should be_timestamped_document.with(:created) }
   it { should_not be_timestamped_document.with(:updated) }
 
