@@ -43,7 +43,7 @@ module Mongoid
         desc
       end
     end
-    
+
     def have_index_for(index_fields)
       HaveIndexForMatcher.new(index_fields)
     end
