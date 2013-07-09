@@ -12,7 +12,7 @@ class Article
   field :number_of_comments, type: Integer
   field :status, type: Symbol
 
-  embeds_many :comments
+  embeds_many :comments, cascade_callbacks: true
   embeds_one :permalink
   belongs_to :author, class_name: 'User', inverse_of: :articles, index: true
 
