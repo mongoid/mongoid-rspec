@@ -88,8 +88,16 @@ module Mongoid
           self
         end
 
+        def cyclic
+          @association[:cyclic] = true
+          @expectation_message << " which specifies cyclic as #{@association[:cyclic].to_s}"
+          self
+        end
+
         def stored_as(store_as)
-          raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
+          @association[:store_as] = store_as.to_s
+          @expectation_message << " which is stored as #{@association[:store_as].inspect}"
+          self
         end
 
         def with_foreign_key(foreign_key)
@@ -193,6 +201,24 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} which set cascade_callbacks"
+            end
+          end
+
+          if @association[:cyclic]
+            if metadata.cyclic? != true
+              @negative_result_message = "#{@positive_result_message} which did not set cyclic"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set cyclic"
+            end
+          end
+
+          if @association[:store_as]
+            if metadata.store_as != @association[:store_as]
+              @negative_result_message = "#{@positive_result_message} which is stored as #{metadata.store_as}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which is stored as #{metadata.store_as}"
             end
           end
 
