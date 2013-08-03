@@ -19,12 +19,12 @@ describe "Associations" do
 
   describe Article do
     it { should belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
-    it { should embed_many(:comments) }
+    it { should embed_many(:comments).with_cascading_callbacks }
     it { should embed_one(:permalink) }
   end
 
   describe Comment do
-    it { should be_embedded_in(:article).as_inverse_of(:comments) }
+    it { should be_embedded_in(:article).as_inverse_of(:comments).with_polymorphism }
     it { should belong_to(:user).as_inverse_of(:comments) }
   end
 
