@@ -24,6 +24,7 @@ class User
   validates :profile, presence: true, associated: true
   validates :age, presence: true, numericality: true, inclusion: { in: 23..42 }, on: [:create, :update]
   validates :password, presence: true, on: [:create, :update]
+  validates :password, exclusion: { in: ->(user) { ['password'] } }
   validates :provider_uid, presence: true
   validates :locale, inclusion: { in: ->(user) { [:en, :ru] } }
 
