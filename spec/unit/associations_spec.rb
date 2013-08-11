@@ -8,7 +8,7 @@ describe "Associations" do
 
     it { should have_many(:comments).with_dependent(:destroy).with_autosave }
 
-    it { should embed_one :profile }
+    it { should embed_one(:profile) }
 
     it { should have_and_belong_to_many(:children).of_type(User) }
   end
