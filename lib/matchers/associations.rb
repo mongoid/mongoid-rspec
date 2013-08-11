@@ -12,16 +12,11 @@ module Mongoid
       EMBEDS_ONE = Mongoid::Relations::Embedded::One
       EMBEDDED_IN = Mongoid::Relations::Embedded::In
 
-
       class HaveAssociationMatcher
         def initialize(name, association_type)
           @association = {}
           @association[:name] = name.to_s
           @association[:type] = association_type
-          # begin
-          #   @association[:class] = name.to_s.classify.constantize
-          # rescue
-          # end
           @expectation_message = "#{type_description} #{@association[:name].inspect}"
           @expectation_message << " of type #{@association[:class].inspect}" unless @association[:class].nil?
         end
@@ -278,10 +273,9 @@ module Mongoid
         end
 
         private
-
-        def order_way(operator)
-          [nil, "ascending", "descending"][operator]
-        end
+          def order_way(operator)
+            [nil, "ascending", "descending"][operator]
+          end
       end
 
       def embed_one(association_name)
