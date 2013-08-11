@@ -76,8 +76,28 @@ module Mongoid
           self
         end
 
+        def with_polymorphism
+          @association[:polymorphic] = true
+          @expectation_message << " which specifies polymorphic as #{@association[:polymorphic].to_s}"
+          self
+        end
+
+        def with_cascading_callbacks
+          @association[:cascade_callbacks] = true
+          @expectation_message << " which specifies cascade_callbacks as #{@association[:cascade_callbacks].to_s}"
+          self
+        end
+
+        def cyclic
+          @association[:cyclic] = true
+          @expectation_message << " which specifies cyclic as #{@association[:cyclic].to_s}"
+          self
+        end
+
         def stored_as(store_as)
-          raise NotImplementedError, "`references_many #{@association[:name]} :stored_as => :array` has been removed in Mongoid 2.0.0.rc, use `references_and_referenced_in_many #{@association[:name]}` instead"
+          @association[:store_as] = store_as.to_s
+          @expectation_message << " which is stored as #{@association[:store_as].inspect}"
+          self
         end
 
         def with_foreign_key(foreign_key)
@@ -166,6 +186,42 @@ module Mongoid
             end
           end
 
+          if @association[:polymorphic]
+            if metadata.polymorphic? != true
+              @negative_result_message = "#{@positive_result_message} which did not set polymorphic"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set polymorphic"
+            end
+          end
+
+          if @association[:cascade_callbacks]
+            if metadata.cascading_callbacks? != true
+              @negative_result_message = "#{@positive_result_message} which did not set cascade_callbacks"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set cascade_callbacks"
+            end
+          end
+
+          if @association[:cyclic]
+            if metadata.cyclic? != true
+              @negative_result_message = "#{@positive_result_message} which did not set cyclic"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set cyclic"
+            end
+          end
+
+          if @association[:store_as]
+            if metadata.store_as != @association[:store_as]
+              @negative_result_message = "#{@positive_result_message} which is stored as #{metadata.store_as}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which is stored as #{metadata.store_as}"
+            end
+          end
+
           if @association[:index]
             if metadata.index != true
               @negative_result_message = "#{@positive_result_message} which did not set index"
@@ -202,22 +258,22 @@ module Mongoid
         def type_description(type = nil, passive = true)
           type ||= @association[:type]
           case type.name
-          when EMBEDS_ONE.name
-            (passive ? 'embed' : 'embeds') << ' one'
-          when EMBEDS_MANY.name
-            (passive ? 'embed' : 'embeds') << ' many'
-          when EMBEDDED_IN.name
-            (passive ? 'be' : 'is') << ' embedded in'
-          when HAS_ONE.name
-            (passive ? 'reference' : 'references') << ' one'
-          when HAS_MANY.name
-            (passive ? 'reference' : 'references') << ' many'
-          when HAS_AND_BELONGS_TO_MANY.name
-            (passive ? 'reference' : 'references') << ' and referenced in many'
-          when BELONGS_TO.name
-            (passive ? 'be referenced in' : 'referenced in')
-          else
-            raise "Unknown association type '%s'" % type
+            when EMBEDS_ONE.name
+              (passive ? 'embed' : 'embeds') << ' one'
+            when EMBEDS_MANY.name
+              (passive ? 'embed' : 'embeds') << ' many'
+            when EMBEDDED_IN.name
+              (passive ? 'be' : 'is') << ' embedded in'
+            when HAS_ONE.name
+              (passive ? 'reference' : 'references') << ' one'
+            when HAS_MANY.name
+              (passive ? 'reference' : 'references') << ' many'
+            when HAS_AND_BELONGS_TO_MANY.name
+              (passive ? 'reference' : 'references') << ' and referenced in many'
+            when BELONGS_TO.name
+              (passive ? 'be referenced in' : 'referenced in')
+            else
+              raise "Unknown association type '%s'" % type
           end
         end
 
