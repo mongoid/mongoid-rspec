@@ -18,8 +18,8 @@ Add to your Gemfile
 Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
 
 ```ruby
-RSpec.configure do |configuration|
-  configuration.include Mongoid::Matchers
+RSpec.configure do |config|
+  config.include Mongoid::Matchers, type: :model
 end
 ```
 
