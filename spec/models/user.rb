@@ -18,7 +18,7 @@ class User
 
   embeds_one :profile
 
-  validates :login, presence: true, uniqueness: { scope: :site }, format: { with: /^[\w\-]+$/ }, exclusion: { in: ["super", "index", "edit"] }
+  validates :login, presence: true, uniqueness: { scope: :site }, format: { with: /\A[\w\-]+\z/ }, exclusion: { in: ["super", "index", "edit"] }
   validates :email, uniqueness: { case_sensitive: false, scope: :site, message: "is already taken" }, confirmation: true
   validates :role, presence: true, inclusion: { in: ["admin", "moderator", "member"] }
   validates :profile, presence: true, associated: true
@@ -27,9 +27,6 @@ class User
   validates :password, exclusion: { in: ->(user) { ['password'] } }
   validates :provider_uid, presence: true
   validates :locale, inclusion: { in: ->(user) { [:en, :ru] } }
-
-  attr_accessible :login, :email, :age, :password
-  attr_accessible :role, as: :admin
 
   accepts_nested_attributes_for :articles, :comments
 

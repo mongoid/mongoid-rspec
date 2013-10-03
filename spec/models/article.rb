@@ -1,9 +1,6 @@
 class Article
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paranoia
-  include Mongoid::Versioning
-  include Mongoid::MultiParameterAttributes
 
   field :title, localize: true
   field :content
