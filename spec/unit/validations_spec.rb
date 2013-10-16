@@ -15,6 +15,7 @@ describe "Validations" do
     it { should validate_exclusion_of(:login).to_not_allow("super", "index", "edit") }
     it { should validate_exclusion_of(:password).to_not_allow("password") }
     it { should validate_inclusion_of(:role).to_allow("admin", "member") }
+    it { should validate_inclusion_of(:role).to_allow(["admin", "member"]) }
     it { should validate_confirmation_of(:email) }
     it { should validate_presence_of(:age).on(:create, :update) }
     it { should validate_numericality_of(:age).on(:create, :update) }

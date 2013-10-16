@@ -16,9 +16,6 @@ describe "Document" do
     it { should_not have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
     it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
     it { should be_mongoid_document }
-    it { should be_versioned_document }
     it { should be_timestamped_document }
-    it { should be_paranoid_document }
-    it { should be_multiparameted_document }
   end
 end

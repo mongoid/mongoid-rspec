@@ -7,7 +7,7 @@ module Mongoid
         end
 
         def to_allow(*values)
-          @allowed_values = values.map(&:to_a).flatten
+          @allowed_values = values.map { |v| v.respond_to?(:to_a) ? v.to_a : v }.flatten
           self
         end
 
