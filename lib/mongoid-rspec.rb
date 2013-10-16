@@ -1,7 +1,9 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mongoid'
-require 'rspec'
+require 'rspec/core'
+require 'rspec/expectations'
+require 'rspec/mocks'
 require "active_model"
 require 'matchers/document'
 require 'matchers/associations'
