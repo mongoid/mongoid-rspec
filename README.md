@@ -15,7 +15,9 @@ Add to your Gemfile
 
     gem 'mongoid-rspec'
 
-Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
+`mongoid-rspec` will automatically include matchers into RSpec.
+
+Or manually drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
 
 ```ruby
 RSpec.configure do |config|
