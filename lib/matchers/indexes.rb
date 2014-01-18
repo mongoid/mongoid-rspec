@@ -13,13 +13,12 @@ module Mongoid
       def matches?(klass)
         @klass  = klass.is_a?(Class) ? klass : klass.class
         @errors = []
-
         unless @klass.index_options[@index_fields]
           @errors.push "no index for #{@index_fields}"
         else
           if !@options.nil? && !@options.empty?
             @options.each do |option, option_value|
-              if @klass.index_options[@index_fields][option] != option_value
+              if denormalising_options(@klass.index_options[@index_fields])[option] != option_value
                 @errors.push "index for #{@index_fields.inspect} with options of #{@klass.index_options[@index_fields].inspect}"
               end
             end
@@ -42,6 +41,19 @@ module Mongoid
         desc << " with options of #{@options.inspect}" if @options
         desc
       end
+
+      private
+        MAPPINGS = {
+          dropDups: :drop_dups
+        }
+
+        def denormalising_options(opts)
+          options = {}
+          opts.each_pair do |option, value|
+            options[MAPPINGS[option] || option] = value
+          end
+          options
+        end
     end
 
     def have_index_for(index_fields)
