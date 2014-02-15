@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gem "mongoid", github: "mongoid/mongoid", branch: "3.1.0-stable"
+
+gemspec path: "../"
