@@ -2,6 +2,7 @@ mongoid-rspec
 =
 
 [![Build Status](https://secure.travis-ci.org/glebtv/mongoid-rspec.png?branch=master)](https://travis-ci.org/glebtv/mongoid-rspec)
+[![Gem Version](https://badge.fury.io/rb/glebtv-mongoid-rspec.png)](http://badge.fury.io/rb/glebtv-mongoid-rspec)
 
 http://rubygems.org/gems/glebtv-mongoid-rspec
 
