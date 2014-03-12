@@ -1,13 +1,10 @@
 services: mongodb
 language: ruby
 rvm:
-  - 1.9.3
   - 2.0.0
-  - 2.1.0
-  - ruby-head
-  - jruby-18mode
+  - 2.1.1
   - jruby-19mode
-  - jruby-head
+  - jruby-20mode
   - rbx-2.1.1
   - rbx-head
   - rbx-19mode
@@ -23,3 +20,4 @@ matrix:
     - rvm: ruby-head
     - rvm: jruby-head
     - rvm: rbx-head
+

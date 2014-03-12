@@ -1,19 +1,17 @@
 mongoid-rspec
 =
 
-[![Build Status](https://secure.travis-ci.org/evansagge/mongoid-rspec.png?branch=master)](https://travis-ci.org/evansagge/mongoid-rspec)
+[![Build Status](https://secure.travis-ci.org/glebtv/mongoid-rspec.png?branch=master)](https://travis-ci.org/glebtv/mongoid-rspec)
 
-http://rubygems.org/gems/mongoid-rspec
+http://rubygems.org/gems/glebtv-mongoid-rspec
 
-RSpec matchers for Mongoid 3.x.
-
-For Mongoid 2.x, use [mongoid-rspec 1.4.5](http://rubygems.org/gems/mongoid-rspec/versions/1.4.5)
+RSpec matchers for Mongoid 3.x / 4.x
 
 Installation
 -
 Add to your Gemfile
 
-    gem 'mongoid-rspec'
+    gem 'glebtv-mongoid-rspec'
 
 Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
 
