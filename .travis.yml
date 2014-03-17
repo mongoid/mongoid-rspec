@@ -4,8 +4,6 @@ rvm:
   - 2.0.0
   - 2.1.1
   - jruby-20mode
-  - rbx-2.1.1
-  - rbx-19mode
 
 gemfile:
   - Gemfile
