@@ -37,6 +37,9 @@ module Mongoid
           "Expected #{@klass.inspect} to not #{description}; instead got #{@positive_result_message}"
         end
 
+        alias :failure_message :failure_message_for_should
+        alias :failure_message_when_negated :failure_message_for_should_not
+
         def description
           desc = "have #{@type.inspect} validator on #{@field.inspect}"
           desc << " on #{@options[:on]}" if @options[:on]
