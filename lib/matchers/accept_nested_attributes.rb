@@ -31,6 +31,8 @@ module Mongoid
         "Did not expect #{expectation}"
       end
 
+      alias :failure_message_when_negated :negative_failure_message
+
       def description
         description = "accepts_nested_attributes_for :#{@attribute}"
       end
