@@ -3,6 +3,7 @@ module Mongoid
   module Matchers
     class AllowMassAssignmentOfMatcher # :nodoc:
       attr_reader :failure_message, :negative_failure_message
+      alias :failure_message_when_negated :negative_failure_message
 
       def initialize(attribute)
         @attribute = attribute.to_s
