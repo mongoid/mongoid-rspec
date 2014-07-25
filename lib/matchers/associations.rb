@@ -238,11 +238,11 @@ module Mongoid
           return true
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{@actual.inspect} to #{@expectation_message}, got #{@negative_result_message}"
         end
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected #{@actual.inspect} to not #{@expectation_message}, got #{@positive_result_message}"
         end
 

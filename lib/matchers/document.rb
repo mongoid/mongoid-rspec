@@ -62,11 +62,11 @@ module Mongoid
         @errors.empty?
       end
 
-      def failure_message_for_should
+      def failure_message
         "Expected #{@klass.inspect} to #{description}, got #{@errors.to_sentence}"
       end
 
-      def failure_message_for_should_not
+      def failure_message_when_negated
         "Expected #{@klass.inspect} to not #{description}, got #{@klass.inspect} to #{description}"
       end
 

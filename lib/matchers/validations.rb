@@ -29,11 +29,11 @@ module Mongoid
           @result
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{@klass.inspect} to #{description}; instead got #{@negative_result_message}"
         end
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected #{@klass.inspect} to not #{description}; instead got #{@positive_result_message}"
         end
 
