@@ -39,6 +39,20 @@ module Mongoid
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
 
+          if association_field_name.is_a? Array
+            @association[:order] = association_field_name.map(&:to_s)
+            @association[:order_operator] = []
+            association_field_name.each do |afn|
+              if afn.is_a? Origin::Key
+                @association[:order_operator] << afn.operator
+              end
+            end
+            if @association[:order_operator].compact.empty?
+              @association[:order_operator] = nil
+            else
+              @expectation_message << " #{order_way(@association[:order_operator])}"
+            end
+          end
           if association_field_name.is_a? Origin::Key
             @association[:order_operator] = association_field_name.operator
             @expectation_message << " #{order_way(@association[:order_operator])}"
@@ -137,7 +151,12 @@ module Mongoid
           end
 
           if @association[:order]
-            if @association[:order].to_s != metadata.order.to_s
+            if metadata.order.is_a? Array
+              if @association[:order] != metadata.order.map(&:to_s)
+                @negative_result_message = "#{@positive_result_message} ordered by #{metadata.order.map(&:to_s)}"
+                return false
+              end
+            elsif @association[:order].to_s != metadata.order.to_s
               @negative_result_message = "#{@positive_result_message} ordered by #{metadata.order}"
               return false
             else
@@ -146,7 +165,12 @@ module Mongoid
           end
 
           if @association[:order_operator]
-            if @association[:order_operator] != metadata.order.operator
+            if metadata.order.is_a? Array
+              if @association[:order_operator] != metadata.order.map(&:operator)
+                @negative_result_message = "#{@positive_result_message} #{order_way(@association[:order_operator])}"
+                return false
+              end
+            elsif @association[:order_operator] != metadata.order.operator
               @negative_result_message = "#{@positive_result_message} #{order_way(@association[:order_operator] * -1)}"
               return false
             else
@@ -246,6 +270,9 @@ module Mongoid
           "Expected #{@actual.inspect} to not #{@expectation_message}, got #{@positive_result_message}"
         end
 
+        alias :failure_message :failure_message_for_should
+        alias :failure_message_when_negated :failure_message_for_should_not
+
         def description
           @expectation_message
         end
@@ -273,9 +300,13 @@ module Mongoid
         end
 
         private
-          def order_way(operator)
+        def order_way(operator)
+          if operator.is_a? Array
+            operator.map{|op|  [nil, "ascending", "descending"][op] }
+          else
             [nil, "ascending", "descending"][operator]
           end
+        end
       end
 
       def embed_one(association_name)
