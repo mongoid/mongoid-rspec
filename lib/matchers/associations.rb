@@ -47,6 +47,7 @@ module Mongoid
                 @association[:order_operator] << afn.operator
               end
             end
+            @association[:order_operator] = nil if @association[:order_operator].empty?
             @expectation_message << " #{order_way(@association[:order_operator])}"
           end
           if association_field_name.is_a? Origin::Key
