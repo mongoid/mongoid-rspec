@@ -35,7 +35,7 @@ module Mongoid
             if !@options.nil? && !@options.empty?
               index_options = @klass.index_specifications.select { |is| is.key == @index_fields }.first.options
               @options.each do |option, option_value|
-                if index_options[option] != option_value
+                if denormalising_options(index_options)[option] != option_value
                   @errors.push "index for #{@index_fields.inspect} with options of #{@klass.index_options[@index_fields].inspect}"
                 end
               end
@@ -53,6 +53,9 @@ module Mongoid
       def failure_message_for_should_not
         "Expected #{@klass.inspect} to not #{description}, got #{@klass.inspect} to #{description}"
       end
+
+      alias :failure_message :failure_message_for_should
+      alias :failure_message_when_negated :failure_message_for_should_not
 
       def description
         desc = "have an index for #{@index_fields.inspect}"

@@ -14,6 +14,8 @@ require 'rspec'
 require 'rspec/core'
 require 'rspec/expectations'
 
+I18n.enforce_available_locales = true
+
 Mongoid.configure do |config|
   config.connect_to("mongoid-rspec-test")
 end

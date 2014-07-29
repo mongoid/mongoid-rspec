@@ -270,6 +270,9 @@ module Mongoid
           "Expected #{@actual.inspect} to not #{@expectation_message}, got #{@positive_result_message}"
         end
 
+        alias :failure_message :failure_message_for_should
+        alias :failure_message_when_negated :failure_message_for_should_not
+
         def description
           @expectation_message
         end
