@@ -3,10 +3,10 @@ $:.push File.expand_path("../lib", __FILE__)
 require "mongoid-rspec/version"
 
 Gem::Specification.new do |s|
-  s.name        = "glebtv-mongoid-rspec"
+  s.name        = "mongoid-rspec"
   s.version     = Mongoid::Rspec::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Evan Sagge", "GlebTv"]
+  s.authors     = ["Evan Sagge", "GlebTv", "Felipero"]
   s.email       = %q{evansagge@gmail.com}
   s.homepage    = %q{http://github.com/glebtv/mongoid-rspec}
   s.summary     = %q{RSpec matchers for Mongoid}
