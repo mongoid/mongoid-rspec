@@ -196,7 +196,7 @@ end
 Known issues
 -
 
-accept_nested_attributes_for matcher must test options [issue 91](https://github.com/evansagge/mongoid-rspec/issues/91).
+accept_nested_attributes_for matcher must test options [issue 91](https://github.com/mongoid-rspec/mongoid-rspec/issues/91).
 
 Acknowledgement
 -
