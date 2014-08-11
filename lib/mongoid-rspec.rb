@@ -25,6 +25,8 @@ require 'matchers/validations/uniqueness_of'
 require 'matchers/validations/acceptance_of'
 require 'matchers/validations/custom_validation_of'
 
+require 'matchers/integrations/rspec' if defined?(RSpec)
+
 module Mongoid
   module Matchers
     include Mongoid::Matchers::Associations
