@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.name        = "mongoid-rspec"
   s.version     = Mongoid::Rspec::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Evan Sagge"]
-  s.email       = %q{evansagge@gmail.com}
-  s.homepage    = %q{http://github.com/evansagge/mongoid-rspec}
+  s.authors     = ["Evan Sagge", "Rodrigo Pinto"]
+  s.email       = %q{evansagge@gmail.com contato@rodrigopinto.me}
+  s.homepage    = %q{http://github.com/mongoid-rspec/mongoid-rspec}
   s.summary     = %q{RSpec matchers for Mongoid}
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
 
