@@ -1,7 +1,7 @@
 mongoid-rspec
 =
 
-[![Build Status](https://secure.travis-ci.org/evansagge/mongoid-rspec.png?branch=master)](https://travis-ci.org/evansagge/mongoid-rspec)
+[![Build Status](https://secure.travis-ci.org/mongoid-rspec/mongoid-rspec.png?branch=master)](https://travis-ci.org/mongoid-rspec/mongoid-rspec)
 
 http://rubygems.org/gems/mongoid-rspec
 
@@ -201,5 +201,5 @@ accept_nested_attributes_for matcher must test options [issue 91](https://github
 Acknowledgement
 -
 Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make
-this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/evansagge/mongoid-rspec/contributors)
+this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/mongoid-rspec/mongoid-rspec/contributors)
 to this project.
