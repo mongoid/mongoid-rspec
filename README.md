@@ -1,9 +1,7 @@
 # mongoid-rspec
 
 [![Build Status][travis_badge]][travis]
-
 [![Gem Version][rubygems_badge]][rubygems]
-
 [![Code Climate][codeclimate_badge]][codeclimate]
 
 mongoid-rspec provides a collection of RSpec-compatible matchers that help to test mongoid documents.
