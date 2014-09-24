@@ -12,7 +12,7 @@ Installation
 -
 Add to your Gemfile
 
-    gem 'glebtv-mongoid-rspec'
+    gem 'mongoid-rspec'
 
 Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
 
