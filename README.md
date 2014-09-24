@@ -1,21 +1,38 @@
 mongoid-rspec
-=
+=============
 
 [![Build Status](https://secure.travis-ci.org/mongoid-rspec/mongoid-rspec.png?branch=master)](https://travis-ci.org/mongoid-rspec/mongoid-rspec)
 
-http://rubygems.org/gems/mongoid-rspec
+[![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](http://badge.fury.io/rb/mongoid-rspec)
 
-RSpec matchers for Mongoid 3.x.
+[![Code Climate](https://codeclimate.com/github/mongoid-rspec/mongoid-rspec/badges/gpa.svg)](https://codeclimate.com/github/mongoid-rspec/mongoid-rspec)
 
-For Mongoid 2.x, use [mongoid-rspec 1.4.5](http://rubygems.org/gems/mongoid-rspec/versions/1.4.5)
+mongoid-rspec provides a collection of RSpec-compatible matchers that help to test mongoid documents.
 
-Installation
--
-Add to your Gemfile
+## Installation
 
-    gem 'mongoid-rspec'
+### With Mongoid 4.x
 
-Drop in existing or dedicated support file in spec/support (spec/support/mongoid.rb)
+Use mongoid-rspec [2.0.0.rc1][mongo4]
+
+    gem 'mongoid-rspec', '~> 2.0.0.rc1'
+
+### With Mongoid 3.x
+
+Use mongoid-rspec [1.11.0][mongo3].
+
+    gem 'mongoid-rspec', '~> 1.11.0'
+
+### With Mongoid 2.x
+
+Use mongoid-rspec [1.4.5][mongo2]
+
+    gem 'mongoid-rspec', '1.4.5'
+
+### Configuring
+
+Drop in existing or dedicated support file in spec/support.
+i.e: `spec/support/mongoid.rb`
 
 ```ruby
 RSpec.configure do |config|
@@ -23,8 +40,9 @@ RSpec.configure do |config|
 end
 ```
 
-Association Matchers
--
+## Matchers
+
+### Association Matchers
 
 ```ruby
 describe User do
@@ -71,8 +89,7 @@ describe Site do
 end
 ```
 
-Mass Assignment Matcher
--
+### Mass Assignment Matcher
 
 ```ruby
 describe User do
@@ -87,8 +104,7 @@ describe User do
 end
 ```
 
-Validation Matchers
--
+### Validation Matchers
 
 ```ruby
 describe Site do
@@ -133,8 +149,7 @@ describe Person do
 end
 ```
 
-Accepts Nested Attributes Matcher
--
+### Accepts Nested Attributes Matcher
 
 ```ruby
 describe User do
@@ -147,8 +162,7 @@ describe Article do
 end
 ```
 
-Index Matcher
--
+### Index Matcher
 
 ```ruby
 describe Article do
@@ -161,8 +175,7 @@ describe Profile do
 end
 ```
 
-Others
--
+### Others
 
 ```ruby
 describe User do
@@ -193,13 +206,17 @@ describe Article do
 end
 ```
 
-Known issues
--
+## Known issues
 
 accept_nested_attributes_for matcher must test options [issue 91](https://github.com/mongoid-rspec/mongoid-rspec/issues/91).
 
-Acknowledgement
--
-Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make
+## Acknowledgement
+
+Thanks to [Durran Jordan][durran] for providing the changes necessary to make
 this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/mongoid-rspec/mongoid-rspec/contributors)
 to this project.
+
+[durran]: https://github.com/durran
+[mongo2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
+[mongo3]: http://rubygems.org/gems/mongoid-rspec/versions/1.11.0
+[mongo4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0.rc1
