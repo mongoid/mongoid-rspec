@@ -9,11 +9,11 @@ describe "Document" do
   end
 
   describe Article do
-    it { should have_field(:published).of_type(Boolean).with_default_value_of(false) }
-    it { should have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
+    it { should have_field(:published).of_type(Mongoid::Boolean).with_default_value_of(false) }
+    it { should have_field(:allow_comments).of_type(Mongoid::Boolean).with_default_value_of(true) }
     it { should belong_to(:author) }
     it { should have_field(:title).localized }
-    it { should_not have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
+    it { should_not have_field(:allow_comments).of_type(Mongoid::Boolean).with_default_value_of(false) }
     it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
     it { should be_mongoid_document }
     it { should be_timestamped_document }
