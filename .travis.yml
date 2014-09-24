@@ -9,5 +9,3 @@ rvm:
 
 gemfile:
   - Gemfile
-  - gemfiles/mongoid-3.0.gemfile
-  - gemfiles/mongoid-3.1.gemfile
