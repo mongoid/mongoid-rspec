@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Evan Sagge", "GlebTv", "Felipero"]
   s.email       = %q{evansagge@gmail.com}
-  s.homepage    = %q{http://github.com/glebtv/mongoid-rspec}
+  s.homepage    = %q{http://github.com/mongoid-rspec/mongoid-rspec}
   s.summary     = %q{RSpec matchers for Mongoid}
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
 
