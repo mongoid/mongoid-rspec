@@ -1,11 +1,10 @@
-mongoid-rspec
-=============
+# mongoid-rspec
 
-[![Build Status](https://secure.travis-ci.org/mongoid-rspec/mongoid-rspec.png?branch=master)](https://travis-ci.org/mongoid-rspec/mongoid-rspec)
+[![Build Status][travis_badge]][travis]
 
-[![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](http://badge.fury.io/rb/mongoid-rspec)
+[![Gem Version][rubygems_badge]][rubygems]
 
-[![Code Climate](https://codeclimate.com/github/mongoid-rspec/mongoid-rspec/badges/gpa.svg)](https://codeclimate.com/github/mongoid-rspec/mongoid-rspec)
+[![Code Climate][codeclimate_badge]][codeclimate]
 
 mongoid-rspec provides a collection of RSpec-compatible matchers that help to test mongoid documents.
 
@@ -220,3 +219,12 @@ to this project.
 [mongo2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
 [mongo3]: http://rubygems.org/gems/mongoid-rspec/versions/1.11.0
 [mongo4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0.rc1
+
+[travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
+[travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
+
+[rubygems_badge]: http://img.shields.io/gem/v/mongoid-rspec.svg?style=flat
+[rubygems]: http://rubygems.org/gems/mongoid-rspec
+
+[codeclimate_badge]: http://img.shields.io/codeclimate/github/mongoid-rspec/mongoid-rspec.svg?style=flat
+[codeclimate]: https://codeclimate.com/github/mongoid-rspec/mongoid-rspec
