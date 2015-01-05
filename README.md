@@ -1,9 +1,7 @@
 mongoid-rspec
 =
 
-[![Build Status](https://secure.travis-ci.org/evansagge/mongoid-rspec.png?branch=master)](https://travis-ci.org/evansagge/mongoid-rspec)
-
-http://rubygems.org/gems/mongoid-rspec
+[![Build Status][travis_badge]][travis]
 
 RSpec matchers for Mongoid 3.x.
 
@@ -203,3 +201,7 @@ Acknowledgement
 Thanks to [Durran Jordan](https://github.com/durran) for providing the changes necessary to make
 this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/evansagge/mongoid-rspec/contributors)
 to this project.
+
+
+[travis_badge]: https://travis-ci.org/mongoid-rspec/mongoid-rspec.svg?branch=mongoid-3-1
+[travis]: https://travis-ci.org/evansagge/mongoid-rspec
