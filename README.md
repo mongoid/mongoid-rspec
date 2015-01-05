@@ -204,4 +204,4 @@ to this project.
 
 
 [travis_badge]: https://travis-ci.org/mongoid-rspec/mongoid-rspec.svg?branch=mongoid-3-1
-[travis]: https://travis-ci.org/evansagge/mongoid-rspec
+[travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
