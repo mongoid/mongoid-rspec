@@ -37,6 +37,9 @@ RSpec.configure do |config|
 end
 ```
 
+If you aren't using rails then you don't have to specify the type.
+If you want to know why visit [the rspec documentation](https://relishapp.com/rspec/rspec-rails/docs/directory-structure).
+
 ## Matchers
 
 ### Association Matchers
