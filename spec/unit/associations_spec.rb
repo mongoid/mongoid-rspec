@@ -1,42 +1,42 @@
 require 'spec_helper'
 
-describe "Associations" do
+RSpec.describe "Associations" do
   describe User do
-    it { should have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
+    it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
-    it { should have_one(:record).with_autobuild }
+    it { is_expected.to have_one(:record).with_autobuild }
 
-    it { should have_many(:comments).with_dependent(:destroy).with_autosave }
+    it { is_expected.to have_many(:comments).with_dependent(:destroy).with_autosave }
 
-    it { should embed_one(:profile) }
+    it { is_expected.to embed_one(:profile) }
 
-    it { should have_and_belong_to_many(:children).of_type(User) }
+    it { is_expected.to have_and_belong_to_many(:children).of_type(User) }
   end
 
   describe Profile do
-    it { should be_embedded_in(:user).as_inverse_of(:profile) }
+    it { is_expected.to be_embedded_in(:user).as_inverse_of(:profile) }
   end
 
   describe Article do
-    it { should belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
-    it { should embed_many(:comments).with_cascading_callbacks }
-    it { should embed_one(:permalink) }
+    it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
+    it { is_expected.to embed_many(:comments).with_cascading_callbacks }
+    it { is_expected.to embed_one(:permalink) }
   end
 
   describe Comment do
-    it { should be_embedded_in(:article).as_inverse_of(:comments).with_polymorphism }
-    it { should belong_to(:user).as_inverse_of(:comments) }
+    it { is_expected.to be_embedded_in(:article).as_inverse_of(:comments).with_polymorphism }
+    it { is_expected.to belong_to(:user).as_inverse_of(:comments) }
   end
 
   describe Record do
-    it { should belong_to(:user).as_inverse_of(:record) }
+    it { is_expected.to belong_to(:user).as_inverse_of(:record) }
   end
 
   describe Permalink do
-    it { should be_embedded_in(:linkable).as_inverse_of(:link) }
+    it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link) }
   end
 
   describe Site do
-    it { should have_many(:users).as_inverse_of(:site).ordered_by(:email.desc) }
+    it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc) }
   end
 end
