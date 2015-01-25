@@ -14,9 +14,10 @@ module Mongoid
         @klass  = klass.is_a?(Class) ? klass : klass.class
         @errors = []
 
-        if @klass.index_specifications.map(&:key).include?(@index_fields)
+        index_specifications = @klass.index_specifications.find { |is| is.key == @index_fields }
+        if index_specifications
           if !@options.nil? && !@options.empty?
-            index_options = @klass.index_specifications.select { |is| is.key == @index_fields }.first.options
+            index_options = normalize_options(index_specifications.options)
             @options.each do |option, option_value|
               if index_options[option] != option_value
                 @errors.push "index for #{@index_fields.inspect} with options of #{index_options.inspect}"
@@ -49,15 +50,15 @@ module Mongoid
 
       private
         MAPPINGS = {
-          dropDups: :drop_dups
+          dropDups: :drop_dups,
+          expireAfterSeconds: :expire_after_seconds,
+          bucketSize: :bucket_size
         }
 
-        def denormalising_options(opts)
-          options = {}
-          opts.each_pair do |option, value|
-            options[MAPPINGS[option] || option] = value
+        def normalize_options(options)
+          options.transform_keys do |key|
+            MAPPINGS[key] || key
           end
-          options
         end
     end
 
