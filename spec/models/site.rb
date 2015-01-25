@@ -3,7 +3,7 @@ class Site
 
   field :name
 
-  has_many :users, inverse_of: :site, order: :email.desc
+  has_many :users, inverse_of: :site, order: :email.desc, counter_cache: true
 
   validates :name, presence: true, uniqueness: true
 end

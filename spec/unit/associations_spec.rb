@@ -37,6 +37,6 @@ RSpec.describe "Associations" do
   end
 
   describe Site do
-    it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc) }
+    it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc).with_counter_cache }
   end
 end

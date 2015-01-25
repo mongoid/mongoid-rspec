@@ -101,6 +101,12 @@ module Mongoid
           self
         end
 
+        def with_counter_cache
+          @association[:counter_cache] = true
+          @expectation_message << " which specifies counter_cache as #{@association[:counter_cache].to_s}"
+          self
+        end
+
         def matches?(actual)
           @actual = actual.is_a?(Class) ? actual : actual.class
           metadata = @actual.relations[@association[:name]]
@@ -232,6 +238,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} with foreign key #{metadata.foreign_key.inspect}"
+            end
+          end
+
+          if @association[:counter_cache]
+            if metadata.counter_cached? != true
+              @negative_result_message = "#{@positive_result_message} which did not set counter_cache"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set counter_cache"
             end
           end
 
