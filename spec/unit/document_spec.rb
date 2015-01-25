@@ -18,4 +18,9 @@ RSpec.describe "Document" do
     it { is_expected.to be_mongoid_document }
     it { is_expected.to be_timestamped_document }
   end
+
+  describe Log do
+    it { is_expected.to be_mongoid_document }
+    it { is_expected.to be_dynamic_document }
+  end
 end

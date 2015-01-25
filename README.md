@@ -196,6 +196,7 @@ end
 
 RSpec.describe Log do
   it { is_expected.to be_stored_in :logs }
+  it { is_expected.to be_dynamic_document }
 end
 
 RSpec.describe Article do
