@@ -42,164 +42,164 @@ end
 ### Association Matchers
 
 ```ruby
-describe User do
-  it { should have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
+RSpec.describe User do
+  it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
-  it { should have_one(:record) }
+  it { is_expected.to have_one(:record) }
   #can verify autobuild is set to true
-  it { should have_one(:record).with_autobuild }
+  it { is_expected.to have_one(:record).with_autobuild }
 
-  it { should have_many :comments }
+  it { is_expected.to have_many :comments }
 
   #can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
-  it { should have_many(:comments).with_dependent(:destroy) }
+  it { is_expected.to have_many(:comments).with_dependent(:destroy) }
   #can verify autosave is set to true
-  it { should have_many(:comments).with_autosave }
+  it { is_expected.to have_many(:comments).with_autosave }
 
-  it { should embed_one :profile }
+  it { is_expected.to embed_one :profile }
 
-  it { should have_and_belong_to_many(:children) }
-  it { should have_and_belong_to_many(:children).of_type(User) }
+  it { is_expected.to have_and_belong_to_many(:children) }
+  it { is_expected.to have_and_belong_to_many(:children).of_type(User) }
 end
 
-describe Profile do
-  it { should be_embedded_in(:user).as_inverse_of(:profile) }
+RSpec.describe Profile do
+  it { is_expected.to be_embedded_in(:user).as_inverse_of(:profile) }
 end
 
-describe Article do
-  it { should belong_to(:author).of_type(User).as_inverse_of(:articles) }
-  it { should belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
-  it { should embed_many(:comments) }
+RSpec.describe Article do
+  it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles) }
+  it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
+  it { is_expected.to embed_many(:comments) }
 end
 
-describe Comment do
-  it { should be_embedded_in(:article).as_inverse_of(:comments) }
-  it { should belong_to(:user).as_inverse_of(:comments) }
+RSpec.describe Comment do
+  it { is_expected.to be_embedded_in(:article).as_inverse_of(:comments) }
+  it { is_expected.to belong_to(:user).as_inverse_of(:comments) }
 end
 
-describe Record do
-  it { should belong_to(:user).as_inverse_of(:record) }
+RSpec.describe Record do
+  it { is_expected.to belong_to(:user).as_inverse_of(:record) }
 end
 
-describe Site do
-  it { should have_many(:users).as_inverse_of(:site).ordered_by(:email.asc) }
+RSpec.describe Site do
+  it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.asc) }
 end
 ```
 
 ### Mass Assignment Matcher
 
 ```ruby
-describe User do
-  it { should allow_mass_assignment_of(:login) }
-  it { should allow_mass_assignment_of(:email) }
-  it { should allow_mass_assignment_of(:age) }
-  it { should allow_mass_assignment_of(:password) }
-  it { should allow_mass_assignment_of(:password) }
-  it { should allow_mass_assignment_of(:role).as(:admin) }
+RSpec.describe User do
+  it { is_expected.to allow_mass_assignment_of(:login) }
+  it { is_expected.to allow_mass_assignment_of(:email) }
+  it { is_expected.to allow_mass_assignment_of(:age) }
+  it { is_expected.to allow_mass_assignment_of(:password) }
+  it { is_expected.to allow_mass_assignment_of(:password) }
+  it { is_expected.to allow_mass_assignment_of(:role).as(:admin) }
 
-  it { should_not allow_mass_assignment_of(:role) }
+  it { is_expected.not_to allow_mass_assignment_of(:role) }
 end
 ```
 
 ### Validation Matchers
 
 ```ruby
-describe Site do
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
+RSpec.describe Site do
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 end
 
-describe User do
-  it { should validate_presence_of(:login) }
-  it { should validate_uniqueness_of(:login).scoped_to(:site) }
-  it { should validate_uniqueness_of(:email).case_insensitive.with_message("is already taken") }
-  it { should validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
-  it { should validate_associated(:profile) }
-  it { should validate_exclusion_of(:login).to_not_allow("super", "index", "edit") }
-  it { should validate_inclusion_of(:role).to_allow("admin", "member") }
-  it { should validate_confirmation_of(:email) }
-  it { should validate_presence_of(:age).on(:create, :update) }
-  it { should validate_numericality_of(:age).on(:create, :update) }
-  it { should validate_inclusion_of(:age).to_allow(23..42).on([:create, :update]) }
-  it { should validate_presence_of(:password).on(:create) }
-  it { should validate_presence_of(:provider_uid).on(:create) }
-  it { should validate_inclusion_of(:locale).to_allow([:en, :ru]) }
+RSpec.describe User do
+  it { is_expected.to validate_presence_of(:login) }
+  it { is_expected.to validate_uniqueness_of(:login).scoped_to(:site) }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive.with_message("is already taken") }
+  it { is_expected.to validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
+  it { is_expected.to validate_associated(:profile) }
+  it { is_expected.to validate_exclusion_of(:login).to_not_allow("super", "index", "edit") }
+  it { is_expected.to validate_inclusion_of(:role).to_allow("admin", "member") }
+  it { is_expected.to validate_confirmation_of(:email) }
+  it { is_expected.to validate_presence_of(:age).on(:create, :update) }
+  it { is_expected.to validate_numericality_of(:age).on(:create, :update) }
+  it { is_expected.to validate_inclusion_of(:age).to_allow(23..42).on([:create, :update]) }
+  it { is_expected.to validate_presence_of(:password).on(:create) }
+  it { is_expected.to validate_presence_of(:provider_uid).on(:create) }
+  it { is_expected.to validate_inclusion_of(:locale).to_allow([:en, :ru]) }
 end
 
-describe Article do
-  it { should validate_length_of(:title).within(8..16) }
+RSpec.describe Article do
+  it { is_expected.to validate_length_of(:title).within(8..16) }
 end
 
-describe Profile do
-  it { should validate_numericality_of(:age).greater_than(0) }
+RSpec.describe Profile do
+  it { is_expected.to validate_numericality_of(:age).greater_than(0) }
 end
 
-describe MovieArticle do
-  it { should validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
-  it { should validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }
+RSpec.describe MovieArticle do
+  it { is_expected.to validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
+  it { is_expected.to validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }
 end
 
-describe Person do
+RSpec.describe Person do
    # in order to be able to use the custom_validate matcher, the custom validator class (in this case SsnValidator)
    # should redefine the kind method to return :custom, i.e. "def self.kind() :custom end"
-  it { should custom_validate(:ssn).with_validator(SsnValidator) }
+  it { is_expected.to custom_validate(:ssn).with_validator(SsnValidator) }
 end
 ```
 
 ### Accepts Nested Attributes Matcher
 
 ```ruby
-describe User do
-  it { should accept_nested_attributes_for(:articles) }
-  it { should accept_nested_attributes_for(:comments) }
+RSpec.describe User do
+  it { is_expected.to accept_nested_attributes_for(:articles) }
+  it { is_expected.to accept_nested_attributes_for(:comments) }
 end
 
-describe Article do
-  it { should accept_nested_attributes_for(:permalink) }
+RSpec.describe Article do
+  it { is_expected.to accept_nested_attributes_for(:permalink) }
 end
 ```
 
 ### Index Matcher
 
 ```ruby
-describe Article do
-  it { should have_index_for(published: 1) }
-  it { should have_index_for(title: 1).with_options(unique: true, background: true) }
+RSpec.describe Article do
+  it { is_expected.to have_index_for(published: 1) }
+  it { is_expected.to have_index_for(title: 1).with_options(unique: true, background: true) }
 end
 
-describe Profile do
-  it { should have_index_for(first_name: 1, last_name: 1) }
+RSpec.describe Profile do
+  it { is_expected.to have_index_for(first_name: 1, last_name: 1) }
 end
 ```
 
 ### Others
 
 ```ruby
-describe User do
-  it { should have_fields(:email, :login) }
-  it { should have_field(:s).with_alias(:status) }
-  it { should have_fields(:birthdate, :registered_at).of_type(DateTime) }
+RSpec.describe User do
+  it { is_expected.to have_fields(:email, :login) }
+  it { is_expected.to have_field(:s).with_alias(:status) }
+  it { is_expected.to have_fields(:birthdate, :registered_at).of_type(DateTime) }
 
   # if you're declaring 'include Mongoid::Timestamps'
   # or any of 'include Mongoid::Timestamps::Created' and 'Mongoid::Timestamps::Updated'
-  it { should be_timestamped_document }
-  it { should be_timestamped_document.with(:created) }
-  it { should_not be_timestamped_document.with(:updated) }
+  it { is_expected.to be_timestamped_document }
+  it { is_expected.to be_timestamped_document.with(:created) }
+  it { is_expected.not_to be_timestamped_document.with(:updated) }
 
-  it { should be_versioned_document } # if you're declaring `include Mongoid::Versioning`
-  it { should be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
-  it { should be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
+  it { is_expected.to be_versioned_document } # if you're declaring `include Mongoid::Versioning`
+  it { is_expected.to be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
+  it { is_expected.to be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
 end
 
-describe Log do
-  it { should be_stored_in :logs }
+RSpec.describe Log do
+  it { is_expected.to be_stored_in :logs }
 end
 
-describe Article do
-  it { should have_field(:published).of_type(Boolean).with_default_value_of(false) }
-  it { should have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
-  it { should_not have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
-  it { should_not have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
+RSpec.describe Article do
+  it { is_expected.to have_field(:published).of_type(Boolean).with_default_value_of(false) }
+  it { is_expected.to have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
+  it { is_expected.not_to have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
+  it { is_expected.not_to have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
 end
 ```
 
