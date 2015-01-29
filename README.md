@@ -173,6 +173,10 @@ end
 RSpec.describe Profile do
   it { is_expected.to have_index_for(first_name: 1, last_name: 1) }
 end
+
+Rspec.describe Log do
+  it { is_expected.to have_index_for(created_at: 1).with_options(bucket_size: 100, expire_after_seconds: 3600) }
+end
 ```
 
 ### Others
