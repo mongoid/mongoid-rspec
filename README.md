@@ -85,7 +85,7 @@ RSpec.describe Record do
 end
 
 RSpec.describe Site do
-  it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.asc) }
+  it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.asc).with_counter_cache }
 end
 ```
 
