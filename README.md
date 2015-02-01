@@ -10,19 +10,19 @@ mongoid-rspec provides a collection of RSpec-compatible matchers that help to te
 
 ### With Mongoid 4.x
 
-Use mongoid-rspec [2.0.0][mongo4]
+Use mongoid-rspec [2.1.0][mongoid4]
 
-    gem 'mongoid-rspec', '~> 2.0.0'
+    gem 'mongoid-rspec', '~> 2.1.0'
 
 ### With Mongoid 3.x
 
-Use mongoid-rspec [1.13.0][mongo3].
+Use mongoid-rspec [1.13.0][mongoid3].
 
     gem 'mongoid-rspec', '~> 1.13.0'
 
 ### With Mongoid 2.x
 
-Use mongoid-rspec [1.4.5][mongo2]
+Use mongoid-rspec [1.4.5][mongoid2]
 
     gem 'mongoid-rspec', '1.4.5'
 
@@ -222,9 +222,9 @@ this compatible with mongoid 2.0.0.rc, and for other [contributors](https://gith
 to this project.
 
 [durran]: https://github.com/durran
-[mongo2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
-[mongo3]: http://rubygems.org/gems/mongoid-rspec/versions/1.13.0
-[mongo4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0
+[mongoid2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
+[mongoid3]: http://rubygems.org/gems/mongoid-rspec/versions/1.13.0
+[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0
 
 [travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
 [travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
