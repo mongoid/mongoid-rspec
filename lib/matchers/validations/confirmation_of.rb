@@ -1,8 +1,21 @@
 module Mongoid
   module Matchers
     module Validations
+      class ValidateConfirmationOfMatcher < HaveValidationMatcher
+        include WithMessage
+
+        def initialize(name)
+          super(name, :confirmation)
+        end
+
+        def with_message(message)
+          @expected_message = message
+          self
+        end
+      end
+
       def validate_confirmation_of(field)
-        HaveValidationMatcher.new(field, :confirmation)
+        ValidateConfirmationOfMatcher.new(field)
       end
     end
   end
