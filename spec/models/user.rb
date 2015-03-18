@@ -9,6 +9,7 @@ class User
   field :password, type: String
   field :provider_uid
   field :locale
+  field :nick
 
   belongs_to :site, inverse_of: :users
   has_many :articles, foreign_key: :author_id, order: :title
@@ -28,8 +29,13 @@ class User
   validates :password, confirmation: { message: "Password confirmation must match given password" }
   validates :provider_uid, presence: true
   validates :locale, inclusion: { in: ->(user) { [:en, :ru] } }
+  validates :nick, presence: true, if: :nick_required?
 
   accepts_nested_attributes_for :articles, :comments
+
+  def nick_required?
+    false
+  end
 
   def admin?
     false
