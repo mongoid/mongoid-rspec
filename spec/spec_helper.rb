@@ -29,5 +29,8 @@ RSpec.configure do |config|
   config.after :all do
     Mongoid::Config.purge!
   end
+  config.after :suite do
+    print "\n# Mongoid v#{Mongoid::VERSION}"
+  end
   config.disable_monkey_patching!
 end
