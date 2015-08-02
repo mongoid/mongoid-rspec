@@ -87,6 +87,69 @@ module Mongoid
     end
     alias_method :have_fields, :have_field
   end
+
+  class HaveEnumMatcher # :nodoc:
+      def initialize(*attrs)
+        @attributes = attrs.collect(&:to_s)
+      end
+
+      def localized
+        @localized = true
+        self
+      end
+
+      def with_default_value_of(default)
+        @default = default
+        self
+      end
+
+      def matches?(klass)
+        @klass = klass.is_a?(Class) ? klass : klass.class
+        @errors = []
+        @attributes.each do |attr|
+          if @klass.fields.include?("_#{attr}")
+            error = ""
+
+            if !@default.nil?
+              if @klass.fields[attr].default_val.nil?
+                error << " with default not set"
+              elsif @klass.fields[attr].default_val != @default
+                error << " with default value of #{@klass.fields[attr].default_val}"
+              end
+            end
+
+            @errors.push("enum #{attr.inspect}" << error) unless error.blank?
+
+          else
+            @errors.push "no enum named #{attr.inspect}"
+          end
+        end
+        @errors.empty?
+      end
+
+      def failure_message_for_should
+        "Expected #{@klass.inspect} to #{description}, got #{@errors.to_sentence}"
+      end
+
+      def failure_message_for_should_not
+        "Expected #{@klass.inspect} to not #{description}, got #{@klass.inspect} to #{description}"
+      end
+
+      alias :failure_message :failure_message_for_should
+      alias :failure_message_when_negated :failure_message_for_should_not
+
+      def description
+        desc = "have #{@attributes.size > 1 ? 'enums' : 'enum'} named #{@attributes.collect(&:inspect).to_sentence}"
+        desc << " with default value of #{@default.inspect}" if !@default.nil?
+        desc
+      end
+    end
+
+    def have_enum(*args)
+      HaveEnumMatcher.new(*args)
+    end
+    alias_method :have_enums, :have_enum
+  end
 end
 
 RSpec::Matchers.define :have_instance_method do |name|
