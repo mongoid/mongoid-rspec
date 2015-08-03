@@ -224,7 +224,7 @@ to this project.
 [durran]: https://github.com/durran
 [mongoid2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
 [mongoid3]: http://rubygems.org/gems/mongoid-rspec/versions/1.13.0
-[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0
+[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.1.0
 
 [travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
 [travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
