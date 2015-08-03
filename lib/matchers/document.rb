@@ -82,13 +82,7 @@ module Mongoid
       end
     end
 
-    def have_field(*args)
-      HaveFieldMatcher.new(*args)
-    end
-    alias_method :have_fields, :have_field
-  end
-
-  class HaveEnumMatcher # :nodoc:
+    class HaveEnumMatcher # :nodoc:
       def initialize(*attrs)
         @attributes = attrs.collect(&:to_s)
       end
@@ -123,6 +117,7 @@ module Mongoid
           else
             @errors.push "no enum named #{attr.inspect}"
           end
+        
         end
         @errors.empty?
       end
@@ -145,11 +140,16 @@ module Mongoid
       end
     end
 
+    def have_field(*args)
+      HaveFieldMatcher.new(*args)
+    end
+
     def have_enum(*args)
       HaveEnumMatcher.new(*args)
     end
+    alias_method :have_fields, :have_field
     alias_method :have_enums, :have_enum
-  end
+  end    
 end
 
 RSpec::Matchers.define :have_instance_method do |name|
