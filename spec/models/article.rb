@@ -1,13 +1,15 @@
 class Article
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Enum
 
   field :title, localize: true
   field :content
   field :published, type: Boolean, default: false
   field :allow_comments, type: Boolean, default: true
   field :number_of_comments, type: Integer
-  field :status, type: Symbol
+
+  enum :status, [:pending, :approved, :declined]
 
   embeds_many :comments, cascade_callbacks: true
   embeds_one :permalink

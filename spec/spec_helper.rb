@@ -10,6 +10,7 @@ require "bundler"
 Bundler.setup
 
 require 'mongoid'
+require 'mongoid/enum'
 require 'rspec'
 require 'rspec/core'
 require 'rspec/expectations'
