@@ -8,6 +8,12 @@ mongoid-rspec provides a collection of RSpec-compatible matchers that help to te
 
 ## Installation
 
+### With Mongoid 5.0.0.beta
+
+Use mongoid-rspec [2.3.0.beta][mongoid5]
+
+    gem 'mongoid-rspec', '2.3.0.beta'
+
 ### With Mongoid 4.x
 
 Use mongoid-rspec [2.1.0][mongoid4]
@@ -224,7 +230,8 @@ to this project.
 [durran]: https://github.com/durran
 [mongoid2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
 [mongoid3]: http://rubygems.org/gems/mongoid-rspec/versions/1.13.0
-[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.0.0
+[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.1.0
+[mongoid5]: http://rubygems.org/gems/mongoid-rspec/versions/2.3.0.beta
 
 [travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
 [travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
