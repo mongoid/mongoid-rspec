@@ -1,18 +1,18 @@
-# mongoid-rspec
+# [mongoid-rspec]
 
 [![Build Status][travis_badge]][travis]
 [![Gem Version][rubygems_badge]][rubygems]
 [![Code Climate][codeclimate_badge]][codeclimate]
 
-mongoid-rspec provides a collection of RSpec-compatible matchers that help to test mongoid documents.
+mongoid-rspec provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
 
 ## Installation
 
 ### With Mongoid 5.0.0.rc0
 
-Use mongoid-rspec [2.3.0.beta][mongoid5]
+Use mongoid-rspec [2.3.0.rc0][mongoid5]
 
-    gem 'mongoid-rspec', '2.3.0.beta'
+    gem 'mongoid-rspec', '2.3.0.rc0'
 
 ### With Mongoid 4.x
 
@@ -227,11 +227,13 @@ Thanks to [Durran Jordan][durran] for providing the changes necessary to make
 this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/mongoid-rspec/mongoid-rspec/contributors)
 to this project.
 
+[mongoid-rspec]: https://github.com/mongoid-rspec/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents."
+
 [durran]: https://github.com/durran
-[mongoid2]: http://rubygems.org/gems/mongoid-rspec/versions/1.4.5
-[mongoid3]: http://rubygems.org/gems/mongoid-rspec/versions/1.13.0
-[mongoid4]: http://rubygems.org/gems/mongoid-rspec/versions/2.1.0
-[mongoid5]: http://rubygems.org/gems/mongoid-rspec/versions/2.3.0.beta
+[mongoid2]: https://rubygems.org/gems/mongoid-rspec/versions/1.4.5
+[mongoid3]: https://rubygems.org/gems/mongoid-rspec/versions/1.13.0
+[mongoid4]: https://rubygems.org/gems/mongoid-rspec/versions/2.1.0
+[mongoid5]: https://rubygems.org/gems/mongoid-rspec/versions/2.3.0.rc0
 
 [travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
 [travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
