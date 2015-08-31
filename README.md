@@ -8,7 +8,7 @@ mongoid-rspec provides a collection of RSpec-compatible matchers that help to te
 
 ## Installation
 
-### With Mongoid 5.0.0.beta
+### With Mongoid 5.0.0.rc0
 
 Use mongoid-rspec [2.3.0.beta][mongoid5]
 
