@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = %q{http://github.com/mongoid-rspec/mongoid-rspec}
   s.summary     = %q{RSpec matchers for Mongoid}
   s.description = %q{RSpec matches for Mongoid models, including association and validation matchers}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "mongoid-rspec"
 
