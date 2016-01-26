@@ -50,9 +50,7 @@ module Mongoid
 
       private
         MAPPINGS = {
-          dropDups: :drop_dups,
-          expireAfterSeconds: :expire_after_seconds,
-          bucketSize: :bucket_size
+          expire_after: :expire_after_seconds
         }
 
         def normalize_options(options)
