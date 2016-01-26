@@ -5,6 +5,8 @@ rvm:
   - 2.1.7
   - 2.2.3
   - jruby-19mode
-
+before_install:
+  - gem update --system
+  - gem update bundler
 gemfile:
   - Gemfile
