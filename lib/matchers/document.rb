@@ -89,8 +89,10 @@ module Mongoid
   end
 end
 
+# deprecated until 3.2.0
 RSpec::Matchers.define :have_instance_method do |name|
   match do |klass|
+    warn "[DEPRECATION] `have_instance_method` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
     klass.instance_methods.include?(name.to_sym)
   end
 
@@ -109,8 +111,10 @@ RSpec::Matchers.define :be_mongoid_document do
   end
 end
 
+# deprecated until 3.2.0
 RSpec::Matchers.define :be_versioned_document do
   match do |doc|
+    warn "[DEPRECATION] `be_versioned_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
     doc.class.included_modules.include?(Mongoid::Versioning)
   end
 
@@ -142,8 +146,10 @@ RSpec::Matchers.define :be_timestamped_document do
   end
 end
 
+# deprecated until 3.2.0
 RSpec::Matchers.define :be_paranoid_document do
   match do |doc|
+    warn "[DEPRECATION] `be_paranoid_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
     doc.class.included_modules.include?(Mongoid::Paranoia)
   end
 
@@ -152,8 +158,10 @@ RSpec::Matchers.define :be_paranoid_document do
   end
 end
 
+# deprecated until 3.2.0
 RSpec::Matchers.define :be_multiparameted_document do
   match do |doc|
+    warn "[DEPRECATION] `be_multiparameted_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
     doc.class.included_modules.include?(Mongoid::MultiParameterAttributes)
   end
 
