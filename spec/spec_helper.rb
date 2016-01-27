@@ -14,9 +14,8 @@ require 'rspec'
 require 'rspec/core'
 require 'rspec/expectations'
 
-Mongoid.configure do |config|
-  config.connect_to("mongoid-rspec-test")
-end
+Mongoid::Config.connect_to('mongoid-rspec-test')
+Mongo::Logger.logger.level = ::Logger::INFO
 
 Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
 
