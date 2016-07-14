@@ -1,5 +1,4 @@
 require 'mongoid/relations'
-
 module Mongoid
   module Matchers
     module Associations
@@ -38,8 +37,8 @@ module Mongoid
           raise "#{@association[:type].inspect} does not respond to :order" unless [HAS_MANY, HAS_AND_BELONGS_TO_MANY, EMBEDS_MANY].include?(@association[:type])
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
-
-          if association_field_name.is_a? Origin::Key
+          query_key = (Mongoid::VERSION =~ /^6/).blank? ? Origin::Key : Mongoid::Criteria::Queryable::Key
+          if association_field_name.is_a? query_key
             @association[:order_operator] = association_field_name.operator
             @expectation_message << " #{order_way(@association[:order_operator])}"
           end
