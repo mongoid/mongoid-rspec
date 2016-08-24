@@ -2,5 +2,5 @@
 .rvmrc
 .bundle
 Gemfile.lock
+gemfiles/*.lock
 pkg/*
-

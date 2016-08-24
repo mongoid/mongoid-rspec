@@ -1,3 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'mongoid', '~> 6.0.0.beta'
+gem 'mongoid', '~> 6.0.0.rc0'
+
+group :test do
+  gem 'rake'
+  gem 'rspec', '~> 3.5'
+end

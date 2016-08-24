@@ -4,10 +4,20 @@ rvm:
   - 1.9.3
   - 2.1.8
   - 2.2.4
-  - 2.3.0
+  - 2.3.1
   - jruby-19mode
 before_install:
   - gem update --system
   - gem update bundler
 gemfile:
   - Gemfile
+  - gemfiles/Gemfile.mongoid-5.0
+  - gemfiles/Gemfile.mongoid-6.0
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.mongoid-6.0
+    - rvm: 2.1.8
+      gemfile: gemfiles/Gemfile.mongoid-6.0
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.mongoid-6.0

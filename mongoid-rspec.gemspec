@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rake'
   s.add_dependency 'mongoid', '>= 5.0.0'
-  s.add_dependency 'rspec',   '~> 3.3'
+  s.add_dependency 'rspec',   '~> 3.5'
 end
