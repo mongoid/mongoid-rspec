@@ -39,7 +39,7 @@ module Mongoid
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
 
-          if association_field_name.is_a? Origin::Key
+          if association_field_name.is_a? association_kind_of
             @association[:order_operator] = association_field_name.operator
             @expectation_message << " #{order_way(@association[:order_operator])}"
           end
@@ -293,6 +293,10 @@ module Mongoid
         private
           def order_way(operator)
             [nil, "ascending", "descending"][operator]
+          end
+
+          def association_kind_of
+            (Mongoid::VERSION =~ /^6/).blank? ? Origin::Key : Mongoid::Criteria::Queryable::Key
           end
       end
 

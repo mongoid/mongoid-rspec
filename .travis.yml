@@ -1,11 +1,9 @@
 services: mongodb
 language: ruby
 rvm:
-  - 1.9.3
-  - 2.1.8
+  - 2.2.2
   - 2.2.4
-  - 2.3.0
-  - jruby-19mode
+  - 2.3.1
 before_install:
   - gem update --system
   - gem update bundler
