@@ -19,7 +19,7 @@ RSpec.describe "Associations" do
 
   describe Article do
     it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
-    it { is_expected.to embed_many(:comments).with_cascading_callbacks }
+    it { is_expected.to embed_many(:comments).as_inverse_of(:article).with_cascading_callbacks }
     it { is_expected.to embed_one(:permalink).as_inverse_of(:linkable) }
   end
 
