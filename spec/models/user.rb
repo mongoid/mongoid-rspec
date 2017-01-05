@@ -14,9 +14,9 @@ class User
   has_many :articles, foreign_key: :author_id, order: :title
   has_many :comments, dependent: :destroy, autosave: true
   has_and_belongs_to_many :children, class_name: "User"
-  has_one :record, autobuild: true
+  has_one :record, autobuild: true, inverse_of: :user
 
-  embeds_one :profile
+  embeds_one :profile, inverse_of: :user
 
   validates :login, presence: true, uniqueness: { scope: :site }, format: { with: /\A[\w\-]+\z/ }, exclusion: { in: ["super", "index", "edit"] }
   validates :email, uniqueness: { case_sensitive: false, scope: :site, message: "is already taken" }, confirmation: true
