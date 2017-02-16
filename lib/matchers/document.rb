@@ -89,18 +89,6 @@ module Mongoid
   end
 end
 
-# deprecated until 3.2.0
-RSpec::Matchers.define :have_instance_method do |name|
-  match do |klass|
-    warn "[DEPRECATION] `have_instance_method` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    klass.instance_methods.include?(name.to_sym)
-  end
-
-  description do
-    "have instance method #{name.to_s}"
-  end
-end
-
 RSpec::Matchers.define :be_mongoid_document do
   match do |doc|
     doc.class.included_modules.include?(Mongoid::Document)
