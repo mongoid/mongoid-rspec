@@ -122,18 +122,6 @@ RSpec::Matchers.define :be_timestamped_document do
   end
 end
 
-# deprecated until 3.2.0
-RSpec::Matchers.define :be_multiparameted_document do
-  match do |doc|
-    warn "[DEPRECATION] `be_multiparameted_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    doc.class.included_modules.include?(Mongoid::MultiParameterAttributes)
-  end
-
-  description do
-    "be a multiparameted Mongoid document"
-  end
-end
-
 RSpec::Matchers.define :be_dynamic_document do |_|
   match do |doc|
     doc.class.included_modules.include?(Mongoid::Attributes::Dynamic)
