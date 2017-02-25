@@ -89,18 +89,6 @@ module Mongoid
   end
 end
 
-# deprecated until 3.2.0
-RSpec::Matchers.define :have_instance_method do |name|
-  match do |klass|
-    warn "[DEPRECATION] `have_instance_method` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    klass.instance_methods.include?(name.to_sym)
-  end
-
-  description do
-    "have instance method #{name.to_s}"
-  end
-end
-
 RSpec::Matchers.define :be_mongoid_document do
   match do |doc|
     doc.class.included_modules.include?(Mongoid::Document)
@@ -108,18 +96,6 @@ RSpec::Matchers.define :be_mongoid_document do
 
   description do
     "be a Mongoid document"
-  end
-end
-
-# deprecated until 3.2.0
-RSpec::Matchers.define :be_versioned_document do
-  match do |doc|
-    warn "[DEPRECATION] `be_versioned_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    doc.class.included_modules.include?(Mongoid::Versioning)
-  end
-
-  description do
-    "be a versioned Mongoid document"
   end
 end
 
@@ -143,30 +119,6 @@ RSpec::Matchers.define :be_timestamped_document do
     desc = "be a timestamped Mongoid document"
     desc << " with #{@timestamped_module}" if @timestamped_module
     desc
-  end
-end
-
-# deprecated until 3.2.0
-RSpec::Matchers.define :be_paranoid_document do
-  match do |doc|
-    warn "[DEPRECATION] `be_paranoid_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    doc.class.included_modules.include?(Mongoid::Paranoia)
-  end
-
-  description do
-    "be a paranoid Mongoid document"
-  end
-end
-
-# deprecated until 3.2.0
-RSpec::Matchers.define :be_multiparameted_document do
-  match do |doc|
-    warn "[DEPRECATION] `be_multiparameted_document` is deprecated.  It will be removed in mongoid-rspec 3.2.0, see https://github.com/mongoid-rspec/mongoid-rspec/issues/166"
-    doc.class.included_modules.include?(Mongoid::MultiParameterAttributes)
-  end
-
-  description do
-    "be a multiparameted Mongoid document"
   end
 end
 
