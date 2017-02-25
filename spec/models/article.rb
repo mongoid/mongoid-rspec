@@ -9,8 +9,8 @@ class Article
   field :number_of_comments, type: Integer
   field :status, type: Symbol
 
-  embeds_many :comments, cascade_callbacks: true
-  embeds_one :permalink
+  embeds_many :comments, cascade_callbacks: true, inverse_of: :article
+  embeds_one :permalink, inverse_of: :linkable
   belongs_to :author, class_name: 'User', inverse_of: :articles, index: true
 
   validates :title, presence: true
