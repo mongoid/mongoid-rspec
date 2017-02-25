@@ -1,5 +1,4 @@
 require 'mongoid/relations'
-
 module Mongoid
   module Matchers
     module Associations
@@ -39,7 +38,8 @@ module Mongoid
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
 
-          if association_field_name.is_a? Origin::Key
+
+          if association_field_name.is_a? Mongoid.origin_key_class
             @association[:order_operator] = association_field_name.operator
             @expectation_message << " #{order_way(@association[:order_operator])}"
           end
