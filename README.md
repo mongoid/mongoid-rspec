@@ -17,17 +17,23 @@ end
 
 ```
 
-If you're using old version of mongoid, then you have to specify particular vesrion of mongoid-rspec. Use compatibility matrix to find out, which version suits your case.
-
 ### Compatibility
 
-| mongoid version | mongoid-rspec version |
-|-----------------|-----------------------|
-| 6.x             | [4.0.0][mongoid6]     |
-| 5.x             | [3.0.0][mongoid5]     |
-| 4.x             | [2.1.0][mongoid4]     |
-| 3.x             | [1.13.0][mongoid3]    |
-| 2.x             | [1.4.5][mongoid2]     |
+There's no stable version, that provides support for Mongoid 6. But for a time being you can use HEAD version:
+
+```ruby
+gem 'mongoid-rspec', github: 'mongoid-rspec/mongoid-rspec'
+```
+
+If you're using old version of mongoid, then you have to specify particular vesrion of mongoid-rspec. Use compatibility matrix to find out, which version suits your case.
+
+
+| mongoid version | mongoid-rspec version   |
+|-----------------|-------------------------|
+| 5.x             | [3.0.0][mongoid5]       |
+| 4.x             | [2.1.0][mongoid4]       |
+| 3.x             | [1.13.0][mongoid3]      |
+| 2.x             | [1.4.5][mongoid2]       |
 
 ## Configuration
 
@@ -239,7 +245,6 @@ to this project.
 [mongoid3]: https://rubygems.org/gems/mongoid-rspec/versions/1.13.0
 [mongoid4]: https://rubygems.org/gems/mongoid-rspec/versions/2.1.0
 [mongoid5]: https://rubygems.org/gems/mongoid-rspec/versions/3.0.0
-[mongoid6]: https://rubygems.org/gems/mongoid-rspec/versions/4.0.0
 
 [travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
 [travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
