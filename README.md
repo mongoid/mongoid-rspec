@@ -8,43 +8,51 @@ mongoid-rspec provides a collection of RSpec-compatible matchers that help to te
 
 ## Installation
 
-### With Mongoid 5.x
-
-Use mongoid-rspec [3.0.0][mongoid5]
-
-    gem 'mongoid-rspec', '3.0.0'
-
-### With Mongoid 4.x
-
-Use mongoid-rspec [2.1.0][mongoid4]
-
-    gem 'mongoid-rspec', '~> 2.1.0'
-
-### With Mongoid 3.x
-
-Use mongoid-rspec [1.13.0][mongoid3].
-
-    gem 'mongoid-rspec', '~> 1.13.0'
-
-### With Mongoid 2.x
-
-Use mongoid-rspec [1.4.5][mongoid2]
-
-    gem 'mongoid-rspec', '1.4.5'
-
-### Configuring
-
-Drop in existing or dedicated support file in spec/support.
-i.e: `spec/support/mongoid.rb`
+Drop this line into your Gemfile:
 
 ```ruby
+group :test do
+  gem 'mongoid-rspec'
+end
+
+```
+
+If you're using old version of mongoid, then you have to specify particular vesrion of mongoid-rspec. Use compatibility matrix to find out, which version suits your case.
+
+### Compatibility
+
+| mongoid version | mongoid-rspec version |
+|-----------------|-----------------------|
+| 5.x             | [3.0.0][mongoid5]    |
+| 4.x             | [2.1.0][mongoid4]    |
+| 3.x             | [1.13.0][mongoid3]   |
+| 2.x             | [1.4.5][mongoid2]    |
+
+## Configuration
+
+### Rails
+
+Add to your `rails_helper.rb` file
+
+```ruby
+require 'mongoid-rspec'
+
 RSpec.configure do |config|
   config.include Mongoid::Matchers, type: :model
 end
 ```
 
-If you aren't using rails then you don't have to specify the type.
-If you want to know why visit [the rspec documentation](https://relishapp.com/rspec/rspec-rails/docs/directory-structure).
+### Other
+
+Add to your `spec_helper.rb` file
+
+```ruby
+require 'mongoid-rspec'
+
+RSpec.configure do |config|
+  config.include Mongoid::Matchers
+end
+```
 
 ## Matchers
 
@@ -198,10 +206,6 @@ RSpec.describe User do
   it { is_expected.to be_timestamped_document }
   it { is_expected.to be_timestamped_document.with(:created) }
   it { is_expected.not_to be_timestamped_document.with(:updated) }
-
-  it { is_expected.to be_versioned_document } # if you're declaring `include Mongoid::Versioning`
-  it { is_expected.to be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
-  it { is_expected.to be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
 end
 
 RSpec.describe Log do
