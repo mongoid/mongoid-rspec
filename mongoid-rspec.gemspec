@@ -4,7 +4,7 @@ require 'mongoid/rspec/version'
 
 Gem::Specification.new do |s|
   s.name        = 'mongoid-rspec'
-  s.version     = Mongoid::Rspec::VERSION
+  s.version     = Mongoid::RSpec::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Evan Sagge', 'Rodrigo Pinto']
   s.email       = 'evansagge@gmail.com contato@rodrigopinto.me'
