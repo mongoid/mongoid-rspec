@@ -25,10 +25,10 @@ require 'matchers/validations/acceptance_of'
 require 'matchers/validations/custom_validation_of'
 require 'matchers/be_mongoid_document'
 require 'matchers/be_dynamic_document'
-require 'matchers/be_timestamped_document'
 require 'matchers/be_stored_in'
 require 'matchers/have_field'
 require 'matchers/have_index_for'
+require 'matchers/have_timestamps'
 
 module Mongoid
   module Matchers

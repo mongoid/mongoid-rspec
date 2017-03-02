@@ -3,9 +3,6 @@ require 'spec_helper'
 RSpec.describe "Document" do
   describe User do
     it { is_expected.to have_fields(:email, :login) }
-    it { is_expected.to be_timestamped_document }
-    it { is_expected.to be_timestamped_document.with(:created) }
-    it { is_expected.not_to be_timestamped_document.with(:updated) }
   end
 
   describe Article do
