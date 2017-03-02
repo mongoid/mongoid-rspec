@@ -4,11 +4,12 @@ require 'mongoid'
 require 'rspec/core'
 require 'rspec/expectations'
 require 'rspec/mocks'
-require "active_model"
+require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/object/blank'
+
 require 'matchers/document'
 require 'matchers/associations'
 require 'matchers/collections'
-require 'matchers/indexes'
 require 'matchers/allow_mass_assignment'
 require 'matchers/accept_nested_attributes'
 require 'matchers/validations'
@@ -24,6 +25,7 @@ require 'matchers/validations/presence_of'
 require 'matchers/validations/uniqueness_of'
 require 'matchers/validations/acceptance_of'
 require 'matchers/validations/custom_validation_of'
+require 'matchers/have_index_for'
 
 module Mongoid
   module Matchers

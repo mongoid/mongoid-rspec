@@ -1,17 +1,46 @@
 require 'spec_helper'
 
-RSpec.describe "Indexes" do
-  describe Article do
-    it { is_expected.to have_index_for(published: 1) }
-    it { is_expected.to have_index_for(title: 1).with_options(unique: true, background: true, drop_dups: true) }
-    it { is_expected.to have_index_for('permalink._id' => 1) }
+RSpec.describe 'have_index_for' do
+  subject do
+    Class.new do
+      include Mongoid::Document
+
+      field :fizz, as: :buzz, type: String
+
+      index({ foo: 1 })
+      index({ bar: 1 }, { unique: true, background: true, drop_dups: true })
+      index({ foo: 1, bar: -1 })
+      index({ 'baz._id' => 1 })
+      index({ buzz: 1 })
+    end
   end
 
-  describe Profile do
-    it { is_expected.to have_index_for(first_name: 1, last_name: 1) }
+  it 'detects an index for singular field key' do
+    is_expected.to have_index_for(foo: 1)
   end
 
-  describe Log do
-    it { is_expected.to have_index_for(created_at: 1).with_options(bucket_size: 100, expire_after_seconds: 3600) }
+  it 'detects an index for multipple fields key' do
+    is_expected.to have_index_for(foo: 1, bar: -1)
+  end
+
+  it 'detects an index with options' do
+    is_expected
+      .to have_index_for(bar: 1)
+      .with_options(unique: true, background: true, drop_dups: true)
+  end
+
+  it 'detects an index with only part of options' do
+    is_expected
+      .to have_index_for(bar: 1)
+      .with_options(unique: true)
+  end
+
+  it 'detects an index for string key' do
+    is_expected.to have_index_for('baz._id' => 1)
+  end
+
+  it 'detect an index for aliased fields' do
+    is_expected.to have_index_for(fizz: 1)
+    is_expected.to have_index_for(buzz: 1)
   end
 end
