@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'have_index_for' do
+RSpec.describe Mongoid::Matchers::HaveIndexFor do
   subject do
     Class.new do
       include Mongoid::Document
