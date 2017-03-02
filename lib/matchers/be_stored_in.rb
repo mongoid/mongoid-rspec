@@ -1,9 +1,50 @@
-RSpec::Matchers.define :be_stored_in do |collection_name|
-  match do |doc|
-    doc.class.collection_name == collection_name
-  end
+module Mongoid
+  module Matchers
+    def be_stored_in(options)
+      BeStoredIn.new(options)
+    end
 
-  description do
-    "be stored in #{collection_name.to_s}"
+    class BeStoredIn
+      def initialize(expected)
+        @expected_options = \
+          expected
+            .transform_values { |v| v.to_sym rescue v }
+            .symbolize_keys
+      end
+
+      def matches?(actual)
+        @model = actual.is_a?(Class) ? actual : actual.class
+        actual_options == @expected_options
+      end
+
+      def description
+        "be stored in #{@expected_options.inspect}"
+      end
+
+      def failure_message
+        "Expected #{@model.inspect} to #{description}, got #{actual_options.inspect}"
+      end
+
+      def failure_message_when_negated
+        "Expected #{@model.inspect} not to #{description}, got #{actual_options.inspect}"
+      end
+
+      private
+
+      def actual_options
+        @actual_options ||= begin
+          hash = @model.storage_options.slice(*@expected_options.keys)
+          hash.each do |option, value|
+            hash[option] =
+              if value.is_a?(Proc)
+                evaluated_value = @model.persistence_context.send("#{option}_name")
+                evaluated_value.to_sym rescue evaluated_value
+              else
+                value.to_sym rescue value
+              end
+          end
+        end
+      end
+    end
   end
 end
