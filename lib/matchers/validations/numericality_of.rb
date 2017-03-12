@@ -23,7 +23,7 @@ module Mongoid
           return false unless result = super(actual)
 
           @@allowed_options.each do |comparator|
-            if @options.has_key?(comparator) and !([:even, :odd, :only_integer].include?(comparator) and !@validator.options.include?(comparator))
+            if @options.key?(comparator)
               result &= (@validator.options[comparator] == @options[comparator])
             end
           end
