@@ -2,8 +2,19 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateNumericalityOfMatcher < HaveValidationMatcher
-        @@allowed_options = [:equal_to, :greater_than, :greater_than_or_equal_to, :less_than, :less_than_or_equal_to,
-          :even, :odd, :only_integer, :allow_nil, :nil]
+        ALLOWED_OPTIONS =
+          %i(
+            allow_nil
+            equal_to
+            even
+            greater_than
+            greater_than_or_equal_to
+            less_than
+            less_than_or_equal_to
+            nil
+            odd
+            only_integer
+          )
 
         def initialize(field)
           super(field, :numericality)
@@ -14,7 +25,7 @@ module Mongoid
           options[:equal_to] = options if options.is_a?(Numeric)
           options[:allow_nil] = options.delete(:nil) if options.has_key?(:nil)
           raise ArgumentError, "validate_numericality_of#to_allow requires a Hash parameter containing any of the following keys: " <<
-            @@allowed_options.map(&:inspect).join(", ") if !options.is_a?(Hash) or options.empty? or (options.keys - @@allowed_options).any?
+            ALLOWED_OPTIONS.map(&:inspect).join(", ") if !options.is_a?(Hash) or options.empty? or (options.keys - ALLOWED_OPTIONS).any?
           @options.merge!(options)
           self
         end
@@ -22,7 +33,7 @@ module Mongoid
         def matches?(actual)
           return false unless result = super(actual)
 
-          @@allowed_options.each do |comparator|
+          ALLOWED_OPTIONS.each do |comparator|
             if @options.key?(comparator)
               result &= (@validator.options[comparator] == @options[comparator])
             end
@@ -57,7 +68,7 @@ module Mongoid
         end
 
         def method_missing(m, *args, &block)
-          if @@allowed_options.include?(m.to_sym)
+          if ALLOWED_OPTIONS.include?(m.to_sym)
             raise ArgumentError, "wrong number of arguments (#{args.length} for 1)" if args.length > 1
             send :to_allow, m.to_sym => args.first
           else
