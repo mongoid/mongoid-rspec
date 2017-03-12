@@ -24,8 +24,14 @@ module Mongoid
         def to_allow(options)
           options[:equal_to] = options if options.is_a?(Numeric)
           options[:allow_nil] = options.delete(:nil) if options.has_key?(:nil)
-          raise ArgumentError, "validate_numericality_of#to_allow requires a Hash parameter containing any of the following keys: " <<
-            ALLOWED_OPTIONS.map(&:inspect).join(", ") if !options.is_a?(Hash) or options.empty? or (options.keys - ALLOWED_OPTIONS).any?
+
+          if !options.is_a?(Hash) || options.empty? || (options.keys - ALLOWED_OPTIONS).any?
+            message =
+              "validate_numericality_of#to_allow requires a Hash parameter containing" \
+              "any of the following keys: #{ALLOWED_OPTIONS.map(&:inspect).join(", ")}"
+            raise ArgumentError, message
+          end
+
           @options.merge!(options)
           self
         end
@@ -33,11 +39,10 @@ module Mongoid
         def matches?(actual)
           return false unless result = super(actual)
 
-          ALLOWED_OPTIONS.each do |comparator|
-            if @options.key?(comparator)
-              result &= (@validator.options[comparator] == @options[comparator])
-            end
+          @options.each do |comparator, expected_value|
+            result &= (@validator.options[comparator] == expected_value)
           end
+
           @positive_result_message <<= options_message(@validator.options)
           @negative_result_message <<= options_message(@validator.options)
           result
