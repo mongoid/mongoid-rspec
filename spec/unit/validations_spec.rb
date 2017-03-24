@@ -24,6 +24,7 @@ RSpec.describe "Validations" do
     it { is_expected.to validate_confirmation_of(:password).with_message("Password confirmation must match given password") }
     it { is_expected.to validate_presence_of(:provider_uid).on(:create) }
     it { is_expected.to validate_inclusion_of(:locale).to_allow([:en, :ru]) }
+    it { is_expected.to validate_presence_of(:nick).if(:nick_required?) }
   end
 
   describe Profile do

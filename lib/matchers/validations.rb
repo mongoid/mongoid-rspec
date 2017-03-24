@@ -14,7 +14,7 @@ module Mongoid
           @klass = actual.is_a?(Class) ? actual : actual.class
 
           @validator = @klass.validators_on(@field).detect{ |v|
-            v.kind.to_s == @type and (!v.options[:on] or on_options_matches?(v))
+            v.kind.to_s == @type && ((!v.options[:on] || on_options_matches?(v)) && (!v.options[:if] || if_options_matches?(v)))
           }
 
           if @validator
@@ -43,7 +43,13 @@ module Mongoid
         def description
           desc = "have #{@type.inspect} validator on #{@field.inspect}"
           desc << " on #{@options[:on]}" if @options[:on]
+          desc << " if #{@options[:if]}" if @options[:if]
           desc
+        end
+
+        def if(*if_method)
+          @options[:if] = if_method.flatten
+          self
         end
 
         def on(*on_method)
@@ -68,8 +74,16 @@ module Mongoid
 
         private
 
+        def if_options_matches?(validator)
+          @options[:if] && validator.options[:if] && if_options_covered_by?(validator)
+        end
+
         def on_options_matches?(validator)
-          @options[:on] and validator.options[:on] and on_options_covered_by?(validator)
+          @options[:on] && validator.options[:on] && on_options_covered_by?(validator)
+        end
+
+        def if_options_covered_by?(validator)
+          ([@options[:if]].flatten - [validator.options[:if]].flatten).empty?
         end
 
         def on_options_covered_by?(validator)
