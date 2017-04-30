@@ -1,9 +1,7 @@
 module Mongoid
   module Matchers
     module Validations
-
       class HaveValidationMatcher
-
         def initialize(field, validation_type)
           @field = field.to_s
           @type = validation_type.to_s
@@ -26,6 +24,7 @@ module Mongoid
           end
           @result = true
           check_on if @options[:on]
+          check_expected_message if @expected_message
           @result
         end
 
@@ -43,6 +42,8 @@ module Mongoid
         def description
           desc = "have #{@type.inspect} validator on #{@field.inspect}"
           desc << " on #{@options[:on]}" if @options[:on]
+          desc << " with message #{@expected_message.inspect}" if @expected_message
+
           desc
         end
 
@@ -50,6 +51,13 @@ module Mongoid
           @options[:on] = on_method.flatten
           self
         end
+
+        def with_message(message)
+          @expected_message = message
+          self
+        end
+
+        private
 
         def check_on
           validator_on_methods = [@validator.options[:on]].flatten
@@ -66,14 +74,25 @@ module Mongoid
           end
         end
 
-        private
-
         def on_options_matches?(validator)
           @options[:on] and validator.options[:on] and on_options_covered_by?(validator)
         end
 
         def on_options_covered_by?(validator)
           ([@options[:on]].flatten - [validator.options[:on]].flatten).empty?
+        end
+
+        def check_expected_message
+          actual_message = @validator.options[:message]
+          if actual_message.nil?
+            @negative_result_message << " with no custom message"
+            @result = false
+          elsif actual_message == @expected_message
+            @positive_result_message << " with custom message '#{@expected_message}'"
+          else
+            @negative_result_message << " got message '#{actual_message}'"
+            @result = false
+          end
         end
       end
     end
