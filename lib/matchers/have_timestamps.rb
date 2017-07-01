@@ -7,6 +7,9 @@ module Mongoid
     class HaveTimestamps
       def initialize
         @root_module = 'Mongoid::Timestamps'
+        @phase = nil
+        @shortened = nil
+        @submodule = nil
       end
 
       def matches?(actual)

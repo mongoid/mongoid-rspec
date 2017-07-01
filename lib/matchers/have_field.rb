@@ -3,6 +3,10 @@ module Mongoid
     class HaveField # :nodoc:
       def initialize(*attrs)
         @attributes = attrs.collect(&:to_s)
+        @default = nil
+        @field_alias = nil
+        @localized = nil
+        @type = nil
       end
 
       def localized
