@@ -28,6 +28,7 @@ RSpec.describe "Validations" do
 
   describe Profile do
     it { is_expected.to validate_numericality_of(:age).greater_than(0) }
+    it { is_expected.not_to validate_numericality_of(:age).greater_than(0).only_integer(true) }
     it { is_expected.to validate_acceptance_of(:terms_of_service) }
     it { is_expected.to validate_length_of(:hobbies).with_minimum(1).with_message("requires at least one hobby") }
   end

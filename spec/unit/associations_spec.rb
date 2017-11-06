@@ -4,11 +4,11 @@ RSpec.describe "Associations" do
   describe User do
     it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
-    it { is_expected.to have_one(:record).with_autobuild }
+    it { is_expected.to have_one(:record).as_inverse_of(:user).with_autobuild }
 
     it { is_expected.to have_many(:comments).with_dependent(:destroy).with_autosave }
 
-    it { is_expected.to embed_one(:profile) }
+    it { is_expected.to embed_one(:profile).as_inverse_of(:user) }
 
     it { is_expected.to have_and_belong_to_many(:children).of_type(User) }
   end
@@ -19,8 +19,8 @@ RSpec.describe "Associations" do
 
   describe Article do
     it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
-    it { is_expected.to embed_many(:comments).with_cascading_callbacks }
-    it { is_expected.to embed_one(:permalink) }
+    it { is_expected.to embed_many(:comments).as_inverse_of(:article).with_cascading_callbacks }
+    it { is_expected.to embed_one(:permalink).as_inverse_of(:linkable) }
   end
 
   describe Comment do

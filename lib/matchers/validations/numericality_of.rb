@@ -2,8 +2,19 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateNumericalityOfMatcher < HaveValidationMatcher
-        @@allowed_options = [:equal_to, :greater_than, :greater_than_or_equal_to, :less_than, :less_than_or_equal_to,
-          :even, :odd, :only_integer, :allow_nil, :nil]
+        ALLOWED_OPTIONS =
+          %i(
+            allow_nil
+            equal_to
+            even
+            greater_than
+            greater_than_or_equal_to
+            less_than
+            less_than_or_equal_to
+            nil
+            odd
+            only_integer
+          )
 
         def initialize(field)
           super(field, :numericality)
@@ -13,8 +24,14 @@ module Mongoid
         def to_allow(options)
           options[:equal_to] = options if options.is_a?(Numeric)
           options[:allow_nil] = options.delete(:nil) if options.has_key?(:nil)
-          raise ArgumentError, "validate_numericality_of#to_allow requires a Hash parameter containing any of the following keys: " <<
-            @@allowed_options.map(&:inspect).join(", ") if !options.is_a?(Hash) or options.empty? or (options.keys - @@allowed_options).any?
+
+          if !options.is_a?(Hash) || options.empty? || (options.keys - ALLOWED_OPTIONS).any?
+            message =
+              "validate_numericality_of#to_allow requires a Hash parameter containing" \
+              "any of the following keys: #{ALLOWED_OPTIONS.map(&:inspect).join(", ")}"
+            raise ArgumentError, message
+          end
+
           @options.merge!(options)
           self
         end
@@ -22,11 +39,10 @@ module Mongoid
         def matches?(actual)
           return false unless result = super(actual)
 
-          @@allowed_options.each do |comparator|
-            if @options.has_key?(comparator) and !([:even, :odd, :only_integer].include?(comparator) and !@validator.options.include?(comparator))
-              result &= (@validator.options[comparator] == @options[comparator])
-            end
+          @options.each do |comparator, expected_value|
+            result &= (@validator.options[comparator] == expected_value)
           end
+
           @positive_result_message <<= options_message(@validator.options)
           @negative_result_message <<= options_message(@validator.options)
           result
@@ -57,7 +73,7 @@ module Mongoid
         end
 
         def method_missing(m, *args, &block)
-          if @@allowed_options.include?(m.to_sym)
+          if ALLOWED_OPTIONS.include?(m.to_sym)
             raise ArgumentError, "wrong number of arguments (#{args.length} for 1)" if args.length > 1
             send :to_allow, m.to_sym => args.first
           else

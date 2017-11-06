@@ -27,7 +27,6 @@ module Mongoid
         end
 
         def as_inverse_of(association_inverse_name)
-          raise "#{@association[:type].inspect} does not respond to :inverse_of" unless [HAS_MANY, HAS_AND_BELONGS_TO_MANY, BELONGS_TO, EMBEDDED_IN].include?(@association[:type])
           @association[:inverse_of] = association_inverse_name.to_s
           @expectation_message << " which is an inverse of #{@association[:inverse_of].inspect}"
           self
@@ -38,8 +37,7 @@ module Mongoid
           @association[:order] = association_field_name.to_s
           @expectation_message << " ordered by #{@association[:order].inspect}"
 
-
-          if association_field_name.is_a? Mongoid.origin_key_class
+          if association_field_name.is_a? Mongoid::Criteria::Queryable::Key
             @association[:order_operator] = association_field_name.operator
             @expectation_message << " #{order_way(@association[:order_operator])}"
           end

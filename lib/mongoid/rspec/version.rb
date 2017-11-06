@@ -1,5 +1,5 @@
 module Mongoid
-  module Rspec
-    VERSION = '3.0.0'
+  module RSpec
+    VERSION = '4.0.0-alpha1'
   end
 end

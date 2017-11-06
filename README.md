@@ -8,45 +8,222 @@ mongoid-rspec provides a collection of RSpec-compatible matchers that help to te
 
 ## Installation
 
-### With Mongoid 5.x
-
-Use mongoid-rspec [3.0.0][mongoid5]
-
-    gem 'mongoid-rspec', '3.0.0'
-
-### With Mongoid 4.x
-
-Use mongoid-rspec [2.1.0][mongoid4]
-
-    gem 'mongoid-rspec', '~> 2.1.0'
-
-### With Mongoid 3.x
-
-Use mongoid-rspec [1.13.0][mongoid3].
-
-    gem 'mongoid-rspec', '~> 1.13.0'
-
-### With Mongoid 2.x
-
-Use mongoid-rspec [1.4.5][mongoid2]
-
-    gem 'mongoid-rspec', '1.4.5'
-
-### Configuring
-
-Drop in existing or dedicated support file in spec/support.
-i.e: `spec/support/mongoid.rb`
+Drop this line into your Gemfile:
 
 ```ruby
+group :test do
+  gem 'mongoid-rspec'
+end
+
+```
+
+### Compatibility
+
+There's no stable version, that provides support for Mongoid 6. But for a time being you can use HEAD version:
+
+```ruby
+gem 'mongoid-rspec', github: 'mongoid-rspec/mongoid-rspec'
+```
+
+If you're using old version of mongoid, then you have to specify particular vesrion of mongoid-rspec. Use compatibility matrix to find out, which version suits your case.
+
+
+| mongoid version | mongoid-rspec version   |
+|-----------------|-------------------------|
+| 5.x             | [3.0.0][mongoid5]       |
+| 4.x             | [2.1.0][mongoid4]       |
+| 3.x             | [1.13.0][mongoid3]      |
+| 2.x             | [1.4.5][mongoid2]       |
+
+## Configuration
+
+### Rails
+
+Add to your `rails_helper.rb` file
+
+```ruby
+require 'mongoid-rspec'
+
 RSpec.configure do |config|
   config.include Mongoid::Matchers, type: :model
 end
 ```
 
-If you aren't using rails then you don't have to specify the type.
-If you want to know why visit [the rspec documentation](https://relishapp.com/rspec/rspec-rails/docs/directory-structure).
+### Other
+
+Add to your `spec_helper.rb` file
+
+```ruby
+require 'mongoid-rspec'
+
+RSpec.configure do |config|
+  config.include Mongoid::Matchers
+end
+```
 
 ## Matchers
+
+### be_mongoid_document
+
+```ruby
+class Post
+  include Mongoid::Document
+end
+
+RSpec.describe Post, type: :model do
+  it { is_expected.to be_mongoid_document }
+end
+```
+
+### be_dynamic_document
+
+```ruby
+class User
+  include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
+end
+
+RSpec.describe User, type: :model do
+  it { is_expected.to be_dynamic_document }
+end
+```
+
+### have_timestamps
+
+With full timestamps
+
+```ruby
+class Log
+  include Mongoid::Document
+  include Mongoid::Timestamps
+end
+
+RSpec.describe Log, type: :model do
+  it { is_expected.to have_timestamps }
+end
+```
+
+With short timestamps
+```ruby
+class User
+  include Mongoid::Document
+  include Mongoid::Timestamps::Short
+end
+
+RSpec.describe User, type: :model do
+  it { is_expected.to have_timestamps.shortened }
+end
+```
+
+With only creating or updating timestamps
+```ruby
+class Admin
+  include Mongoid::Document
+  include Mongoid::Timestamps::Create
+  include Mongoid::Timestamps::Update
+end
+
+RSpec.describe Admin, type: :model do
+  it { is_expected.to have_timestamps.for(:creating) }
+  it { is_expected.to have_timestamps.for(:updating) }
+end
+```
+
+With short creating or updating timestamps
+```ruby
+class Post
+  include Mongoid::Document
+  include Mongoid::Timestamps::Create::Short
+end
+
+RSpec.describe Short, type: :model do
+  it { is_expected.to have_timestamps.for(:creating).shortened }
+end
+```
+
+### be_stored_in
+
+```ruby
+class Post
+  include Mongoid::Document
+
+  store_in database: 'db1', collection: 'messages', client: 'secondary'
+end
+
+RSpec.describe Post, type: :model do
+  it { is_expected.to be_stored_in(database: 'db1', collection: 'messages', client: 'secondary') }
+end
+```
+
+It checks only those options, that you specify. For instance, test in example below will pass, even though expectation contains only `database` option
+
+```ruby
+class Comment
+  include Mongoid::Document
+
+  store_in database: 'db2', collection: 'messages'
+end
+
+RSpec.describe Comment, type: :model do
+  it { is_expected.to be_stored_in(database: 'db2') }
+end
+```
+
+It works fine with lambdas and procs.
+```ruby
+class User
+  include Mongoid::Document
+
+  store_in database: ->{ Thread.current[:database] }
+end
+
+RSpec.describe Post, type: :model do
+  it do
+    Thread.current[:database] = 'db3'
+    is_expected.to be_stored_in(database: 'db3')
+
+    Thread.current[:database] = 'db4'
+    is_expected.to be_stored_in(database: 'db4')
+  end
+end
+```
+
+### have_index_for
+
+```ruby
+class Article
+  index({ title: 1 }, { unique: true, background: true, drop_dups: true })
+  index({ title: 1, created_at: -1 })
+  index({ category: 1 })
+end
+
+RSpec.describe Article, type: :model do
+  it do
+    is_expected
+      .to have_index_for(title: 1)
+      .with_options(unique: true, background: true, drop_dups: true)
+  end
+  it { is_expected.to have_index_for(title: 1, created_at: -1) }
+  it { is_expected.to have_index_for(category: 1) }
+end
+```
+
+### Field Matchers
+
+```ruby
+RSpec.describe Article do
+  it { is_expected.to have_field(:published).of_type(Boolean).with_default_value_of(false) }
+  it { is_expected.to have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
+  it { is_expected.not_to have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
+  it { is_expected.not_to have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
+end
+
+RSpec.describe User do
+  it { is_expected.to have_fields(:email, :login) }
+  it { is_expected.to have_field(:s).with_alias(:status) }
+  it { is_expected.to have_fields(:birthdate, :registered_at).of_type(DateTime) }
+end
+```
 
 ### Association Matchers
 
@@ -95,21 +272,6 @@ RSpec.describe Site do
 end
 ```
 
-### Mass Assignment Matcher
-
-```ruby
-RSpec.describe User do
-  it { is_expected.to allow_mass_assignment_of(:login) }
-  it { is_expected.to allow_mass_assignment_of(:email) }
-  it { is_expected.to allow_mass_assignment_of(:age) }
-  it { is_expected.to allow_mass_assignment_of(:password) }
-  it { is_expected.to allow_mass_assignment_of(:password) }
-  it { is_expected.to allow_mass_assignment_of(:role).as(:admin) }
-
-  it { is_expected.not_to allow_mass_assignment_of(:role) }
-end
-```
-
 ### Validation Matchers
 
 ```ruby
@@ -155,6 +317,21 @@ RSpec.describe Person do
 end
 ```
 
+### Mass Assignment Matcher
+
+```ruby
+RSpec.describe User do
+  it { is_expected.to allow_mass_assignment_of(:login) }
+  it { is_expected.to allow_mass_assignment_of(:email) }
+  it { is_expected.to allow_mass_assignment_of(:age) }
+  it { is_expected.to allow_mass_assignment_of(:password) }
+  it { is_expected.to allow_mass_assignment_of(:password) }
+  it { is_expected.to allow_mass_assignment_of(:role).as(:admin) }
+
+  it { is_expected.not_to allow_mass_assignment_of(:role) }
+end
+```
+
 ### Accepts Nested Attributes Matcher
 
 ```ruby
@@ -165,55 +342,6 @@ end
 
 RSpec.describe Article do
   it { is_expected.to accept_nested_attributes_for(:permalink) }
-end
-```
-
-### Index Matcher
-
-```ruby
-RSpec.describe Article do
-  it { is_expected.to have_index_for(published: 1) }
-  it { is_expected.to have_index_for(title: 1).with_options(unique: true, background: true) }
-end
-
-RSpec.describe Profile do
-  it { is_expected.to have_index_for(first_name: 1, last_name: 1) }
-end
-
-Rspec.describe Log do
-  it { is_expected.to have_index_for(created_at: 1).with_options(bucket_size: 100, expire_after_seconds: 3600) }
-end
-```
-
-### Others
-
-```ruby
-RSpec.describe User do
-  it { is_expected.to have_fields(:email, :login) }
-  it { is_expected.to have_field(:s).with_alias(:status) }
-  it { is_expected.to have_fields(:birthdate, :registered_at).of_type(DateTime) }
-
-  # if you're declaring 'include Mongoid::Timestamps'
-  # or any of 'include Mongoid::Timestamps::Created' and 'Mongoid::Timestamps::Updated'
-  it { is_expected.to be_timestamped_document }
-  it { is_expected.to be_timestamped_document.with(:created) }
-  it { is_expected.not_to be_timestamped_document.with(:updated) }
-
-  it { is_expected.to be_versioned_document } # if you're declaring `include Mongoid::Versioning`
-  it { is_expected.to be_paranoid_document } # if you're declaring `include Mongoid::Paranoia`
-  it { is_expected.to be_multiparameted_document } # if you're declaring `include Mongoid::MultiParameterAttributes`
-end
-
-RSpec.describe Log do
-  it { is_expected.to be_stored_in :logs }
-  it { is_expected.to be_dynamic_document }
-end
-
-RSpec.describe Article do
-  it { is_expected.to have_field(:published).of_type(Boolean).with_default_value_of(false) }
-  it { is_expected.to have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
-  it { is_expected.not_to have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
-  it { is_expected.not_to have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
 end
 ```
 
