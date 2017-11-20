@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 MODELS = File.join(File.dirname(__FILE__), "models")
 $LOAD_PATH.unshift(MODELS)
@@ -13,6 +13,8 @@ require 'mongoid'
 require 'rspec'
 require 'rspec/core'
 require 'rspec/expectations'
+require 'mongoid/compatibility'
+
 
 Mongoid::Config.connect_to('mongoid-rspec-test')
 Mongo::Logger.logger.level = ::Logger::INFO

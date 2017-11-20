@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rspec',   '~> 3.3'
   s.add_dependency 'activesupport', '>= 4.0.0'
   s.add_development_dependency 'rake', '~> 10.0'
+  s.add_dependency 'mongoid-compatibility'
 
   s.files        = Dir.glob('lib/**/*') + %w(LICENSE README.md Rakefile)
   s.test_files   = Dir.glob('spec/**/*')
