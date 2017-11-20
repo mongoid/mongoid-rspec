@@ -1,4 +1,4 @@
- $LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 MODELS = File.join(File.dirname(__FILE__), "models")
 $LOAD_PATH.unshift(MODELS)
