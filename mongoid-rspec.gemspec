@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'mongoid-rspec'
 
-  s.add_dependency 'mongoid', '~> 6.0'
+  s.add_dependency 'mongoid', '>= 5.0'
   s.add_dependency 'rspec',   '~> 3.3'
   s.add_dependency 'activesupport', '>= 4.0.0'
   s.add_development_dependency 'rake', '~> 10.0'

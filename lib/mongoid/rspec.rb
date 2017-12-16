@@ -39,13 +39,13 @@ module Mongoid
   end
 end
 
-module Mongoid
-  def self.mongoid6?
-    mongoid_version = Gem::Version.new(Mongoid::VERSION)
-    mongoid_version >= Gem::Version.new('6') && mongoid_version < Gem::Version.new('7')
-  end
+# module Mongoid
+#   def self.mongoid6?
+#     mongoid_version = Gem::Version.new(Mongoid::VERSION)
+#     mongoid_version >= Gem::Version.new('6') && mongoid_version < Gem::Version.new('7')
+#   end
 
-  def self.origin_key_class
-    mongoid6? ? Mongoid::Criteria::Queryable::Key : Origin::Key
-  end   
-end
+#   def self.origin_key_class
+#     mongoid6? ? Mongoid::Criteria::Queryable::Key : Origin::Key
+#   end   
+# end

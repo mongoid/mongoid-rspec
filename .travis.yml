@@ -16,4 +16,6 @@ before_install:
   - gem update --system
   - gem update bundler
 gemfile:
-  - Gemfile
+  # - Gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/6.0.gemfile
