@@ -8,6 +8,26 @@ rvm:
   - jruby-9.1.7.0
   - jruby-head
 matrix:
+  include:
+    - rvm: 2.3.1
+      script:
+        - bundle exec danger
+    - rvm: 2.4.0
+      env:
+        - MONGOID_VERSION=6
+    - rvm: 2.3.1
+      env:
+        - MONGOID_VERSION=6
+    - rvm: 2.3.1
+      env:
+        - MONGOID_VERSION=5
+    - rvm: 2.3.1
+      env:
+        - MONGOID_VERSION=4
+    - rvm: 2.3.1
+      env:
+        - MONGOID_VERSION=3
+    - rvm: 2.3.0
   allow_failures:
     - rvm: 2.4.0
     - rvm: ruby-head
@@ -16,6 +36,4 @@ before_install:
   - gem update --system
   - gem update bundler
 gemfile:
-  # - Gemfile
-  - gemfiles/5.0.gemfile
-  - gemfiles/6.0.gemfile
+  - Gemfile

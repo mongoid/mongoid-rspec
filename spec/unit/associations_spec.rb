@@ -2,7 +2,9 @@ require 'spec_helper'
 
 RSpec.describe "Associations" do
   describe User do
-    it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
+    if Mongoid::Compatibility::Version.mongoid6_or_newer?
+      it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
+    end  
 
     it { is_expected.to have_one(:record).as_inverse_of(:user).with_autobuild }
 
@@ -37,6 +39,8 @@ RSpec.describe "Associations" do
   end
 
   describe Site do
-    it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc).with_counter_cache }
+    if Mongoid::Compatibility::Version.mongoid6_or_newer?
+      it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc).with_counter_cache }
+    end
   end
 end

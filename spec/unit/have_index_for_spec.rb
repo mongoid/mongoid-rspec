@@ -1,6 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe Mongoid::Matchers::HaveIndexFor do
+if Mongoid::Compatibility::Version.mongoid4_or_newer?
+  index_module = Mongoid::Matchers::HaveIndexFor
+else
+  index_module = Mongoid::Matchers::HaveIndexForMongoid3
+end  
+RSpec.describe index_module do
   subject do
     Class.new do
       include Mongoid::Document
@@ -41,6 +46,6 @@ RSpec.describe Mongoid::Matchers::HaveIndexFor do
 
   it 'detect an index for aliased fields' do
     is_expected.to have_index_for(fizz: 1)
-    is_expected.to have_index_for(buzz: 1)
+    is_expected.to have_index_for(buzz: 1) if Mongoid::Compatibility::Version.mongoid4_or_newer?
   end
 end

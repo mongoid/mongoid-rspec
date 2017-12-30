@@ -1,7 +1,7 @@
 class Log
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Attributes::Dynamic
+  include Mongoid::Attributes::Dynamic if Mongoid::Compatibility::Version.mongoid4_or_newer?
 
   store_in collection: "logs"
 

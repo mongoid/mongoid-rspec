@@ -5,7 +5,7 @@ require 'rspec/core'
 require 'rspec/expectations'
 require 'rspec/mocks'
 require 'active_support/core_ext/hash/keys'
-require 'active_support/core_ext/hash/transform_values'
+require 'active_support/core_ext/hash/transform_values' if Mongoid::Compatibility::Version.mongoid4_or_newer?
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/string/inflections'
 
@@ -29,7 +29,11 @@ require 'matchers/be_mongoid_document'
 require 'matchers/be_dynamic_document'
 require 'matchers/be_stored_in'
 require 'matchers/have_field'
-require 'matchers/have_index_for'
+if Mongoid::Compatibility::Version.mongoid4_or_newer?
+  require 'matchers/have_index_for'
+else
+  require 'matchers/indexes'
+end  
 require 'matchers/have_timestamps'
 
 module Mongoid
