@@ -29,10 +29,11 @@ require 'matchers/be_mongoid_document'
 require 'matchers/be_dynamic_document'
 require 'matchers/be_stored_in'
 require 'matchers/have_field'
+require 'matchers/indexes/have_index_for'
 if Mongoid::Compatibility::Version.mongoid4_or_newer?
-  require 'matchers/have_index_for'
+  require 'matchers/indexes/v4/have_index_for'
 else
-  require 'matchers/indexes'
+  require 'matchers/indexes/v3/have_index_for'
 end  
 require 'matchers/have_timestamps'
 
@@ -42,14 +43,3 @@ module Mongoid
     include Mongoid::Matchers::Validations
   end
 end
-
-# module Mongoid
-#   def self.mongoid6?
-#     mongoid_version = Gem::Version.new(Mongoid::VERSION)
-#     mongoid_version >= Gem::Version.new('6') && mongoid_version < Gem::Version.new('7')
-#   end
-
-#   def self.origin_key_class
-#     mongoid6? ? Mongoid::Criteria::Queryable::Key : Origin::Key
-#   end   
-# end

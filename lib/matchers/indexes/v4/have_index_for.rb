@@ -1,19 +1,12 @@
 module Mongoid
   module Matchers
+    
     def have_index_for(index_key)
       HaveIndexFor.new(index_key)
     end
 
-    class HaveIndexFor
-      def initialize(index_key)
-        @index_key = index_key.symbolize_keys
-      end
-
-      def with_options(index_options)
-        @index_options = index_options
-        self
-      end
-
+    class HaveIndexFor < Mongoid::Matchers::Base::HaveIndexFor
+      
       def matches?(actual)
         @model = actual.is_a?(Class) ? actual : actual.class
 

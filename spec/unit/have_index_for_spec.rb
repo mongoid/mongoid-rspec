@@ -1,11 +1,6 @@
 require 'spec_helper'
 
-if Mongoid::Compatibility::Version.mongoid4_or_newer?
-  index_module = Mongoid::Matchers::HaveIndexFor
-else
-  index_module = Mongoid::Matchers::HaveIndexForMongoid3
-end  
-RSpec.describe index_module do
+RSpec.describe Mongoid::Matchers::HaveIndexFor do
   subject do
     Class.new do
       include Mongoid::Document
