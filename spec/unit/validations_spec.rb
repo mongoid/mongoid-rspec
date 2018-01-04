@@ -51,4 +51,10 @@ RSpec.describe "Validations" do
     it { is_expected.to custom_validate(:ssn).with_validator(SsnValidator) }
     it { is_expected.not_to custom_validate(:name) }
   end
+
+  describe Message do
+    it { is_expected.to validate_uniqueness_of(:identifier).with_message('uniqueness') }
+    it { is_expected.to validate_presence_of(:from).with_message('required') }
+    it { is_expected.to validate_format_of(:to).with_message('format') }
+  end
 end

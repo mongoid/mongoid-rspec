@@ -2,8 +2,6 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateLengthOfMatcher < HaveValidationMatcher
-        include WithMessage
-
         def initialize(name)
           super(name, :length)
         end
@@ -32,11 +30,6 @@ module Mongoid
         end
         alias :is :as_exactly
 
-        def with_message(message)
-          @expected_message = message
-          self
-        end
-
         def matches?(actual)
           return false unless @result = super(actual)
 
@@ -44,7 +37,6 @@ module Mongoid
           check_minimum if @minimum
           check_range if @within
           check_exact if @is
-          check_expected_message if @expected_message
 
           @result
         end
@@ -55,7 +47,6 @@ module Mongoid
           options_desc << "with maximum of #{@maximum}" if @maximum
           options_desc << "within the range of #{@within}" if @within
           options_desc << "as exactly #{@is}" if @is
-          options_desc << "with message '#{@expected_message}'" if @expected_message
           super << " #{options_desc.to_sentence}"
         end
 
@@ -109,19 +100,6 @@ module Mongoid
             @positive_result_message << " as exactly #{@is}"
           else
             @negative_result_message << " as exactly #{actual_is}"
-            @result = false
-          end
-        end
-
-        def check_expected_message
-          actual_message = @validator.options[:message]
-          if actual_message.nil?
-            @negative_result_message << " with no custom message"
-            @result = false
-          elsif actual_message == @expected_message
-            @positive_result_message << " with custom message '#{@expected_message}'"
-          else
-            @negative_result_message << " got message '#{actual_message}'"
             @result = false
           end
         end

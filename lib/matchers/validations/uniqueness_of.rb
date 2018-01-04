@@ -2,7 +2,6 @@ module Mongoid
   module Matchers
     module Validations
       class ValidateUniquenessOfMatcher < HaveValidationMatcher
-        include WithMessage
         def initialize(field)
           super(field, :uniqueness)
         end
@@ -29,7 +28,6 @@ module Mongoid
           check_scope if @scope
           check_allow_blank if @allow_blank
           check_case_sensitivity if @case_insensitive
-          check_expected_message if @expected_message
 
           @result
         end
@@ -39,7 +37,6 @@ module Mongoid
           options_desc << " scoped to #{@scope.inspect}" if @scope
           options_desc << " allowing blank values" if @allow_blank
           options_desc << " allowing case insensitive values" if @case_insensitive
-          options_desc << " with message '#{@expected_message}'" if @expected_message
           super << options_desc.to_sentence
         end
 
