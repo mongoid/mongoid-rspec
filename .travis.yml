@@ -2,9 +2,6 @@ services: mongodb
 language: ruby
 matrix:
   include:
-    - rvm: 2.3.1
-      script:
-        - bundle exec danger
     - rvm: 2.4.0
       env:
         - MONGOID_VERSION=6

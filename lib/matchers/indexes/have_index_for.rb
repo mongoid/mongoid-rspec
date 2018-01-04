@@ -1,18 +1,17 @@
 module Mongoid
   module Matchers
-    module Base
-      class HaveIndexFor
+    class HaveIndexForBase
 
-        def initialize(index_key)
-          @index_key = index_key.symbolize_keys
-        end
+      attr_reader :index_key, :index_options, :model
 
-        def with_options(index_options = {})
-          @index_options = index_options
-          self
-        end
+      def initialize(index_key)
+        @index_key = index_key.symbolize_keys
+      end
 
-      end 
-    end   
+      def with_options(index_options = {})
+        @index_options = index_options
+        self
+      end
+    end 
   end
 end    
