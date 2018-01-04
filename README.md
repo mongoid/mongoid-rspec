@@ -301,6 +301,10 @@ RSpec.describe Article do
   it { is_expected.to validate_length_of(:title).within(8..16) }
 end
 
+RSpec.describe Visitor do
+  it { is_expected.to validate_length_of(:name).with_maximum(160).with_minimum(1) }
+end
+
 RSpec.describe Profile do
   it { is_expected.to validate_numericality_of(:age).greater_than(0) }
 end
