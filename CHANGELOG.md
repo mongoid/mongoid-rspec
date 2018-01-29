@@ -1,9 +1,8 @@
-### 4.0.0 (Next)
+### 4.0.0 (1/29/2018)
 
 * [#197](https://github.com/mongoid/mongoid-rspec/pull/197): Mongoid 6 support - [@saumyamehta17](https://github.com/saumyamehta17), [@zeitnot](https://github.com/zeitnot).
 * [#205](https://github.com/mongoid/mongoid-rspec/pull/205): Added Danger, PR linter - [@dblock](https://github.com/dblock).
 * [#205](https://github.com/mongoid/mongoid-rspec/pull/205): Added RuboCop, ruby-style linter - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 3.0.0 (9/16/2015)
 
