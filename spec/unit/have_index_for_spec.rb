@@ -7,11 +7,11 @@ RSpec.describe Mongoid::Matchers::HaveIndexFor do
 
       field :fizz, as: :buzz, type: String
 
-      index({ foo: 1 })
-      index({ bar: 1 }, { unique: true, background: true, drop_dups: true })
-      index({ foo: 1, bar: -1 })
-      index({ 'baz._id' => 1 })
-      index({ buzz: 1 })
+      index(foo: 1)
+      index({ bar: 1 }, unique: true, background: true, drop_dups: true)
+      index(foo: 1, bar: -1)
+      index('baz._id' => 1)
+      index(buzz: 1)
     end
   end
 

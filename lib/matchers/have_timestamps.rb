@@ -15,13 +15,13 @@ module Mongoid
       end
 
       def for(phase)
-        fail('You\'ve already declared timetamp\'s sub-module via "for" clause') if @submodule
+        raise('You\'ve already declared timetamp\'s sub-module via "for" clause') if @submodule
 
         case @phase = phase.to_sym
-          when :creating then @submodule = 'Created'
-          when :updating then @submodule = 'Updated'
+        when :creating then @submodule = 'Created'
+        when :updating then @submodule = 'Updated'
         else
-          fail('Timestamps can be declared only for creating or updating')
+          raise('Timestamps can be declared only for creating or updating')
         end
 
         self
@@ -33,10 +33,10 @@ module Mongoid
       end
 
       def description
-        desc = "be a Mongoid document with"
-        desc << " shorted" if @shortened
+        desc = 'be a Mongoid document with'
+        desc << ' shorted' if @shortened
         desc << " #{@phase}" if @phase
-        desc << " timestamps"
+        desc << ' timestamps'
         desc
       end
 
@@ -53,7 +53,7 @@ module Mongoid
       def expected_module
         expected_module = @root_module
         expected_module << "::#{@submodule}" if @submodule
-        expected_module << "::Short" if @shortened
+        expected_module << '::Short' if @shortened
         expected_module.constantize
       end
     end

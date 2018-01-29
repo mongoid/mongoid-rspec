@@ -16,14 +16,14 @@ class Article
   validates :title, presence: true
 
   validates_inclusion_of :status, in: [:pending], on: :create
-  validates_inclusion_of :status, in: [:approved, :rejected ], on: :update
+  validates_inclusion_of :status, in: %i[approved rejected], on: :update
 
   validates_length_of :title, within: 8..16
   validates_length_of :content, minimum: 200
 
-  index({ title: 1 }, { unique: true, background: true, drop_dups: true })
-  index({ published: 1 })
-  index({ 'permalink._id' => 1 })
+  index({ title: 1 }, unique: true, background: true, drop_dups: true)
+  index(published: 1)
+  index('permalink._id' => 1)
 
   accepts_nested_attributes_for :permalink
 end

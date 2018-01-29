@@ -14,12 +14,13 @@ when /^4/
 when /^3/
   gem 'mongoid', '~> 3.1'
 when /^2/
-  gem 'mongoid', '~> 2.0'
   gem 'bson_ext', platforms: :ruby
+  gem 'mongoid', '~> 2.0'
 else
   gem 'mongoid', version
 end
 
 group :test do
   gem 'mongoid-danger', '~> 0.1.1', require: false
+  gem 'rubocop', '0.52.1'
 end

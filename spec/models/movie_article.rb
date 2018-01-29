@@ -1,5 +1,4 @@
 class MovieArticle < Article
-
   field :rating, type: Float
   field :classification, type: Integer
 

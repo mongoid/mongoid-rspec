@@ -1,6 +1,5 @@
 module Mongoid
   module Matchers # :nodoc:
-
     # Ensures that the model can accept nested attributes for the specified
     # association.
     #
@@ -12,7 +11,6 @@ module Mongoid
     end
 
     class AcceptNestedAttributesForMatcher
-
       def initialize(attribute)
         @attribute = attribute.to_s
         @options = {}
@@ -31,37 +29,38 @@ module Mongoid
         "Did not expect #{expectation}"
       end
 
-      alias :failure_message_when_negated :negative_failure_message
+      alias failure_message_when_negated negative_failure_message
 
       def description
         description = "accepts_nested_attributes_for :#{@attribute}"
       end
 
       protected
-        def match?
-          exists?
-        end
 
-        def exists?
-          if config
-            true
-          else
-            @problem = 'is not declared'
-            false
-          end
-        end
+      def match?
+        exists?
+      end
 
-        def config
-          model_class.nested_attributes["#{@attribute}_attributes"]
+      def exists?
+        if config
+          true
+        else
+          @problem = 'is not declared'
+          false
         end
+      end
 
-        def model_class
-          @subject.class
-        end
+      def config
+        model_class.nested_attributes["#{@attribute}_attributes"]
+      end
 
-        def expectation
-          "#{model_class.name} to accept nested attributes for #{@attribute}"
-        end
+      def model_class
+        @subject.class
+      end
+
+      def expectation
+        "#{model_class.name} to accept nested attributes for #{@attribute}"
+      end
     end
   end
 end

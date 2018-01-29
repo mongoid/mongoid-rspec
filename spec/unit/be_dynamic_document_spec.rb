@@ -9,7 +9,6 @@ RSpec.describe Mongoid::Matchers::BeDynamicDocument do
     it { is_expected.not_to be_mongoid_document }
   end
 
-
   context 'when model doesn\'t include Mongoid::Document' do
     subject do
       Class.new do

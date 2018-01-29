@@ -3,7 +3,7 @@ module Mongoid
   module Matchers
     class AllowMassAssignmentOfMatcher # :nodoc:
       attr_reader :failure_message, :negative_failure_message
-      alias :failure_message_when_negated :negative_failure_message
+      alias failure_message_when_negated negative_failure_message
 
       def initialize(attribute)
         @attribute = attribute.to_s
@@ -12,7 +12,7 @@ module Mongoid
 
       def as(role)
         if active_model_less_than_3_1?
-          raise "You can specify role only in Rails 3.1 or greater"
+          raise 'You can specify role only in Rails 3.1 or greater'
         end
         @options[:role] = role
         self
@@ -25,20 +25,20 @@ module Mongoid
             @negative_failure_message = "#{@attribute} was made accessible"
           else
             if protected_attributes.empty?
-              @negative_failure_message = "no attributes were protected"
+              @negative_failure_message = 'no attributes were protected'
             else
-              @negative_failure_message = "#{class_name} is protecting " <<
-                "#{protected_attributes.to_a.to_sentence}, " <<
-                "but not #{@attribute}."
+              @negative_failure_message = "#{class_name} is protecting " \
+                                          "#{protected_attributes.to_a.to_sentence}, " \
+                                          "but not #{@attribute}."
             end
           end
           true
         else
-          if whitelisting?
-            @failure_message = "Expected #{@attribute} to be accessible"
-          else
-            @failure_message = "Did not expect #{@attribute} to be protected"
-          end
+          @failure_message = if whitelisting?
+                               "Expected #{@attribute} to be accessible"
+                             else
+                               "Did not expect #{@attribute} to be protected"
+                             end
           false
         end
       end
@@ -62,7 +62,7 @@ module Mongoid
       end
 
       def whitelisting?
-        authorizer.kind_of?(::ActiveModel::MassAssignmentSecurity::WhiteList)
+        authorizer.is_a?(::ActiveModel::MassAssignmentSecurity::WhiteList)
       end
 
       def attr_mass_assignable?

@@ -18,13 +18,13 @@ module Mongoid
             raw_validator_allowed_values = @validator.options[:in]
 
             validator_allowed_values = case raw_validator_allowed_values
-            when Range then raw_validator_allowed_values.to_a
-            when Proc then raw_validator_allowed_values.call(actual)
-            else raw_validator_allowed_values end
+                                       when Range then raw_validator_allowed_values.to_a
+                                       when Proc then raw_validator_allowed_values.call(actual)
+                                       else raw_validator_allowed_values end
 
             not_allowed_values = @allowed_values - validator_allowed_values
             if not_allowed_values.empty?
-              @positive_result_message = @positive_result_message << " allowing all values mentioned"
+              @positive_result_message = @positive_result_message << ' allowing all values mentioned'
             else
               @negative_result_message = @negative_result_message << " not allowing these values: #{not_allowed_values.inspect}"
               result = false
