@@ -1,10 +1,9 @@
-# [mongoid-rspec]
+# [mongoid-rspec](https://github.com/mongoid/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents.")
 
-[![Build Status][travis_badge]][travis]
-[![Gem Version][rubygems_badge]][rubygems]
-[![Code Climate][codeclimate_badge]][codeclimate]
+[![Build Status](https://travis-ci.org/mongoid/mongoid-rspec.svg?branch=master)](https://travis-ci.org/mongoid/mongoid-rspec)
+[![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec)
 
-mongoid-rspec provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
+The mongoid-rspec library provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
 
 ## Installation
 
@@ -17,23 +16,9 @@ end
 
 ```
 
-### Compatibility
+## Compatibility
 
-There's no stable version, that provides support for Mongoid 6. But for a time being you can use HEAD version:
-
-```ruby
-gem 'mongoid-rspec', github: 'mongoid-rspec/mongoid-rspec'
-```
-
-If you're using old version of mongoid, then you have to specify particular vesrion of mongoid-rspec. Use compatibility matrix to find out, which version suits your case.
-
-
-| mongoid version | mongoid-rspec version   |
-|-----------------|-------------------------|
-| 5.x             | [3.0.0][mongoid5]       |
-| 4.x             | [2.1.0][mongoid4]       |
-| 3.x             | [1.13.0][mongoid3]      |
-| 2.x             | [1.4.5][mongoid2]       |
+This gem is compatible with Mongoid 3, 4, 5 and 6.
 
 ## Configuration
 
@@ -51,7 +36,7 @@ end
 
 ### Other
 
-Add to your `spec_helper.rb` file
+Add to your `spec_helper.rb` file.
 
 ```ruby
 require 'mongoid-rspec'
@@ -90,7 +75,7 @@ end
 
 ### have_timestamps
 
-With full timestamps
+With full timestamps.
 
 ```ruby
 class Log
@@ -103,7 +88,8 @@ RSpec.describe Log, type: :model do
 end
 ```
 
-With short timestamps
+With short timestamps.
+
 ```ruby
 class User
   include Mongoid::Document
@@ -115,7 +101,8 @@ RSpec.describe User, type: :model do
 end
 ```
 
-With only creating or updating timestamps
+With only creating or updating timestamps.
+
 ```ruby
 class Admin
   include Mongoid::Document
@@ -129,7 +116,8 @@ RSpec.describe Admin, type: :model do
 end
 ```
 
-With short creating or updating timestamps
+With short creating or updating timestamps.
+
 ```ruby
 class Post
   include Mongoid::Document
@@ -155,7 +143,7 @@ RSpec.describe Post, type: :model do
 end
 ```
 
-It checks only those options, that you specify. For instance, test in example below will pass, even though expectation contains only `database` option
+It checks only those options, that you specify. For instance, test in example below will pass, even though expectation contains only `database` option.
 
 ```ruby
 class Comment
@@ -170,6 +158,7 @@ end
 ```
 
 It works fine with lambdas and procs.
+
 ```ruby
 class User
   include Mongoid::Document
@@ -232,14 +221,16 @@ RSpec.describe User do
   it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
 
   it { is_expected.to have_one(:record) }
-  #can verify autobuild is set to true
+
+  # can verify autobuild is set to true
   it { is_expected.to have_one(:record).with_autobuild }
 
   it { is_expected.to have_many :comments }
 
-  #can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
+  # can also specify with_dependent to test if :dependent => :destroy/:destroy_all/:delete is set
   it { is_expected.to have_many(:comments).with_dependent(:destroy) }
-  #can verify autosave is set to true
+
+  # can verify autosave is set to true
   it { is_expected.to have_many(:comments).with_autosave }
 
   it { is_expected.to embed_one :profile }
@@ -349,29 +340,8 @@ RSpec.describe Article do
 end
 ```
 
-## Known issues
+## Copyright and License
 
-accept_nested_attributes_for matcher must test options [issue 91](https://github.com/mongoid-rspec/mongoid-rspec/issues/91).
+Copyright (c) 2009-2018 Evan Sagge and Contributors.
 
-## Acknowledgement
-
-Thanks to [Durran Jordan][durran] for providing the changes necessary to make
-this compatible with mongoid 2.0.0.rc, and for other [contributors](https://github.com/mongoid-rspec/mongoid-rspec/contributors)
-to this project.
-
-[mongoid-rspec]: https://github.com/mongoid-rspec/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents."
-
-[durran]: https://github.com/durran
-[mongoid2]: https://rubygems.org/gems/mongoid-rspec/versions/1.4.5
-[mongoid3]: https://rubygems.org/gems/mongoid-rspec/versions/1.13.0
-[mongoid4]: https://rubygems.org/gems/mongoid-rspec/versions/2.1.0
-[mongoid5]: https://rubygems.org/gems/mongoid-rspec/versions/3.0.0
-
-[travis_badge]: http://img.shields.io/travis/mongoid-rspec/mongoid-rspec.svg?style=flat
-[travis]: https://travis-ci.org/mongoid-rspec/mongoid-rspec
-
-[rubygems_badge]: http://img.shields.io/gem/v/mongoid-rspec.svg?style=flat
-[rubygems]: http://rubygems.org/gems/mongoid-rspec
-
-[codeclimate_badge]: http://img.shields.io/codeclimate/github/mongoid-rspec/mongoid-rspec.svg?style=flat
-[codeclimate]: https://codeclimate.com/github/mongoid-rspec/mongoid-rspec
+MIT License. See [LICENSE](LICENSE) for details.
