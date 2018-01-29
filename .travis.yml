@@ -1,7 +1,14 @@
 services: mongodb
+
 language: ruby
+
 matrix:
   include:
+    - rvm: 2.5.0
+      env:
+        - MONGOID_VERSION=HEAD
+      before_script:
+        - bundle exec danger
     - rvm: 2.5.0
       env:
         - MONGOID_VERSION=6
@@ -22,12 +29,15 @@ matrix:
         - MONGOID_VERSION=3
     - rvm: 2.3.0
   allow_failures:
-    - rvm: 2.5.0
-    - rvm: 2.4.0
-    - rvm: ruby-head
-    - rvm: jruby-head
+    - env: MONGOID_VERSION=HEAD
+
+addons:
+  apt:
+    sources:
+      - mongodb-3.2-precise
+    packages:
+      - mongodb-org-server
+
 before_install:
   - gem update --system
   - gem update bundler
-gemfile:
-  - Gemfile

@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in `mongoid-rspec.gemspec`.
 gemspec
 
-case version = ENV['MONGOID_VERSION'] || '6.0'
+case version = ENV['MONGOID_VERSION'] || '~> 6.0.0'
+when 'HEAD'
+  gem 'mongoid', github: 'mongodb/mongoid'
 when /^6/
   gem 'mongoid', '~> 6.0'
 when /^5/
@@ -17,4 +18,8 @@ when /^2/
   gem 'bson_ext', platforms: :ruby
 else
   gem 'mongoid', version
+end
+
+group :test do
+  gem 'mongoid-danger', '~> 0.1.1', require: false
 end
