@@ -7,8 +7,6 @@ matrix:
     - rvm: 2.5.0
       env:
         - MONGOID_VERSION=HEAD
-      before_script:
-        - bundle exec danger
     - rvm: 2.5.0
       env:
         - MONGOID_VERSION=6
@@ -28,8 +26,12 @@ matrix:
       env:
         - MONGOID_VERSION=3
     - rvm: 2.3.0
+      before_script:
+        - bundle exec danger
   allow_failures:
-    - env: MONGOID_VERSION=HEAD
+    - rvm: 2.5.0
+      env:
+        - MONGOID_VERSION=HEAD
 
 addons:
   apt:
