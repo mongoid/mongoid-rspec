@@ -1,3 +1,7 @@
+### 4.0.1 (Next)
+
+* Your contribution here.
+
 ### 4.0.0 (1/29/2018)
 
 * [#197](https://github.com/mongoid/mongoid-rspec/pull/197): Mongoid 6 support - [@saumyamehta17](https://github.com/saumyamehta17), [@zeitnot](https://github.com/zeitnot).
