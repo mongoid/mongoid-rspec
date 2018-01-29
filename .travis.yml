@@ -2,6 +2,9 @@ services: mongodb
 language: ruby
 matrix:
   include:
+    - rvm: 2.5.0
+      env:
+        - MONGOID_VERSION=6
     - rvm: 2.4.0
       env:
         - MONGOID_VERSION=6
@@ -19,6 +22,7 @@ matrix:
         - MONGOID_VERSION=3
     - rvm: 2.3.0
   allow_failures:
+    - rvm: 2.5.0
     - rvm: 2.4.0
     - rvm: ruby-head
     - rvm: jruby-head
