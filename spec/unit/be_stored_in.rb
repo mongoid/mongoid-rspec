@@ -29,7 +29,7 @@ RSpec.describe Mongoid::Matchers::BeStoredIn do
     subject do
       Class.new do
         include Mongoid::Document
-        store_in database: ->{ Thread.current[:database] }
+        store_in database: -> { Thread.current[:database] }
       end
     end
 

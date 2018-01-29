@@ -30,20 +30,20 @@ module Mongoid
         @errors = []
         @attributes.each do |attr|
           if @klass.fields.include?(attr)
-            error = ""
-            if @type and @klass.fields[attr].type != @type
+            error = ''
+            if @type && (@klass.fields[attr].type != @type)
               error << " of type #{@klass.fields[attr].type}"
             end
 
-            if !@default.nil?
+            unless @default.nil?
               if @klass.fields[attr].default_val.nil?
-                error << " with default not set"
+                error << ' with default not set'
               elsif @klass.fields[attr].default_val != @default
                 error << " with default value of #{@klass.fields[attr].default_val}"
               end
             end
 
-            if @field_alias and @klass.fields[attr].options[:as] != @field_alias
+            if @field_alias && (@klass.fields[attr].options[:as] != @field_alias)
               error << " with alias #{@klass.fields[attr].options[:as]}"
             end
 
@@ -70,14 +70,14 @@ module Mongoid
         "Expected #{@klass.inspect} to not #{description}, got #{@klass.inspect} to #{description}"
       end
 
-      alias :failure_message :failure_message_for_should
-      alias :failure_message_when_negated :failure_message_for_should_not
+      alias failure_message failure_message_for_should
+      alias failure_message_when_negated failure_message_for_should_not
 
       def description
         desc = "have #{@attributes.size > 1 ? 'fields' : 'field'} named #{@attributes.collect(&:inspect).to_sentence}"
         desc << " of type #{@type.inspect}" if @type
         desc << " with alias #{@field_alias}" if @field_alias
-        desc << " with default value of #{@default.inspect}" if !@default.nil?
+        desc << " with default value of #{@default.inspect}" unless @default.nil?
         desc
       end
     end
@@ -85,6 +85,6 @@ module Mongoid
     def have_field(*args)
       HaveField.new(*args)
     end
-    alias_method :have_fields, :have_field
+    alias have_fields have_field
   end
 end

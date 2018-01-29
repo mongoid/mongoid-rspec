@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Document" do
+RSpec.describe 'Document' do
   describe User do
     it { is_expected.to have_fields(:email, :login) }
   end

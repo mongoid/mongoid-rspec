@@ -1,0 +1,8 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+
+Style/Documentation:
+  Enabled: false
+
+inherit_from: .rubocop_todo.yml

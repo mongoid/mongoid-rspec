@@ -3,7 +3,6 @@ require 'mongoid/relations'
 module Mongoid
   module Matchers
     module Associations
-
       HAS_MANY = Mongoid::Relations::Referenced::Many
       HAS_AND_BELONGS_TO_MANY = Mongoid::Relations::Referenced::ManyToMany
       HAS_ONE = Mongoid::Relations::Referenced::One
@@ -48,43 +47,43 @@ module Mongoid
 
         def with_dependent(method_name)
           @association[:dependent] = method_name
-          @expectation_message << " which specifies dependent as #{@association[:dependent].to_s}"
+          @expectation_message << " which specifies dependent as #{@association[:dependent]}"
           self
         end
 
         def with_autosave
           @association[:autosave] = true
-          @expectation_message << " which specifies autosave as #{@association[:autosave].to_s}"
+          @expectation_message << " which specifies autosave as #{@association[:autosave]}"
           self
         end
 
         def with_index
           @association[:index] = true
-          @expectation_message << " which specifies index as #{@association[:index].to_s}"
+          @expectation_message << " which specifies index as #{@association[:index]}"
           self
         end
 
         def with_autobuild
           @association[:autobuild] = true
-          @expectation_message << " which specifies autobuild as #{@association[:autobuild].to_s}"
+          @expectation_message << " which specifies autobuild as #{@association[:autobuild]}"
           self
         end
 
         def with_polymorphism
           @association[:polymorphic] = true
-          @expectation_message << " which specifies polymorphic as #{@association[:polymorphic].to_s}"
+          @expectation_message << " which specifies polymorphic as #{@association[:polymorphic]}"
           self
         end
 
         def with_cascading_callbacks
           @association[:cascade_callbacks] = true
-          @expectation_message << " which specifies cascade_callbacks as #{@association[:cascade_callbacks].to_s}"
+          @expectation_message << " which specifies cascade_callbacks as #{@association[:cascade_callbacks]}"
           self
         end
 
         def cyclic
           @association[:cyclic] = true
-          @expectation_message << " which specifies cyclic as #{@association[:cyclic].to_s}"
+          @expectation_message << " which specifies cyclic as #{@association[:cyclic]}"
           self
         end
 
@@ -102,7 +101,7 @@ module Mongoid
 
         def with_counter_cache
           @association[:counter_cache] = true
-          @expectation_message << " which specifies counter_cache as #{@association[:counter_cache].to_s}"
+          @expectation_message << " which specifies counter_cache as #{@association[:counter_cache]}"
           self
         end
 
@@ -125,7 +124,7 @@ module Mongoid
             @positive_result_message = "#{@actual.inspect} #{type_description(relation, false)} #{@association[:name]}"
           end
 
-          if !@association[:class].nil? and @association[:class] != metadata.klass
+          if !@association[:class].nil? && (@association[:class] != metadata.klass)
             @negative_result_message = "#{@positive_result_message} of type #{metadata.klass.inspect}"
             return false
           else
@@ -249,7 +248,7 @@ module Mongoid
             end
           end
 
-          return true
+          true
         end
 
         def failure_message_for_should
@@ -260,8 +259,8 @@ module Mongoid
           "Expected #{@actual.inspect} to not #{@expectation_message}, got #{@positive_result_message}"
         end
 
-        alias :failure_message :failure_message_for_should
-        alias :failure_message_when_negated :failure_message_for_should_not
+        alias failure_message failure_message_for_should
+        alias failure_message_when_negated failure_message_for_should_not
 
         def description
           @expectation_message
@@ -270,29 +269,30 @@ module Mongoid
         def type_description(type = nil, passive = true)
           type ||= @association[:type]
           case type.name
-            when EMBEDS_ONE.name
-              (passive ? 'embed' : 'embeds') << ' one'
-            when EMBEDS_MANY.name
-              (passive ? 'embed' : 'embeds') << ' many'
-            when EMBEDDED_IN.name
-              (passive ? 'be' : 'is') << ' embedded in'
-            when HAS_ONE.name
-              (passive ? 'reference' : 'references') << ' one'
-            when HAS_MANY.name
-              (passive ? 'reference' : 'references') << ' many'
-            when HAS_AND_BELONGS_TO_MANY.name
-              (passive ? 'reference' : 'references') << ' and referenced in many'
-            when BELONGS_TO.name
-              (passive ? 'be referenced in' : 'referenced in')
-            else
-              raise "Unknown association type '%s'" % type
+          when EMBEDS_ONE.name
+            (passive ? 'embed' : 'embeds') << ' one'
+          when EMBEDS_MANY.name
+            (passive ? 'embed' : 'embeds') << ' many'
+          when EMBEDDED_IN.name
+            (passive ? 'be' : 'is') << ' embedded in'
+          when HAS_ONE.name
+            (passive ? 'reference' : 'references') << ' one'
+          when HAS_MANY.name
+            (passive ? 'reference' : 'references') << ' many'
+          when HAS_AND_BELONGS_TO_MANY.name
+            (passive ? 'reference' : 'references') << ' and referenced in many'
+          when BELONGS_TO.name
+            (passive ? 'be referenced in' : 'referenced in')
+          else
+            raise format("Unknown association type '%s'", type)
           end
         end
 
         private
-          def order_way(operator)
-            [nil, "ascending", "descending"][operator]
-          end
+
+        def order_way(operator)
+          [nil, 'ascending', 'descending'][operator]
+        end
       end
 
       def embed_one(association_name)
@@ -310,12 +310,12 @@ module Mongoid
       def have_one_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_ONE)
       end
-      alias :have_one :have_one_related
+      alias have_one have_one_related
 
       def have_many_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_MANY)
       end
-      alias :have_many :have_many_related
+      alias have_many have_many_related
 
       def have_and_belong_to_many(association_name)
         HaveAssociationMatcher.new(association_name, HAS_AND_BELONGS_TO_MANY)
@@ -324,7 +324,7 @@ module Mongoid
       def belong_to_related(association_name)
         HaveAssociationMatcher.new(association_name, BELONGS_TO)
       end
-      alias :belong_to :belong_to_related
+      alias belong_to belong_to_related
     end
   end
 end

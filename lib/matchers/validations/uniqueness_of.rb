@@ -10,7 +10,7 @@ module Mongoid
           @scope = [scope].flatten.map(&:to_sym)
           self
         end
-        alias_method :scoped_on, :scoped_to
+        alias scoped_on scoped_to
 
         def case_insensitive
           @case_insensitive = true
@@ -35,8 +35,8 @@ module Mongoid
         def description
           options_desc = []
           options_desc << " scoped to #{@scope.inspect}" if @scope
-          options_desc << " allowing blank values" if @allow_blank
-          options_desc << " allowing case insensitive values" if @case_insensitive
+          options_desc << ' allowing blank values' if @allow_blank
+          options_desc << ' allowing case insensitive values' if @case_insensitive
           super << options_desc.to_sentence
         end
 
@@ -44,9 +44,9 @@ module Mongoid
 
         def check_allow_blank
           if @validator.options[:allow_blank] == @allow_blank
-            @positive_result_message << " with blank values allowed"
+            @positive_result_message << ' with blank values allowed'
           else
-            @negative_result_message << " with no blank values allowed"
+            @negative_result_message << ' with no blank values allowed'
             @result = false
           end
         end
@@ -63,9 +63,9 @@ module Mongoid
 
         def check_case_sensitivity
           if @validator.options[:case_sensitive] == false
-            @positive_result_message << " with case insensitive values"
+            @positive_result_message << ' with case insensitive values'
           else
-            @negative_result_message << " without case insensitive values"
+            @negative_result_message << ' without case insensitive values'
             @result = false
           end
         end

@@ -11,7 +11,6 @@ if Mongoid::Compatibility::Version.mongoid4_or_newer?
       it { is_expected.not_to be_dynamic_document }
     end
 
-
     context 'when model doesn\'t include Mongoid::Attributes::Dynamic' do
       subject do
         Class.new do
@@ -23,4 +22,4 @@ if Mongoid::Compatibility::Version.mongoid4_or_newer?
       it { is_expected.to be_dynamic_document }
     end
   end
-end  
+end

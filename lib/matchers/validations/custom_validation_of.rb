@@ -27,7 +27,7 @@ module Mongoid
         private
 
         def check_custom_validator
-          if @validator.kind_of? @custom_validator
+          if @validator.is_a? @custom_validator
             @positive_result_message << " with custom validator of type #{@custom_validator.name}"
           else
             @negative_result_message << " with custom validator not of type #{@custom_validator.name}"

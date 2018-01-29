@@ -6,10 +6,7 @@ module Mongoid
 
     class BeStoredIn
       def initialize(expected)
-        @expected_options = \
-          expected
-            .transform_values { |v| v.to_sym rescue v }
-            .symbolize_keys
+        @expected_options = expected.transform_values { |v| v.to_sym rescue v }.symbolize_keys
       end
 
       def matches?(actual)
@@ -38,9 +35,17 @@ module Mongoid
             hash[option] =
               if value.is_a?(Proc)
                 evaluated_value = @model.persistence_context.send("#{option}_name")
-                evaluated_value.to_sym rescue evaluated_value
+                begin
+                  evaluated_value.to_sym
+                rescue StandardError
+                  evaluated_value
+                end
               else
-                value.to_sym rescue value
+                begin
+                  value.to_sym
+                rescue StandardError
+                  value
+                end
               end
           end
         end

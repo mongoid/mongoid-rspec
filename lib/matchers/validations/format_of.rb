@@ -43,7 +43,7 @@ module Mongoid
           end
 
           if @invalid_value
-            if !(@invalid_value =~ @validator.options[:with])
+            if @invalid_value !~ @validator.options[:with]
               @positive_result_message = @positive_result_message << " with #{@invalid_value.inspect} as an invalid value"
             else
               @negative_result_message = @negative_result_message << " with #{@invalid_value.inspect} as a valid value"

@@ -3,7 +3,7 @@ module Mongoid
     module Validations
       class ValidateNumericalityOfMatcher < HaveValidationMatcher
         ALLOWED_OPTIONS =
-          %i(
+          %i[
             allow_nil
             equal_to
             even
@@ -14,7 +14,7 @@ module Mongoid
             nil
             odd
             only_integer
-          )
+          ].freeze
 
         def initialize(field)
           super(field, :numericality)
@@ -23,12 +23,12 @@ module Mongoid
 
         def to_allow(options)
           options[:equal_to] = options if options.is_a?(Numeric)
-          options[:allow_nil] = options.delete(:nil) if options.has_key?(:nil)
+          options[:allow_nil] = options.delete(:nil) if options.key?(:nil)
 
           if !options.is_a?(Hash) || options.empty? || (options.keys - ALLOWED_OPTIONS).any?
             message =
-              "validate_numericality_of#to_allow requires a Hash parameter containing" \
-              "any of the following keys: #{ALLOWED_OPTIONS.map(&:inspect).join(", ")}"
+              'validate_numericality_of#to_allow requires a Hash parameter containing' \
+              "any of the following keys: #{ALLOWED_OPTIONS.map(&:inspect).join(', ')}"
             raise ArgumentError, message
           end
 
@@ -61,15 +61,15 @@ module Mongoid
             case key
             when :allow_nil
             when :only_integer
-              type_msg << "integer" if value
+              type_msg << 'integer' if value
             when :odd, :even
-              type_msg << "#{key.to_s}-numbered" if value
+              type_msg << "#{key}-numbered" if value
             else
-              comp_msg << "#{key.to_s.gsub("_", " ")} #{value.inspect}"
+              comp_msg << "#{key.to_s.tr('_', ' ')} #{value.inspect}"
             end
           end
-          allow_nil = (options[:allow_nil] ? "nil" : "non-nil") if options.has_key?(:allow_nil)
-          ["", "allowing", allow_nil, type_msg.any? ? type_msg.to_sentence : nil, "values", comp_msg.any? ? comp_msg.to_sentence : nil].compact.join(" ")
+          allow_nil = (options[:allow_nil] ? 'nil' : 'non-nil') if options.key?(:allow_nil)
+          ['', 'allowing', allow_nil, type_msg.any? ? type_msg.to_sentence : nil, 'values', comp_msg.any? ? comp_msg.to_sentence : nil].compact.join(' ')
         end
 
         def method_missing(m, *args, &block)

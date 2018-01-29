@@ -10,7 +10,7 @@ class Profile
 
   validates :age, numericality: { greater_than: 0 }
   validates :terms_of_service, acceptance: true
-  validates :hobbies, length: { minimum: 1, message: "requires at least one hobby" }
+  validates :hobbies, length: { minimum: 1, message: 'requires at least one hobby' }
 
-  index({ first_name: 1, last_name: 1 })
+  index(first_name: 1, last_name: 1)
 end

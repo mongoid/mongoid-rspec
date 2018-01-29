@@ -10,25 +10,25 @@ module Mongoid
           @maximum = value
           self
         end
-        alias :less_than :with_maximum
+        alias less_than with_maximum
 
         def with_minimum(value)
           @minimum = value
           self
         end
-        alias :greater_than :with_minimum
+        alias greater_than with_minimum
 
         def within(value)
           @within = value
           self
         end
-        alias :in :within
+        alias in within
 
         def as_exactly(value)
           @is = value
           self
         end
-        alias :is :as_exactly
+        alias is as_exactly
 
         def matches?(actual)
           return false unless @result = super(actual)
@@ -54,7 +54,7 @@ module Mongoid
 
         def check_maximum
           if actual_max.nil?
-            @negative_result_message << " with no maximum"
+            @negative_result_message << ' with no maximum'
             @result = false
           elsif actual_max == @maximum
             @positive_result_message << " with maximum of #{@maximum}"
@@ -66,7 +66,7 @@ module Mongoid
 
         def check_minimum
           if actual_min.nil?
-            @negative_result_message << " with no minimum"
+            @negative_result_message << ' with no minimum'
             @result = false
           elsif actual_min == @minimum
             @positive_result_message << " with minimum of #{@minimum}"
@@ -77,15 +77,15 @@ module Mongoid
         end
 
         def check_range
-          min, max = [@within.min, @within.max]
-          if !actual_min.nil? and actual_max.nil?
+          min, max = @within.minmax
+          if !actual_min.nil? && actual_max.nil?
             @negative_result_message << " with no minimum but with maximum of #{actual_max}"
             @result = false
-          elsif actual_min.nil? and !actual_max.nil?
+          elsif actual_min.nil? && !actual_max.nil?
             @negative_result_message << " with minimum_of #{actual_min} but no maximum"
             @result = false
-          elsif actual_min.nil? and actual_max.nil?
-            @negative_result_message << " with no minimum and maximum"
+          elsif actual_min.nil? && actual_max.nil?
+            @negative_result_message << ' with no minimum and maximum'
             @result = false
           elsif actual_min == min && actual_max == max
             @positive_result_message << " within the range of #{@within.inspect}"
@@ -109,11 +109,11 @@ module Mongoid
         end
 
         def actual_min
-          @validator.options[:minimum] || ((@validator.options[:in] || @validator.options[:within]).try(&:min))
+          @validator.options[:minimum] || (@validator.options[:in] || @validator.options[:within]).try(&:min)
         end
 
         def actual_max
-          @validator.options[:maximum] || ((@validator.options[:in] || @validator.options[:within]).try(&:max))
+          @validator.options[:maximum] || (@validator.options[:in] || @validator.options[:within]).try(&:max)
         end
       end
 
