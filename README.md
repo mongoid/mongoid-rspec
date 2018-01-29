@@ -340,6 +340,10 @@ RSpec.describe Article do
 end
 ```
 
+## Contributing
+
+You're encouraged to contribute to this library. See [CONTRIBUTING](CONTRIBUTING.md) for details.
+
 ## Copyright and License
 
 Copyright (c) 2009-2018 Evan Sagge and Contributors.
