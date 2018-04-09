@@ -116,7 +116,7 @@ module Mongoid
             @positive_result_message = "association named #{@association[:name]}"
           end
 
-          relation = metadata.relation
+          relation = metadata.class
           if relation != @association[:type]
             @negative_result_message = "#{@actual.inspect} #{type_description(relation, false)} #{@association[:name]}"
             return false
@@ -222,7 +222,7 @@ module Mongoid
           end
 
           if @association[:index]
-            if metadata.index != true
+            unless metadata.indexed?
               @negative_result_message = "#{@positive_result_message} which did not set index"
               return false
             else
