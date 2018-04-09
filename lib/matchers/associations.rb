@@ -1,15 +1,29 @@
-require 'mongoid/association'
+if Mongoid::Compatibility::Version.mongoid7_or_newer?
+  require 'mongoid/association'
+else
+  require 'mongoid/relations'
+end
 
 module Mongoid
   module Matchers
     module Associations
-      HAS_MANY = Mongoid::Association::Referenced::HasMany
-      HAS_AND_BELONGS_TO_MANY = Mongoid::Association::Referenced::HasAndBelongsToMany
-      HAS_ONE = Mongoid::Association::Referenced::HasOne
-      BELONGS_TO = Mongoid::Association::Referenced::BelongsTo
-      EMBEDS_MANY = Mongoid::Association::Embedded::EmbedsMany
-      EMBEDS_ONE = Mongoid::Association::Embedded::EmbedsOne
-      EMBEDDED_IN = Mongoid::Association::Embedded::EmbeddedIn
+      if Mongoid::Compatibility::Version.mongoid7_or_newer?
+        HAS_MANY = Mongoid::Association::Referenced::HasMany
+        HAS_AND_BELONGS_TO_MANY = Mongoid::Association::Referenced::HasAndBelongsToMany
+        HAS_ONE = Mongoid::Association::Referenced::HasOne
+        BELONGS_TO = Mongoid::Association::Referenced::BelongsTo
+        EMBEDS_MANY = Mongoid::Association::Embedded::EmbedsMany
+        EMBEDS_ONE = Mongoid::Association::Embedded::EmbedsOne
+        EMBEDDED_IN = Mongoid::Association::Embedded::EmbeddedIn
+      else
+        HAS_MANY = Mongoid::Relations::Referenced::Many
+        HAS_AND_BELONGS_TO_MANY = Mongoid::Relations::Referenced::ManyToMany
+        HAS_ONE = Mongoid::Relations::Referenced::One
+        BELONGS_TO = Mongoid::Relations::Referenced::In
+        EMBEDS_MANY = Mongoid::Relations::Embedded::Many
+        EMBEDS_ONE = Mongoid::Relations::Embedded::One
+        EMBEDDED_IN = Mongoid::Relations::Embedded::In
+      end
 
       class HaveAssociationMatcher
         def initialize(name, association_type)
@@ -116,7 +130,11 @@ module Mongoid
             @positive_result_message = "association named #{@association[:name]}"
           end
 
-          relation = metadata.class
+          relation = if Mongoid::Compatibility::Version.mongoid7_or_newer?
+                       metadata.class
+                     else
+                       metadata.relation
+                     end
           if relation != @association[:type]
             @negative_result_message = "#{@actual.inspect} #{type_description(relation, false)} #{@association[:name]}"
             return false
