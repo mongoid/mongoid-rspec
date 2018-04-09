@@ -222,7 +222,7 @@ module Mongoid
           end
 
           if @association[:index]
-            unless metadata.indexed?
+            if !metadata.indexed?
               @negative_result_message = "#{@positive_result_message} which did not set index"
               return false
             else
