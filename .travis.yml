@@ -9,6 +9,9 @@ matrix:
         - MONGOID_VERSION=HEAD
     - rvm: 2.5.0
       env:
+        - MONGOID_VERSION=7
+    - rvm: 2.5.0
+      env:
         - MONGOID_VERSION=6
     - rvm: 2.4.0
       env:
