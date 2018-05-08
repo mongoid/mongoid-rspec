@@ -20,6 +20,7 @@ module Mongoid
             validator_allowed_values = case raw_validator_allowed_values
                                        when Range then raw_validator_allowed_values.to_a
                                        when Proc then raw_validator_allowed_values.call(actual)
+                                       when Symbol then actual.send(raw_validator_allowed_values)
                                        else raw_validator_allowed_values end
 
             not_allowed_values = @allowed_values - validator_allowed_values
