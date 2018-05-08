@@ -29,7 +29,11 @@ class User
   validates :password, confirmation: { message: 'Password confirmation must match given password' }
   validates :provider_uid, presence: true
   validates :locale, inclusion: { in: ->(_user) { %i[en ru] } }
-  validates :provider_type, inclusion: { in: :allowed_provider_types }
+  if Mongoid::Compatibility::Version.mongoid3_or_older?
+    validates :provider_type, inclusion: { in: ->(user) { user.allowed_provider_types } }
+  else
+    validates :provider_type, inclusion: { in: :allowed_provider_types }
+  end
 
   accepts_nested_attributes_for :articles, :comments
 
