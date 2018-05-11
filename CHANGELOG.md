@@ -1,6 +1,7 @@
 ### 4.0.1 (Next)
 
 * [#212](https://github.com/mongoid/mongoid-rspec/pull/212): Mongoid 7 support - [@madAle](https://github.com/madAle).
+* [#216](https://github.com/mongoid/mongoid-rspec/pull/216): Added support for calling methods with allowed values to inclusion_of - [@maciejmajewski](https://github.com/maciejmajewski).
 * Your contribution here.
 
 ### 4.0.0 (1/29/2018)

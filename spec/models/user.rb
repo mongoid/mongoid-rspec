@@ -7,6 +7,7 @@ class User
   field :role
   field :age, type: Integer
   field :password, type: String
+  field :provider_type
   field :provider_uid
   field :locale
 
@@ -33,5 +34,13 @@ class User
 
   def admin?
     false
+  end
+
+  if Mongoid::Compatibility::Version.mongoid4_or_newer?
+    validates :provider_type, inclusion: { in: :allowed_provider_types }
+
+    def allowed_provider_types
+      %i[facebook twitter]
+    end
   end
 end
