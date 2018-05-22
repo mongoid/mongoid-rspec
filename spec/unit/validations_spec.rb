@@ -39,6 +39,7 @@ RSpec.describe 'Validations' do
     it { is_expected.to validate_length_of(:content).greater_than(200) }
     it { is_expected.to validate_inclusion_of(:status).to_allow([:pending]).on(:create) }
     it { is_expected.to validate_inclusion_of(:status).to_allow(%i[approved rejected]).on(:update) }
+    it { is_expected.to validate_absence_of(:deletion_date) } if Mongoid::Compatibility::Version.mongoid4_or_newer?
   end
 
   describe MovieArticle do
