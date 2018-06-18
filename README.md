@@ -290,6 +290,7 @@ end
 
 RSpec.describe Article do
   it { is_expected.to validate_length_of(:title).within(8..16) }
+  it { is_expected.to validate_absence_of(:deletion_date) }
 end
 
 RSpec.describe Visitor do

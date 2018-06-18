@@ -8,6 +8,7 @@ class Article
   field :allow_comments, type: Boolean, default: true
   field :number_of_comments, type: Integer
   field :status, type: Symbol
+  field :deletion_date, type: DateTime, default: nil
 
   embeds_many :comments, cascade_callbacks: true, inverse_of: :article
   embeds_one :permalink, inverse_of: :linkable
@@ -20,6 +21,8 @@ class Article
 
   validates_length_of :title, within: 8..16
   validates_length_of :content, minimum: 200
+
+  validates_absence_of :deletion_date if Mongoid::Compatibility::Version.mongoid4_or_newer?
 
   index({ title: 1 }, unique: true, background: true, drop_dups: true)
   index(published: 1)

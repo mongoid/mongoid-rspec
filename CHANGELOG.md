@@ -1,6 +1,8 @@
 ### 4.0.1 (Next)
 
 * [#212](https://github.com/mongoid/mongoid-rspec/pull/212): Mongoid 7 support - [@madAle](https://github.com/madAle).
+* [#211](https://github.com/mongoid/mongoid-rspec/pull/211): Added `validate_absence_of` matcher - [@pedroadame](https://github.com/pedroadame).
+
 * Your contribution here.
 
 ### 4.0.0 (1/29/2018)
