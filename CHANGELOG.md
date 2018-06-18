@@ -1,3 +1,7 @@
+### 4.0.2 (Next)
+
+* Your contribution here.
+
 ### 4.0.1 (6/15/2018)
 
 * [#212](https://github.com/mongoid/mongoid-rspec/pull/212): Mongoid 7 support - [@madAle](https://github.com/madAle).
