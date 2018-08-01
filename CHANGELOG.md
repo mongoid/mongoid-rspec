@@ -1,5 +1,6 @@
 ### 4.0.2 (Next)
 
+* [#221](https://github.com/mongoid/mongoid-rspec/pull/221): Support `ordered_by` for Mongoid 5 and earlier - [@stim371](https://github.com/stim371).
 * Your contribution here.
 
 ### 4.0.1 (6/15/2018)
