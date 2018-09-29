@@ -13,6 +13,7 @@ class User
   belongs_to :site, inverse_of: :users
   has_many :articles, foreign_key: :author_id, order: :title
   has_many :comments, dependent: :destroy, autosave: true
+  has_many :messages, dependent: :destroy
   has_and_belongs_to_many :children, class_name: 'User'
   has_one :record, autobuild: true, inverse_of: :user
 

@@ -119,6 +119,12 @@ module Mongoid
           self
         end
 
+        def with_optional
+          @association[:optional] = true
+          @expectation_message << " which specifies optional as #{@association[:optional]}"
+          self
+        end
+
         def matches?(actual)
           @actual = actual.is_a?(Class) ? actual : actual.class
           metadata = @actual.relations[@association[:name]]
@@ -263,6 +269,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} which set counter_cache"
+            end
+          end
+
+          if @association[:optional]
+            if metadata.options[:optional] != true
+              @negative_result_message = "#{@positive_result_message} which did not set optional"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} which set optional"
             end
           end
 
