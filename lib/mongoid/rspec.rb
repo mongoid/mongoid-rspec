@@ -6,7 +6,7 @@ require 'rspec/core'
 require 'rspec/expectations'
 require 'rspec/mocks'
 require 'active_support/core_ext/hash/keys'
-require 'active_support/core_ext/hash/transform_values' if Mongoid::Compatibility::Version.mongoid4_or_newer?
+require 'active_support/core_ext/hash/transform_values' if Mongoid::Compatibility::Version.mongoid4_or_newer? && ActiveSupport.version < Gem::Version.new('6')
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/string/inflections'
 
