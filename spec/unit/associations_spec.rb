@@ -45,4 +45,10 @@ RSpec.describe 'Associations' do
       it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.desc) }
     end
   end
+
+  describe Message do
+    if Mongoid::Compatibility::Version.mongoid6_or_newer?
+      it { is_expected.to belong_to(:user).with_optional }
+    end
+  end
 end
