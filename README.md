@@ -261,6 +261,10 @@ end
 RSpec.describe Site do
   it { is_expected.to have_many(:users).as_inverse_of(:site).ordered_by(:email.asc).with_counter_cache }
 end
+
+RSpec.describe Message do
+  it { is_expected.to belong_to(:user).with_optional }
+end
 ```
 
 ### Validation Matchers
