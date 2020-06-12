@@ -1,11 +1,10 @@
-### 4.0.2 (Next)
+### 4.1.0 (6/12/2020)
 
 * [#221](https://github.com/mongoid/mongoid-rspec/pull/221): Support `ordered_by` for Mongoid 5 and earlier - [@stim371](https://github.com/stim371).
 * [#222](https://github.com/mongoid/mongoid-rspec/pull/222): Do not depend on `rspec` meta gem - [@lucasmazza](https://github.com/lucasmazza).
 * [#231](https://github.com/mongoid/mongoid-rspec/pull/231): Fix transform_values deprecation in rails 6 - [@yads](https://github.com/yads).
 * [#223](https://github.com/mongoid/mongoid-rspec/pull/223): Add support for `optional` in relations matchers - [@javierav](https://github.com/javierav).
 * [#226](https://github.com/mongoid/mongoid-rspec/pull/226): Fix #217. Use Appraisal to test the gem - [@javierav](https://github.com/javierav).
-* Your contribution here.
 
 ### 4.0.1 (6/15/2018)
 
