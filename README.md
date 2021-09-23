@@ -201,9 +201,9 @@ end
 
 ```ruby
 RSpec.describe Article do
-  it { is_expected.to have_field(:published).of_type(Boolean).with_default_value_of(false) }
-  it { is_expected.to have_field(:allow_comments).of_type(Boolean).with_default_value_of(true) }
-  it { is_expected.not_to have_field(:allow_comments).of_type(Boolean).with_default_value_of(false) }
+  it { is_expected.to have_field(:published).of_type(Mongoid::Boolean).with_default_value_of(false) }
+  it { is_expected.to have_field(:allow_comments).of_type(Mongoid::Boolean).with_default_value_of(true) }
+  it { is_expected.not_to have_field(:allow_comments).of_type(Mongoid::Boolean).with_default_value_of(false) }
   it { is_expected.not_to have_field(:number_of_comments).of_type(Integer).with_default_value_of(1) }
 end
 
