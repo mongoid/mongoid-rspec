@@ -315,6 +315,22 @@ RSpec.describe Person do
    # should redefine the kind method to return :custom, i.e. "def self.kind() :custom end"
   it { is_expected.to custom_validate(:ssn).with_validator(SsnValidator) }
 end
+
+# If you're using validators with if/unless conditionals, spec subject must be object instance
+# This is supported on Mongoid 4 and newer
+Rspec.describe User do
+  context 'when user has `admin` role' do
+    subject { User.new(role: 'admin') }
+
+    it { is_expected.to validate_length_of(:password).greater_than(20) }
+  end
+
+  context 'when user does not have `admin` role' do
+    subject { User.new(role: 'member') }
+
+    it { is_expected.not_to validate_length_of(:password) }
+  end
+end
 ```
 
 ### Mass Assignment Matcher

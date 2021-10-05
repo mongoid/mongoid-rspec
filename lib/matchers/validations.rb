@@ -12,7 +12,8 @@ module Mongoid
           @klass = actual.is_a?(Class) ? actual : actual.class
 
           @validator = @klass.validators_on(@field).detect do |v|
-            (v.kind.to_s == @type) && (!v.options[:on] || on_options_matches?(v))
+            (v.kind.to_s == @type) && (!v.options[:on] || on_options_matches?(v)) &&
+              if_condition_matches?(actual, v) && unless_condition_matches?(actual, v)
           end
 
           if @validator
@@ -58,6 +59,31 @@ module Mongoid
         end
 
         private
+
+        def if_condition_matches?(actual, validator)
+          return true unless validator.options[:if]
+
+          check_condition actual, validator.options[:if]
+        end
+
+        def unless_condition_matches?(actual, validator)
+          return true unless validator.options[:unless]
+
+          !check_condition actual, validator.options[:unless]
+        end
+
+        def check_condition(actual, filter)
+          raise ArgumentError, 'Spec subject must be object instance when testing validators with if/unless condition.' if actual.is_a?(Class)
+
+          case filter
+          when Symbol
+            actual.send filter
+          when ::Proc
+            actual.instance_exec(&filter)
+          else
+            raise ArgumentError, "Unexpected filter: #{filter.inspect}"
+          end
+        end
 
         def check_on
           validator_on_methods = [@validator.options[:on]].flatten

@@ -9,6 +9,7 @@ class Article
   field :number_of_comments, type: Integer
   field :status, type: Symbol
   field :deletion_date, type: DateTime, default: nil
+  field :reviewer, type: String, default: nil
 
   embeds_many :comments, cascade_callbacks: true, inverse_of: :article
   embeds_one :permalink, inverse_of: :linkable
@@ -23,6 +24,10 @@ class Article
   validates_length_of :content, minimum: 200
 
   validates_absence_of :deletion_date if Mongoid::Compatibility::Version.mongoid4_or_newer?
+
+  validates_presence_of :reviewer, unless: -> { status == :pending }
+
+  validates_absence_of :comments, unless: :allow_comments if Mongoid::Compatibility::Version.mongoid4_or_newer?
 
   index({ title: 1 }, unique: true, background: true, drop_dups: true)
   index(published: 1)
