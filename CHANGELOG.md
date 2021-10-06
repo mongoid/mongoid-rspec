@@ -1,5 +1,6 @@
 ### 4.1.1 (Next)
 
+* [#239](https://github.com/mongoid/mongoid-rspec/pull/239): Add support for if/unless validator options - [@knovoselic](https://github.com/knovoselic).
 * Your contribution here.
 
 ### 4.1.0 (6/12/2020)

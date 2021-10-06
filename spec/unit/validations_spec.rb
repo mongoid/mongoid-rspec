@@ -59,3 +59,63 @@ RSpec.describe 'Validations' do
     it { is_expected.to validate_format_of(:to).with_message('format') }
   end
 end
+
+if Mongoid::Compatibility::Version.mongoid4_or_newer?
+  RSpec.describe 'Conditional validations' do
+    describe 'validations with if condition using symbol' do
+      context 'when the condition is met' do
+        subject { User.new(role: 'admin') }
+
+        it { is_expected.to validate_length_of(:password).greater_than(20) }
+      end
+
+      context 'when the condition is not met' do
+        subject { User.new(role: 'member') }
+
+        it { is_expected.not_to validate_length_of(:password) }
+      end
+    end
+
+    describe 'validations with if condition using lambda' do
+      context 'when the condition is met' do
+        subject { User.new(role: 'moderator') }
+
+        it { is_expected.to validate_length_of(:password).greater_than(10) }
+      end
+
+      context 'when the condition is not met' do
+        subject { User.new(role: 'member') }
+
+        it { is_expected.not_to validate_length_of(:password) }
+      end
+    end
+
+    describe 'validations with unless condition using symbol' do
+      context 'when the condition is met' do
+        subject { Article.new(allow_comments: false) }
+
+        it { is_expected.to validate_absence_of(:comments) }
+      end
+
+      context 'when the condition is not met' do
+        subject { Article.new(allow_comments: true) }
+
+        it { is_expected.not_to validate_absence_of(:comments) }
+      end
+    end
+
+    describe 'validations with unless condition using lambda' do
+      context 'when the condition is met' do
+        subject { Article.new(status: :rejected) }
+
+        it { is_expected.to validate_presence_of(:reviewer) }
+      end
+
+      context 'when the condition is not met' do
+        subject { Article.new(status: :pending) }
+
+        it { is_expected.not_to validate_presence_of(:reviewer) }
+      end
+    end
+  end
+end

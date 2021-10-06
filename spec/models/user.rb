@@ -30,9 +30,17 @@ class User
   validates :provider_uid, presence: true
   validates :locale, inclusion: { in: ->(_user) { %i[en ru] } }
 
+  with_options if: :admin? do
+    validates :password, length: { minimum: 20 }
+  end
+
+  with_options if: -> { role == 'moderator' } do
+    validates :password, length: { minimum: 10 }
+  end
+
   accepts_nested_attributes_for :articles, :comments
 
   def admin?
-    false
+    role == 'admin'
   end
 end
