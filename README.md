@@ -1,6 +1,6 @@
 # [mongoid-rspec](https://github.com/mongoid/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents.")
 
-[![Build Status](https://travis-ci.org/mongoid/mongoid-rspec.svg?branch=master)](https://travis-ci.org/mongoid/mongoid-rspec)
+[![Build Status](https://travis-ci.com/mongoid/mongoid-rspec.svg?branch=master)](https://travis-ci.org/mongoid/mongoid-rspec)
 [![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec)
 
 The mongoid-rspec library provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
