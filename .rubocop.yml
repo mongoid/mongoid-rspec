@@ -2,7 +2,6 @@ AllCops:
   NewCops: enable
   Exclude:
     - vendor/**/*
-    - gemfiles/**/*
     - bin/**/*
     - data/**/*
 

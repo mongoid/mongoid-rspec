@@ -181,7 +181,7 @@ end
 
 ```ruby
 class Article
-  index({ title: 1 }, { unique: true, background: true, drop_dups: true })
+  index({ title: 1 }, { unique: true, background: true })
   index({ title: 1, created_at: -1 })
   index({ category: 1 })
 end
@@ -190,7 +190,7 @@ RSpec.describe Article, type: :model do
   it do
     is_expected
       .to have_index_for(title: 1)
-      .with_options(unique: true, background: true, drop_dups: true)
+      .with_options(unique: true, background: true)
   end
   it { is_expected.to have_index_for(title: 1, created_at: -1) }
   it { is_expected.to have_index_for(category: 1) }
