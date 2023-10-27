@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SsnValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless valid_ssn?(record, attribute, value)

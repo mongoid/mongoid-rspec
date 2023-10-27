@@ -12,7 +12,7 @@ class Article
   field :reviewer, type: String, default: nil
 
   embeds_many :comments, cascade_callbacks: true, inverse_of: :article
-  embeds_one :permalink, inverse_of: :linkable
+  embeds_one :permalink, inverse_of: :linkable, class_name: 'Permalink'
   belongs_to :author, class_name: 'User', inverse_of: :articles, index: true
 
   validates :title, presence: true
@@ -29,9 +29,8 @@ class Article
 
   validates_absence_of :comments, unless: :allow_comments if Mongoid::Compatibility::Version.mongoid4_or_newer?
 
-  index({ title: 1 }, unique: true, background: true, drop_dups: true)
-  index(published: 1)
-  index('permalink._id' => 1)
+  index({title: 1 }, { unique: true, background: true})
+  index({ published: 1 })
 
   accepts_nested_attributes_for :permalink
 end
