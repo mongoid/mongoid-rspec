@@ -1,6 +1,16 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - vendor/**/*
+    - gemfiles/**/*
+    - bin/**/*
+    - data/**/*
+
+Metrics:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 256
 
 Style/Documentation:
   Enabled: false
