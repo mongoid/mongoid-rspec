@@ -11,10 +11,10 @@ jobs:
           - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid-5.0', bundler: '1.17.3' }
           - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid-6.0' }
           - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid-7.0' }
-          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid-8.0' }
-          - { ruby: '3.0', mongodb: '4.4', gemfile: 'mongoid-8.0' }
-          - { ruby: '3.1', mongodb: '4.4', gemfile: 'mongoid-8.0' }
-          - { ruby: '3.2', mongodb: '4.4', gemfile: 'mongoid-8.0' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid-8.0', bundler: '2.4.19' }
+          - { ruby: '3.0', mongodb: '4.4', gemfile: 'mongoid-8.0', bundler: '2.4.19' }
+          - { ruby: '3.1', mongodb: '4.4', gemfile: 'mongoid-8.0', bundler: '2.4.19' }
+          - { ruby: '3.2', mongodb: '4.4', gemfile: 'mongoid-8.0', bundler: '2.4.19' }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
