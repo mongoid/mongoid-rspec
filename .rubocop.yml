@@ -1,6 +1,15 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - vendor/**/*
+    - bin/**/*
+    - data/**/*
+
+Metrics:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 256
 
 Style/Documentation:
   Enabled: false

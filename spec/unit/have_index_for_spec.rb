@@ -8,7 +8,7 @@ RSpec.describe Mongoid::Matchers::HaveIndexFor do
       field :fizz, as: :buzz, type: String
 
       index(foo: 1)
-      index({ bar: 1 }, unique: true, background: true, drop_dups: true)
+      index({ bar: 1 }, unique: true, background: true)
       index(foo: 1, bar: -1)
       index('baz._id' => 1)
       index(buzz: 1)
@@ -26,7 +26,7 @@ RSpec.describe Mongoid::Matchers::HaveIndexFor do
   it 'detects an index with options' do
     is_expected
       .to have_index_for(bar: 1)
-      .with_options(unique: true, background: true, drop_dups: true)
+      .with_options(unique: true, background: true)
   end
 
   it 'detects an index with only part of options' do

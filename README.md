@@ -1,9 +1,16 @@
 # [mongoid-rspec](https://github.com/mongoid/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents.")
 
-[![Build Status](https://travis-ci.com/mongoid/mongoid-rspec.svg?branch=master)](https://travis-ci.org/mongoid/mongoid-rspec)
 [![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec)
+[![Test Status](https://github.com/mongoid/mongoid-rspec/workflows/Test/badge.svg)](https://github.com/mongoid/mongoid-rspec/actions)
+[![Rubocop Status](https://github.com/mongoid/mongoid-rspec/workflows/Rubocop/badge.svg)](https://github.com/mongoid/mongoid-rspec/actions)
 
 The mongoid-rspec library provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
+
+[Tested](https://github.com/mongoid/mongoid-locker/actions) against:
+- MRI: `2.6.x`, `2.7.x`, `3.0.x`, `3.1.x`, `3.2.x`
+- Mongoid: `4`, `5`, `6`, `7`, `8`
+
+See [.github/workflows/rspec.yml](.github/workflows/rspec.yml) for the latest test matrix.
 
 ## Installation
 
@@ -181,7 +188,7 @@ end
 
 ```ruby
 class Article
-  index({ title: 1 }, { unique: true, background: true, drop_dups: true })
+  index({ title: 1 }, { unique: true, background: true })
   index({ title: 1, created_at: -1 })
   index({ category: 1 })
 end
@@ -190,7 +197,7 @@ RSpec.describe Article, type: :model do
   it do
     is_expected
       .to have_index_for(title: 1)
-      .with_options(unique: true, background: true, drop_dups: true)
+      .with_options(unique: true, background: true)
   end
   it { is_expected.to have_index_for(title: 1, created_at: -1) }
   it { is_expected.to have_index_for(category: 1) }

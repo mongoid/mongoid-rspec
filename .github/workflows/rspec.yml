@@ -1,0 +1,34 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        entry:
+          - { ruby: '2.6', mongodb: '4.4', gemfile: 'mongoid_4', bundler: '1.17.3' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_5', bundler: '1.17.3' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_6', bundler: '2.4.19' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_7', bundler: '2.4.19' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
+          - { ruby: '3.0', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
+          - { ruby: '3.1', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
+          - { ruby: '3.2', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
+    name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
+    steps:
+      - name: Set up MongoDB ${{ matrix.entry.mongodb }}
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.entry.mongodb }}
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.entry.ruby }}
+          bundler: '${{ matrix.entry.bundler || 1 }}'
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake

@@ -1,4 +1,7 @@
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'mongoid/rspec/version'
 
@@ -13,20 +16,21 @@ Gem::Specification.new do |s|
   s.description = 'RSpec matches for Mongoid models, including association and validation matchers.'
   s.license     = 'MIT'
 
-  s.required_ruby_version     = '>= 2.2'
+  s.required_ruby_version     = '>= 2.6'
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'mongoid-rspec'
+  s.metadata['rubygems_mfa_required'] = 'true'
 
-  s.add_dependency 'activesupport', '>= 3.0.0'
-  s.add_dependency 'mongoid', '>= 3.1'
+  s.add_development_dependency 'appraisal', '~> 2.0'
+  s.add_development_dependency 'mongoid-danger', '~> 0.2'
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'rails'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop', '~> 1.36.0'
+
+  s.add_dependency 'mongoid', '>= 3.0', '< 9.0'
   s.add_dependency 'mongoid-compatibility', '>= 0.5.1'
-  s.add_dependency 'rspec-core', '~> 3.3'
-  s.add_dependency 'rspec-expectations', '~> 3.3'
-  s.add_dependency 'rspec-mocks', '~> 3.3'
-  s.add_development_dependency 'appraisal', '~> 2.2'
-  s.add_development_dependency 'rake', '~> 10.0'
 
   s.files        = Dir.glob('lib/**/*') + %w[LICENSE README.md Rakefile]
-  s.test_files   = Dir.glob('spec/**/*')
   s.require_path = 'lib'
 end

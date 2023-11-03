@@ -14,7 +14,4 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new(:rubocop)
-
-task default: %i[rubocop spec]
+task default: %i[spec]

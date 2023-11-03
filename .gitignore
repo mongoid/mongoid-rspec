@@ -5,3 +5,4 @@ Gemfile.lock
 gemfiles/*.gemfile.lock
 pkg/*
 .idea/
+.ruby-lsp/

@@ -44,7 +44,7 @@ module Mongoid
       private
 
       MAPPINGS = {
-        dropDups: :drop_dups
+        dropDups: :drop_dups # Deprecated from MongoDB 3.0
       }.freeze
 
       def denormalising_options(opts)
