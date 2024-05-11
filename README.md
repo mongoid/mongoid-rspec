@@ -8,7 +8,7 @@ The mongoid-rspec library provides a collection of RSpec-compatible matchers tha
 
 [Tested](https://github.com/mongoid/mongoid-locker/actions) against:
 - MRI: `2.6.x`, `2.7.x`, `3.0.x`, `3.1.x`, `3.2.x`
-- Mongoid: `4`, `5`, `6`, `7`, `8`
+- Mongoid: `4`, `5`, `6`, `7`, `8`, `9`
 
 See [.github/workflows/rspec.yml](.github/workflows/rspec.yml) for the latest test matrix.
 
@@ -25,7 +25,7 @@ end
 
 ## Compatibility
 
-This gem is compatible with Mongoid 3, 4, 5, 6 and 7.
+This gem is compatible with Mongoid 3, 4, 5, 6, 7, 8, 9
 
 ## Configuration
 

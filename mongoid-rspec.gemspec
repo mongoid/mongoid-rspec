@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop', '~> 1.36.0'
 
-  s.add_dependency 'mongoid', '>= 3.0', '< 9.0'
+  s.add_dependency 'mongoid', '>= 3.0', '< 10.0'
   s.add_dependency 'mongoid-compatibility', '>= 0.5.1'
 
   s.files        = Dir.glob('lib/**/*') + %w[LICENSE README.md Rakefile]
