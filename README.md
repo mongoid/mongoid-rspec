@@ -25,7 +25,7 @@ end
 
 ## Compatibility
 
-This gem is compatible with Mongoid 3, 4, 5, 6, 7, 8, 9
+This gem is compatible with Mongoid 3, 4, 5, 6, 7, 8, 9.
 
 ## Configuration
 
