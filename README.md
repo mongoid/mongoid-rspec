@@ -256,6 +256,27 @@ RSpec.describe Article do
   it { is_expected.to embed_many(:comments) }
 end
 
+# when the touch option is provided, then we can also verify that it is set
+
+# by default, with_touch matches true when no parameters are provided
+describe Article do
+  it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index.with_touch }
+end
+
+# parameters are supported for explicit matching
+describe Comment do
+  it { is_expected.to be_embedded_in(:article).as_inverse_of(:comments).with_polymorphism.with_touch(true) }
+end
+
+describe Permalink do
+  it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link).with_touch(false) } 
+end
+
+# touch can also take a symbol representing a field on the parent to touch
+describe Record do
+  it { is_expected.to belong_to(:user).as_inverse_of(:record).with_touch(:record_updated_at) }
+end
+
 RSpec.describe Comment do
   it { is_expected.to be_embedded_in(:article).as_inverse_of(:comments) }
   it { is_expected.to belong_to(:user).as_inverse_of(:comments) }

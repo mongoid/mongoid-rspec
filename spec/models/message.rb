@@ -8,7 +8,7 @@ class Message
   if Mongoid::Compatibility::Version.mongoid6_or_newer?
     belongs_to :user, optional: true
   else
-    belongs_to :user
+    belongs_to :user, touch: true
   end
 
   validates :identifier, uniqueness: { message: 'uniqueness' }

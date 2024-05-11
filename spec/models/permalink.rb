@@ -1,3 +1,5 @@
+require 'article'
+
 class Permalink
   include Mongoid::Document
 

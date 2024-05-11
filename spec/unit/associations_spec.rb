@@ -20,7 +20,7 @@ RSpec.describe 'Associations' do
   end
 
   describe Article do
-    it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index }
+    it { is_expected.to belong_to(:author).of_type(User).as_inverse_of(:articles).with_index.with_touch }
     it { is_expected.to embed_many(:comments).as_inverse_of(:article).with_cascading_callbacks }
     it { is_expected.to embed_one(:permalink).as_inverse_of(:linkable) }
   end
@@ -31,11 +31,11 @@ RSpec.describe 'Associations' do
   end
 
   describe Record do
-    it { is_expected.to belong_to(:user).as_inverse_of(:record) }
+    it { is_expected.to belong_to(:user).as_inverse_of(:record).with_touch(:record_updated_at) }
   end
 
   describe Permalink do
-    it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link) }
+    it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link).with_touch(false) }
   end
 
   describe Site do
