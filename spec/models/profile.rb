@@ -6,7 +6,7 @@ class Profile
   field :age
   field :hobbies, type: Array, default: []
 
-  embedded_in :user, inverse_of: :profile
+  embedded_in :user, inverse_of: :profile, touch: false
 
   validates :age, numericality: { greater_than: 0 }
   validates :terms_of_service, acceptance: true

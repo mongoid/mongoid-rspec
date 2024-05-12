@@ -15,6 +15,7 @@ jobs:
           - { ruby: '3.0', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
           - { ruby: '3.1', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
           - { ruby: '3.2', mongodb: '4.4', gemfile: 'mongoid_8', bundler: '2.4.19' }
+          - { ruby: '3.2', mongodb: '4.4', gemfile: 'mongoid_9', bundler: '2.4.19' }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
