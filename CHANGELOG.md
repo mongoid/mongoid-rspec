@@ -1,4 +1,4 @@
-### 4.1.1 (Next)
+### 4.2.0 (Next)
 
 * [#239](https://github.com/mongoid/mongoid-rspec/pull/239): Add support for if/unless validator options - [@knovoselic](https://github.com/knovoselic).
 * [#244](https://github.com/mongoid/mongoid-rspec/pull/244): Migration from TravisCI to GitHub Actions - [@skalibog](https://github.com/skalibog).
