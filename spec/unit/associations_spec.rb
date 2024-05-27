@@ -48,7 +48,7 @@ RSpec.describe 'Associations' do
 
   describe Message do
     if Mongoid::Compatibility::Version.mongoid6_or_newer?
-      it { is_expected.to belong_to(:user).with_optional }
+      it { is_expected.to belong_to(:user).with_optional.with_touch(true) }
     end
   end
 end
