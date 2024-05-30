@@ -1,5 +1,5 @@
 module Mongoid
   module RSpec
-    VERSION = '4.1.1'.freeze
+    VERSION = '4.2.0'.freeze
   end
 end

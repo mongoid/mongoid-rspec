@@ -1,6 +1,6 @@
 class User
   include Mongoid::Document
-  include Mongoid::Timestamps::Created
+  include Mongoid::Timestamps
 
   field :login
   field :email
@@ -9,6 +9,7 @@ class User
   field :password, type: String
   field :provider_uid
   field :locale
+  field :record_updated_at, type: Time
 
   belongs_to :site, inverse_of: :users
   has_many :articles, foreign_key: :author_id, order: :title

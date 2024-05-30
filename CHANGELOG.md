@@ -3,6 +3,7 @@
 * [#239](https://github.com/mongoid/mongoid-rspec/pull/239): Add support for if/unless validator options - [@knovoselic](https://github.com/knovoselic).
 * [#244](https://github.com/mongoid/mongoid-rspec/pull/244): Migration from TravisCI to GitHub Actions - [@skalibog](https://github.com/skalibog).
 * [#245](https://github.com/mongoid/mongoid-rspec/pull/245): Add support for Mongoid 9 - [@saisrinivasan](https://github.com/SairamSrinivasan).
+* [#246](https://github.com/mongoid/mongoid-rspec/pull/246): Add support for touch options - [@saisrinivasan](https://github.com/SairamSrinivasan).
 * Your contribution here.
 
 ### 4.1.0 (6/12/2020)
