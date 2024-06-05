@@ -1,5 +1,5 @@
 ### 4.3.0 (Next)
-* Your contribution here
+* Your contribution here.
 
 ### 4.2.0 (06/04/2024)
 
