@@ -63,24 +63,26 @@ module Mongoid
 
         def if_condition_matches?(actual, validator)
           return true unless validator.options[:if]
+          return true if actual.is_a?(Class)
 
-          check_condition actual, validator.options[:if]
+          check_condition(actual, validator.options[:if])
         end
 
         def unless_condition_matches?(actual, validator)
           return true unless validator.options[:unless]
+          return true if actual.is_a?(Class)
 
-          !check_condition actual, validator.options[:unless]
+          !check_condition(actual, validator.options[:unless])
         end
 
         def check_condition(actual, filter)
-          raise ArgumentError, 'Spec subject must be object instance when testing validators with if/unless condition.' if actual.is_a?(Class)
-
           case filter
           when Symbol
-            actual.send filter
+            actual.send(filter)
           when ::Proc
-            actual.instance_exec(&filter)
+            filter.arity.zero? ? actual.instance_exec(&filter) : filter.call(actual)
+          when Array
+            filter.all? { |f| check_condition(actual, f) }
           else
             raise ArgumentError, "Unexpected filter: #{filter.inspect}"
           end

@@ -119,5 +119,49 @@ if Mongoid::Compatibility::Version.mongoid4_or_newer?
         it { is_expected.not_to validate_presence_of(:reviewer) }
       end
     end
+
+    describe 'with Class subject (no instance)' do
+      it 'skips condition evaluation and finds the validator' do
+        expect(User).to validate_length_of(:password).greater_than(20)
+      end
+
+      it 'skips unless condition evaluation and finds the validator' do
+        expect(Article).to validate_presence_of(:reviewer)
+      end
+    end
+
+    describe 'with lambda that takes an explicit argument' do
+      context 'when the condition is met' do
+        subject { Article.new(status: :approved) }
+
+        it { is_expected.to validate_presence_of(:editor) }
+      end
+
+      context 'when the condition is not met' do
+        subject { Article.new(status: :pending) }
+
+        it { is_expected.not_to validate_presence_of(:editor) }
+      end
+    end
+
+    describe 'with array of conditions (symbol + lambda)' do
+      context 'when all conditions are met' do
+        subject { Article.new(published: true, status: :approved) }
+
+        it { is_expected.to validate_presence_of(:summary) }
+      end
+
+      context 'when symbol condition is not met' do
+        subject { Article.new(published: false, status: :approved) }
+
+        it { is_expected.not_to validate_presence_of(:summary) }
+      end
+
+      context 'when lambda condition is not met' do
+        subject { Article.new(published: true, status: :pending) }
+
+        it { is_expected.not_to validate_presence_of(:summary) }
+      end
+    end
   end
 end

@@ -14,6 +14,8 @@ class Article
   field :status, type: Symbol
   field :deletion_date, type: DateTime, default: nil
   field :reviewer, type: String, default: nil
+  field :editor, type: String, default: nil
+  field :summary, type: String, default: nil
 
   embeds_many :comments, cascade_callbacks: true, inverse_of: :article
   embeds_one :permalink, inverse_of: :linkable, class_name: 'Permalink'
@@ -36,6 +38,14 @@ class Article
   validates_presence_of :reviewer, unless: -> { status == :pending }
 
   validates_absence_of :comments, unless: :allow_comments if Mongoid::Compatibility::Version.mongoid4_or_newer?
+
+  validates_presence_of :editor, if: ->(article) { article.status == :approved }
+
+  validates_presence_of :summary, if: [:published?, ->(article) { article.status == :approved }]
+
+  def published?
+    published == true
+  end
 
   index({title: 1 }, { unique: true, background: true})
   index({ published: 1 })
