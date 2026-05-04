@@ -171,9 +171,9 @@ if Mongoid::Compatibility::Version.mongoid4_or_newer?
 
       describe 'raises error with Class subject' do
         it 'raises ArgumentError when subject is a Class' do
-          expect {
+          expect do
             expect(User).to validate_length_of(:password).check_conditions
-          }.to raise_error(ArgumentError, /must be an instance/)
+          end.to raise_error(ArgumentError, /must be an instance/)
         end
       end
     end
