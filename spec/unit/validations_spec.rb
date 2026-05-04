@@ -64,103 +64,117 @@ end
 
 if Mongoid::Compatibility::Version.mongoid4_or_newer?
   RSpec.describe 'Conditional validations' do
-    describe 'validations with if condition using symbol' do
-      context 'when the condition is met' do
-        subject { User.new(role: 'admin') }
-
-        it { is_expected.to validate_length_of(:password).greater_than(20) }
-      end
-
-      context 'when the condition is not met' do
-        subject { User.new(role: 'member') }
-
-        it { is_expected.not_to validate_length_of(:password) }
-      end
-    end
-
-    describe 'validations with if condition using lambda' do
-      context 'when the condition is met' do
-        subject { User.new(role: 'moderator') }
-
-        it { is_expected.to validate_length_of(:password).greater_than(10) }
-      end
-
-      context 'when the condition is not met' do
-        subject { User.new(role: 'member') }
-
-        it { is_expected.not_to validate_length_of(:password) }
-      end
-    end
-
-    describe 'validations with unless condition using symbol' do
-      context 'when the condition is met' do
-        subject { Article.new(allow_comments: false) }
-
-        it { is_expected.to validate_absence_of(:comments) }
-      end
-
-      context 'when the condition is not met' do
-        subject { Article.new(allow_comments: true) }
-
-        it { is_expected.not_to validate_absence_of(:comments) }
-      end
-    end
-
-    describe 'validations with unless condition using lambda' do
-      context 'when the condition is met' do
-        subject { Article.new(status: :rejected) }
-
-        it { is_expected.to validate_presence_of(:reviewer) }
-      end
-
-      context 'when the condition is not met' do
-        subject { Article.new(status: :pending) }
-
-        it { is_expected.not_to validate_presence_of(:reviewer) }
-      end
-    end
-
-    describe 'with Class subject (no instance)' do
-      it 'skips condition evaluation and finds the validator' do
+    describe 'without .check_conditions (default)' do
+      it 'finds validators regardless of conditions when subject is a Class' do
         expect(User).to validate_length_of(:password).greater_than(20)
       end
 
-      it 'skips unless condition evaluation and finds the validator' do
+      it 'finds validators with unless conditions when subject is a Class' do
         expect(Article).to validate_presence_of(:reviewer)
       end
-    end
 
-    describe 'with lambda that takes an explicit argument' do
-      context 'when the condition is met' do
-        subject { Article.new(status: :approved) }
-
-        it { is_expected.to validate_presence_of(:editor) }
-      end
-
-      context 'when the condition is not met' do
-        subject { Article.new(status: :pending) }
-
-        it { is_expected.not_to validate_presence_of(:editor) }
+      it 'finds validators regardless of conditions when subject is an instance' do
+        expect(User.new(role: 'member')).to validate_length_of(:password).greater_than(20)
       end
     end
 
-    describe 'with array of conditions (symbol + lambda)' do
-      context 'when all conditions are met' do
-        subject { Article.new(published: true, status: :approved) }
+    describe 'with .check_conditions' do
+      describe 'if condition using symbol' do
+        context 'when the condition is met' do
+          subject { User.new(role: 'admin') }
 
-        it { is_expected.to validate_presence_of(:summary) }
+          it { is_expected.to validate_length_of(:password).greater_than(20).check_conditions }
+        end
+
+        context 'when the condition is not met' do
+          subject { User.new(role: 'member') }
+
+          it { is_expected.not_to validate_length_of(:password).check_conditions }
+        end
       end
 
-      context 'when symbol condition is not met' do
-        subject { Article.new(published: false, status: :approved) }
+      describe 'if condition using lambda' do
+        context 'when the condition is met' do
+          subject { User.new(role: 'moderator') }
 
-        it { is_expected.not_to validate_presence_of(:summary) }
+          it { is_expected.to validate_length_of(:password).greater_than(10).check_conditions }
+        end
+
+        context 'when the condition is not met' do
+          subject { User.new(role: 'member') }
+
+          it { is_expected.not_to validate_length_of(:password).check_conditions }
+        end
       end
 
-      context 'when lambda condition is not met' do
-        subject { Article.new(published: true, status: :pending) }
+      describe 'unless condition using symbol' do
+        context 'when the condition is met' do
+          subject { Article.new(allow_comments: false) }
 
-        it { is_expected.not_to validate_presence_of(:summary) }
+          it { is_expected.to validate_absence_of(:comments).check_conditions }
+        end
+
+        context 'when the condition is not met' do
+          subject { Article.new(allow_comments: true) }
+
+          it { is_expected.not_to validate_absence_of(:comments).check_conditions }
+        end
+      end
+
+      describe 'unless condition using lambda' do
+        context 'when the condition is met' do
+          subject { Article.new(status: :rejected) }
+
+          it { is_expected.to validate_presence_of(:reviewer).check_conditions }
+        end
+
+        context 'when the condition is not met' do
+          subject { Article.new(status: :pending) }
+
+          it { is_expected.not_to validate_presence_of(:reviewer).check_conditions }
+        end
+      end
+
+      describe 'lambda with explicit argument' do
+        context 'when the condition is met' do
+          subject { Article.new(status: :approved) }
+
+          it { is_expected.to validate_presence_of(:editor).check_conditions }
+        end
+
+        context 'when the condition is not met' do
+          subject { Article.new(status: :pending) }
+
+          it { is_expected.not_to validate_presence_of(:editor).check_conditions }
+        end
+      end
+
+      describe 'array of conditions (symbol + lambda)' do
+        context 'when all conditions are met' do
+          subject { Article.new(published: true, status: :approved) }
+
+          it { is_expected.to validate_presence_of(:summary).check_conditions }
+        end
+
+        context 'when symbol condition is not met' do
+          subject { Article.new(published: false, status: :approved) }
+
+          it { is_expected.not_to validate_presence_of(:summary).check_conditions }
+        end
+
+        context 'when lambda condition is not met' do
+          subject { Article.new(published: true, status: :pending) }
+
+          it { is_expected.not_to validate_presence_of(:summary).check_conditions }
+        end
+      end
+
+      describe 'raises error with Class subject' do
+        it 'raises ArgumentError when subject is a Class' do
+          expect {
+            expect(User).to validate_length_of(:password).check_conditions
+          }.to raise_error(ArgumentError, /must be an instance/)
+        end
       end
     end
   end

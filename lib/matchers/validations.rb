@@ -59,23 +59,30 @@ module Mongoid
           self
         end
 
+        def check_conditions
+          @check_conditions = true
+          self
+        end
+
         private
 
         def if_condition_matches?(actual, validator)
+          return true unless @check_conditions
           return true unless validator.options[:if]
-          return true if actual.is_a?(Class)
 
           check_condition(actual, validator.options[:if])
         end
 
         def unless_condition_matches?(actual, validator)
+          return true unless @check_conditions
           return true unless validator.options[:unless]
-          return true if actual.is_a?(Class)
 
           !check_condition(actual, validator.options[:unless])
         end
 
         def check_condition(actual, filter)
+          raise ArgumentError, 'Spec subject must be an instance when using .check_conditions' if actual.is_a?(Class)
+
           case filter
           when Symbol
             actual.send(filter)
