@@ -1,8 +1,11 @@
 ### 4.3.0 (Next)
 
-* [#247](https://github.com/mongoid/mongoid-rspec/pull/247): Migrate to danger-pr-comment workflow - [@dblock](https://github.com/dblock).
+* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Gate conditional `:if`/`:unless` validator support behind a `.check_conditions` method - [@johnnyshields](https://github.com/johnnyshields).
+* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Raise informative error if conditional `:if`/`:unless` validator is used with a class subject - [@johnnyshields](https://github.com/johnnyshields).
+* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Support Arrays and Procs with non-zero arity for `:if`/`:unless` validator - [@johnnyshields](https://github.com/johnnyshields).
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Add frozen_string_literal: true to all files and enforce rubocop - [@johnnyshields](https://github.com/johnnyshields).
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Various small CI fixes - [@johnnyshields](https://github.com/johnnyshields).
+* [#247](https://github.com/mongoid/mongoid-rspec/pull/247): Migrate to danger-pr-comment workflow - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 4.2.0 (2024/06/04)
