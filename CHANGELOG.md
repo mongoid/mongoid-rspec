@@ -1,6 +1,7 @@
 ### 4.3.0 (Next)
 
-* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Ignore `:if`/`:unless` validator for class subjects (do not raise error) - [@johnnyshields](https://github.com/johnnyshields).
+* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Gate conditional `:if`/`:unless` validator support behind a `.check_conditions` method - [@johnnyshields](https://github.com/johnnyshields).
+* [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Raise informative error if conditional `:if`/`:unless` validator is used with a class subject - [@johnnyshields](https://github.com/johnnyshields).
 * [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Support Arrays and Procs with non-zero arity for `:if`/`:unless` validator - [@johnnyshields](https://github.com/johnnyshields).
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Add frozen_string_literal: true to all files and enforce rubocop - [@johnnyshields](https://github.com/johnnyshields).
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Various small CI fixes - [@johnnyshields](https://github.com/johnnyshields).
