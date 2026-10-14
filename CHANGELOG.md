@@ -1,5 +1,6 @@
 ### 4.3.0 (Next)
 
+* [#251](https://github.com/mongoid/mongoid-rspec/pull/251): Add SimpleCov and Coveralls reporting in CI and update status badges - [@dblock](https://github.com/dblock).
 * [#250](https://github.com/mongoid/mongoid-rspec/pull/250): Modernize CI actions and MongoDB startup while retaining Ruby 2.6–4.0, Mongoid 4–9, and MongoDB 4.4–8.0 coverage - [@dblock](https://github.com/dblock).
 * [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Gate conditional `:if`/`:unless` validator support behind a `.check_conditions` method - [@johnnyshields](https://github.com/johnnyshields).
 * [#249](https://github.com/mongoid/mongoid-rspec/pull/249): Raise informative error if conditional `:if`/`:unless` validator is used with a class subject - [@johnnyshields](https://github.com/johnnyshields).

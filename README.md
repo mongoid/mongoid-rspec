@@ -1,12 +1,15 @@
 # [mongoid-rspec](https://github.com/mongoid/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents.")
 
 [![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec)
-[![Test Status](https://github.com/mongoid/mongoid-rspec/workflows/Test/badge.svg)](https://github.com/mongoid/mongoid-rspec/actions)
-[![Rubocop Status](https://github.com/mongoid/mongoid-rspec/workflows/Rubocop/badge.svg)](https://github.com/mongoid/mongoid-rspec/actions)
+[![Test Status](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml?query=branch%3Amaster)
+[![Rubocop Status](https://github.com/mongoid/mongoid-rspec/actions/workflows/rubocop.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/rubocop.yml?query=branch%3Amaster)
+[![Coverage Status](https://coveralls.io/repos/github/mongoid/mongoid-rspec/badge.svg?branch=master)](https://coveralls.io/github/mongoid/mongoid-rspec?branch=master)
+
+CI collects SimpleCov coverage on Ruby 3.4 with Mongoid 9 and MongoDB 8.0 and submits one report to Coveralls using GitHub's workflow token. To generate a local report, run `COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid_9.gemfile bundle install` followed by `COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid_9.gemfile bundle exec rake spec`. Reports are written to `coverage/`.
 
 The mongoid-rspec library provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
 
-[Tested](https://github.com/mongoid/mongoid-locker/actions) against:
+[Tested](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml) against:
 - MRI: `2.6.x`, `2.7.x`, `3.0.x`, `3.1.x`, `3.2.x`
 - Mongoid: `4`, `5`, `6`, `7`, `8`, `9`
 
