@@ -5,6 +5,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         entry:
           - { ruby: '2.6', mongodb: '4.4', gemfile: 'mongoid_4', bundler: '1.17.3' }
@@ -23,10 +24,10 @@ jobs:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
     steps:
       - name: Set up MongoDB ${{ matrix.entry.mongodb }}
-        uses: supercharge/mongodb-github-action@1.8.0
+        uses: supercharge/mongodb-github-action@1.12.1
         with:
           mongodb-version: ${{ matrix.entry.mongodb }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

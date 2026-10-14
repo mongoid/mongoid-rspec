@@ -10,7 +10,7 @@ jobs:
       CI: true
       TESTOPTS: "-v"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Set up Ruby 3.2.2
         uses: ruby/setup-ruby@v1
         with:
