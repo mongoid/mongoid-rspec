@@ -6,3 +6,4 @@ gemfiles/*.gemfile.lock
 pkg/*
 .idea/
 .ruby-lsp/
+coverage/

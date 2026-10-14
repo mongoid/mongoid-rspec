@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rails'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop', '~> 1.36.0'
+  s.add_development_dependency 'simplecov', '~> 0.22' if ENV['COVERAGE'] == 'true'
 
   s.add_dependency 'mongoid', '>= 3.0', '< 10.0'
   s.add_dependency 'mongoid-compatibility', '>= 0.5.1'
