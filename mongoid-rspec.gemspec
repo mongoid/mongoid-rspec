@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version     = '>= 2.6'
   s.required_rubygems_version = '>= 1.3.6'
-  s.rubyforge_project         = 'mongoid-rspec'
   s.metadata['rubygems_mfa_required'] = 'true'
 
   s.add_development_dependency 'appraisal', '~> 2.0'
