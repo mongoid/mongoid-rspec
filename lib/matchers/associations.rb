@@ -115,6 +115,12 @@ module Mongoid
           self
         end
 
+        def with_primary_key(primary_key)
+          @association[:primary_key] = primary_key.to_s
+          @expectation_message << " using primary key #{@association[:primary_key].inspect}"
+          self
+        end
+
         def with_counter_cache
           @association[:counter_cache] = true
           @expectation_message << " which specifies counter_cache as #{@association[:counter_cache]}"
@@ -268,6 +274,15 @@ module Mongoid
               return false
             else
               @positive_result_message = "#{@positive_result_message} with foreign key #{metadata.foreign_key.inspect}"
+            end
+          end
+
+          if @association[:primary_key]
+            if metadata.primary_key != @association[:primary_key]
+              @negative_result_message = "#{@positive_result_message} with primary key #{metadata.primary_key.inspect}"
+              return false
+            else
+              @positive_result_message = "#{@positive_result_message} with primary key #{metadata.primary_key.inspect}"
             end
           end
 
