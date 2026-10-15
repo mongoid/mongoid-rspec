@@ -371,9 +371,10 @@ module Mongoid
       end
       alias have_many have_many_related
 
-      def have_and_belong_to_many(association_name)
+      def have_and_belong_to_many_related(association_name)
         HaveAssociationMatcher.new(association_name, HAS_AND_BELONGS_TO_MANY)
       end
+      alias have_and_belong_to_many have_and_belong_to_many_related
 
       def belong_to_related(association_name)
         HaveAssociationMatcher.new(association_name, BELONGS_TO)
