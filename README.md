@@ -300,7 +300,9 @@ end
 
 ### Validation Matchers
 
-`validate_length_of` searches all applicable length validators for one matching the requested options. For example, a maximum-length validator added by `has_secure_password` does not hide a separately declared minimum-length validator. Chained length and message options must match a single validator; bounds from separate validators are not combined.
+`validate_length_of` searches all applicable length validators for one matching the requested options. For example, a maximum-length validator added by `has_secure_password` does not hide a separately declared minimum-length validator. Chained length, message, and `to_allow` options must match a single validator; options from separate validators are not combined.
+
+Use `validate_length_of(:name).within(1..100).to_allow(nil: true)` to check `allow_nil: true`, or `.to_allow(blank: true)` to check `allow_blank: true`. Both options can be combined, and the full keys `allow_nil` and `allow_blank` are also accepted. Values must be `true` or `false`; `false` requires an explicitly configured `false` (an omitted option does not match). Omitting `to_allow` leaves these options unchecked. Empty hashes, unknown keys, non-boolean values, and duplicate aliases are rejected with `ArgumentError`.
 
 ```ruby
 RSpec.describe Site do
