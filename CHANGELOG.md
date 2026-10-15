@@ -1,5 +1,6 @@
 ### 4.4.0 (Next)
 
+* [#209](https://github.com/mongoid/mongoid-rspec/issues/209): Document and integration-test scoped matchers for mixed Mongoid and ActiveRecord applications using shoulda-matchers - [@dblock](https://github.com/dblock).
 * [#210](https://github.com/mongoid/mongoid-rspec/issues/210): Support checking nil and blank options on length validators with `to_allow` - [@dblock](https://github.com/dblock).
 * [#161](https://github.com/mongoid/mongoid-rspec/issues/161): Add have_and_belong_to_many_related as a nonconflicting alternative when using shoulda-matchers - [@dblock](https://github.com/dblock).
 * [#220](https://github.com/mongoid/mongoid-rspec/issues/220): Add `.readonly` to field matchers for fields declared with `attr_readonly` - [@dblock](https://github.com/dblock).
