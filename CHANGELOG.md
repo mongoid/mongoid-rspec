@@ -1,4 +1,4 @@
-### 4.4.0 (Next)
+### 4.4.0 (2026/10/15)
 
 * [#209](https://github.com/mongoid/mongoid-rspec/issues/209): Document and integration-test scoped matchers for mixed Mongoid and ActiveRecord applications using shoulda-matchers - [@dblock](https://github.com/dblock).
 * [#210](https://github.com/mongoid/mongoid-rspec/issues/210): Support checking nil and blank options on length validators with `to_allow` - [@dblock](https://github.com/dblock).
@@ -10,8 +10,6 @@
 * [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
 * [#238](https://github.com/mongoid/mongoid-rspec/issues/238): Add a `be_covered_query` matcher for index-only query plans with optional `using_index` and `using_indexes` constraints - [@Startouf](https://github.com/Startouf).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).
-* Your contribution here.
-
 ### 4.3.0 (2026/10/14)
 
 * [#251](https://github.com/mongoid/mongoid-rspec/pull/251): Add SimpleCov and Coveralls reporting in CI and update status badges - [@dblock](https://github.com/dblock).

@@ -11,11 +11,11 @@ bundle install
 bundle exec rake
 bundle exec rubocop
 git add CHANGELOG.md lib/mongoid/rspec/version.rb RELEASING.md
-git commit -m "Preparing for release, 4.3.0."
+git commit -m "Preparing for release, 4.4.0."
 git push origin master
 ```
 
-Wait for the preparation commit's CI checks to pass.
+Do not wait for the preparation commit's CI checks before publishing.
 
 ## Publish RubyGems and GitHub
 
@@ -23,12 +23,12 @@ Wait for the preparation commit's CI checks to pass.
 bundle exec rake release
 ```
 
-Complete RubyGems MFA when requested. The task builds the gem, pushes its tag, and publishes to RubyGems. If interrupted, inspect the existing tag and gem version before retrying. Never move a published tag. If only gem publication is missing, use `gem push pkg/mongoid-rspec-4.3.0.gem`.
+Complete RubyGems MFA when requested. The task builds the gem, pushes its tag, and publishes to RubyGems. If interrupted, inspect the existing tag and gem version before retrying. Never move a published tag. If only gem publication is missing, use `gem push pkg/mongoid-rspec-4.4.0.gem`.
 
 Creating the tag does not create a GitHub release. After verifying RubyGems publication, publish a matching GitHub release with the changelog entries:
 
 ```sh
-version=4.3.0
+version=4.4.0
 notes="$(mktemp)"
 awk -v version="$version" '
   /^### / {
@@ -48,4 +48,4 @@ Both the published gem and non-draft GitHub release must be verified.
 
 ## Prepare the Next Version
 
-Increment the development patch version in `lib/mongoid/rspec/version.rb`, for example to `4.3.1`. Add `### 4.3.1 (Next)` and a contribution placeholder above the released changelog section. Commit and push those changes to `master`, leaving the released tag unchanged.
+Increment the development patch version in `lib/mongoid/rspec/version.rb`, for example to `4.4.1`. Add `### 4.4.1 (Next)` and a contribution placeholder above the released changelog section. Commit and push those changes to `master`, leaving the released tag unchanged.
