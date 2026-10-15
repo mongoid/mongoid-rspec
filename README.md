@@ -234,6 +234,28 @@ RSpec.describe Article do
 end
 ```
 
+### be_covered_query
+
+Check that MongoDB's winning plan uses an index without fetching documents:
+
+```ruby
+class Article
+  index({ title: 1, _id: 1 })
+end
+
+RSpec.describe Article do
+  it { expect(Article.where(title: 'Example').only(:title)).to be_covered_query }
+end
+```
+
+Mongoid includes `_id` in an inclusive projection by default, so the index must cover it as well. The matcher examines all stages in the winning plan, including nested shard plans, and rejects plans containing `FETCH` or `COLLSCAN`. A covered plan does not guarantee that a query is fast; this matcher checks plan coverage, not execution time.
+
+Use `.using_index('title_1__id_1')` or `.using_indexes('first_index', 'second_index')` to additionally require the exact set of index names used by the winning plan. Index names accept nonempty strings or symbols; order and repeated uses across shards do not matter. Rejected plans are ignored, and the query must still be covered.
+
+```ruby
+expect(Article.where(title: 'Example').only(:title)).to be_covered_query.using_index('title_1__id_1')
+```
+
 ### Field Matchers
 
 Chain `.readonly` to check fields declared with Mongoid's `attr_readonly`. This checks the declaration, not whether a new document currently allows writes. Like other field matcher options, it applies to every requested field and accepts class or instance subjects.

@@ -7,6 +7,7 @@
 * [#225](https://github.com/mongoid/mongoid-rspec/issues/225): Add an `execute_mongodb_command` matcher with optional exact command matching - [@dblock](https://github.com/dblock).
 * [#235](https://github.com/mongoid/mongoid-rspec/issues/235): Remove deprecated RubyForge metadata from the gemspec - [@dblock](https://github.com/dblock).
 * [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
+* [#238](https://github.com/mongoid/mongoid-rspec/issues/238): Add a `be_covered_query` matcher for index-only query plans with optional `using_index` and `using_indexes` constraints - [@Startouf](https://github.com/Startouf).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
