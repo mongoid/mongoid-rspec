@@ -13,11 +13,19 @@ module Mongoid
           self
         end
 
-        def matches?(actual)
-          return false unless result = super(actual)
+        def description
+          options_desc = []
+          options_desc << " allowing these values: #{@allowed_values}" if @allowed_values
+          super << options_desc.to_sentence
+        end
+
+        private
+
+        def check_validator(actual, validator)
+          return false unless result = super
 
           if @allowed_values
-            raw_validator_allowed_values = @validator.options[:in]
+            raw_validator_allowed_values = validator.options[:in]
 
             validator_allowed_values = case raw_validator_allowed_values
                                        when Range then raw_validator_allowed_values.to_a
@@ -34,12 +42,6 @@ module Mongoid
           end
 
           result
-        end
-
-        def description
-          options_desc = []
-          options_desc << " allowing these values: #{@allowed_values}" if @allowed_values
-          super << options_desc.to_sentence
         end
       end
 

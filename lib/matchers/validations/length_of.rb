@@ -32,17 +32,6 @@ module Mongoid
         end
         alias is as_exactly
 
-        def matches?(actual)
-          return false unless @result = super(actual)
-
-          check_maximum if @maximum
-          check_minimum if @minimum
-          check_range if @within
-          check_exact if @is
-
-          @result
-        end
-
         def description
           options_desc = []
           options_desc << "with minimum of #{@minimum}" if @minimum
@@ -54,50 +43,76 @@ module Mongoid
 
         private
 
-        def check_maximum
-          if actual_max.nil?
+        def check_validator(actual, validator)
+          return false unless @result = super
+
+          check_maximum(validator) if @maximum
+          check_minimum(validator) if @minimum
+          check_range(validator) if @within
+          check_exact(validator) if @is
+
+          @result
+        end
+
+        def select_validator(validators)
+          validators.detect do |validator|
+            (!@minimum || actual_min(validator) == @minimum) &&
+              (!@maximum || actual_max(validator) == @maximum) &&
+              (!@within || @within.minmax == [actual_min(validator), actual_max(validator)]) &&
+              (!@is || validator.options[:is] == @is) &&
+              (!@expected_message || validator.options[:message] == @expected_message)
+          end || super
+        end
+
+        def check_maximum(validator)
+          maximum = actual_max(validator)
+          if maximum.nil?
             @negative_result_message << ' with no maximum'
             @result = false
-          elsif actual_max == @maximum
+          elsif maximum == @maximum
             @positive_result_message << " with maximum of #{@maximum}"
           else
-            @negative_result_message << " with maximum of #{actual_max}"
+            @negative_result_message << " with maximum of #{maximum}"
             @result = false
           end
         end
 
-        def check_minimum
-          if actual_min.nil?
+        def check_minimum(validator)
+          minimum = actual_min(validator)
+          if minimum.nil?
             @negative_result_message << ' with no minimum'
             @result = false
-          elsif actual_min == @minimum
+          elsif minimum == @minimum
             @positive_result_message << " with minimum of #{@minimum}"
           else
-            @negative_result_message << " with minimum of #{actual_min}"
+            @negative_result_message << " with minimum of #{minimum}"
             @result = false
           end
         end
 
-        def check_range
+        def check_range(validator)
           min, max = @within.minmax
-          if !actual_min.nil? && actual_max.nil?
-            @negative_result_message << " with no minimum but with maximum of #{actual_max}"
+          minimum = actual_min(validator)
+          maximum = actual_max(validator)
+          if !minimum.nil? && maximum.nil?
+            @negative_result_message << " with no minimum but with maximum of #{maximum}"
             @result = false
-          elsif actual_min.nil? && !actual_max.nil?
-            @negative_result_message << " with minimum_of #{actual_min} but no maximum"
+          elsif minimum.nil? && !maximum.nil?
+            @negative_result_message << " with minimum_of #{minimum} but no maximum"
             @result = false
-          elsif actual_min.nil? && actual_max.nil?
+          elsif minimum.nil? && maximum.nil?
             @negative_result_message << ' with no minimum and maximum'
             @result = false
-          elsif actual_min == min && actual_max == max
+          elsif minimum == min && maximum == max
             @positive_result_message << " within the range of #{@within.inspect}"
           else
-            @negative_result_message << " within the range of #{(actual_min..actual_max).inspect}"
+            @negative_result_message << " within the range of #{(minimum..maximum).inspect}"
             @result = false
           end
         end
 
-        def check_exact
+        def check_exact(validator)
+          actual_is = validator.options[:is]
           if actual_is == @is
             @positive_result_message << " as exactly #{@is}"
           else
@@ -106,16 +121,12 @@ module Mongoid
           end
         end
 
-        def actual_is
-          actual_is = @validator.options[:is]
+        def actual_min(validator)
+          validator.options[:minimum] || (validator.options[:in] || validator.options[:within]).try(&:min)
         end
 
-        def actual_min
-          @validator.options[:minimum] || (@validator.options[:in] || @validator.options[:within]).try(&:min)
-        end
-
-        def actual_max
-          @validator.options[:maximum] || (@validator.options[:in] || @validator.options[:within]).try(&:max)
+        def actual_max(validator)
+          validator.options[:maximum] || (validator.options[:in] || validator.options[:within]).try(&:max)
         end
       end
 

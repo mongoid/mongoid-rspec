@@ -300,6 +300,8 @@ end
 
 ### Validation Matchers
 
+`validate_length_of` searches all applicable length validators for one matching the requested options. For example, a maximum-length validator added by `has_secure_password` does not hide a separately declared minimum-length validator. Chained length and message options must match a single validator; bounds from separate validators are not combined.
+
 ```ruby
 RSpec.describe Site do
   it { is_expected.to validate_presence_of(:name) }

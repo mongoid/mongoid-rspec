@@ -23,20 +23,30 @@ module Mongoid
           self
         end
 
-        def matches?(actual)
-          return false unless result = super(actual)
+        def description
+          options_desc = []
+          options_desc << " with format #{@format.inspect}" if @format
+          options_desc << " allowing the value #{@valid_value.inspect}" if @valid_value
+          options_desc << " not allowing the value #{@invalid_value.inspect}" if @invalid_value
+          super << options_desc.to_sentence
+        end
+
+        private
+
+        def check_validator(actual, validator)
+          return false unless result = super
 
           if @format
-            if @validator.options[:with] == @format
-              @positive_result_message = @positive_result_message << " with format #{@validator.options[:format].inspect}"
+            if validator.options[:with] == @format
+              @positive_result_message = @positive_result_message << " with format #{validator.options[:format].inspect}"
             else
-              @negative_result_message = @negative_result_message << " with format #{@validator.options[:format].inspect}"
+              @negative_result_message = @negative_result_message << " with format #{validator.options[:format].inspect}"
               result = false
             end
           end
 
           if @valid_value
-            if @validator.options[:with] =~ @valid_value
+            if validator.options[:with] =~ @valid_value
               @positive_result_message = @positive_result_message << " with #{@valid_value.inspect} as a valid value"
             else
               @negative_result_message = @negative_result_message << " with #{@valid_value.inspect} as an invalid value"
@@ -45,7 +55,7 @@ module Mongoid
           end
 
           if @invalid_value
-            if @invalid_value !~ @validator.options[:with]
+            if @invalid_value !~ validator.options[:with]
               @positive_result_message = @positive_result_message << " with #{@invalid_value.inspect} as an invalid value"
             else
               @negative_result_message = @negative_result_message << " with #{@invalid_value.inspect} as a valid value"
@@ -54,14 +64,6 @@ module Mongoid
           end
 
           result
-        end
-
-        def description
-          options_desc = []
-          options_desc << " with format #{@format.inspect}" if @format
-          options_desc << " allowing the value #{@valid_value.inspect}" if @valid_value
-          options_desc << " not allowing the value #{@invalid_value.inspect}" if @invalid_value
-          super << options_desc.to_sentence
         end
       end
 
