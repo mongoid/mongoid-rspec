@@ -1,3 +1,7 @@
+### 4.3.1 (Next)
+
+* Your contribution here.
+
 ### 4.3.0 (2026/10/14)
 
 * [#251](https://github.com/mongoid/mongoid-rspec/pull/251): Add SimpleCov and Coveralls reporting in CI and update status badges - [@dblock](https://github.com/dblock).
