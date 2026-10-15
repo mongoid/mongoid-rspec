@@ -207,6 +207,33 @@ RSpec.describe Article, type: :model do
 end
 ```
 
+### execute_mongodb_command
+
+Use `execute_mongodb_command` with a block expectation to verify that code issues a MongoDB command. Without an argument, the matcher passes when any command is issued on the block's thread. An expected command matches the entire application command document exactly, not just a subset or query selector; nested String and Symbol keys are normalized to Strings. Driver-added top-level `$db`, `lsid`, and `$clusterTime` fields are excluded from comparison, while all other command fields and values must match. The matcher ignores unrelated background-thread activity and raises `NotImplementedError` when the driver does not expose command monitoring, including the legacy driver used with Mongoid 4.
+
+```ruby
+RSpec.describe FooService do
+  it 'uses the cached result without querying MongoDB' do
+    expect { FooService.recent_foos }.not_to execute_mongodb_command
+  end
+end
+
+RSpec.describe Article do
+  it 'executes the expected MongoDB command' do
+    expected_command = {
+      find: 'articles',
+      filter: { 'title.en' => 'cached' },
+      limit: 10,
+      sort: { created_at: -1 }
+    }
+
+    expect do
+      Article.where(title: 'cached').desc(:created_at).limit(10).to_a
+    end.to execute_mongodb_command(expected_command)
+  end
+end
+```
+
 ### Field Matchers
 
 Chain `.readonly` to check fields declared with Mongoid's `attr_readonly`. This checks the declaration, not whether a new document currently allows writes. Like other field matcher options, it applies to every requested field and accepts class or instance subjects.
