@@ -13,22 +13,20 @@ module Mongoid
         def matches?(actual)
           @klass = actual.is_a?(Class) ? actual : actual.class
 
-          @validator = @klass.validators_on(@field).detect do |v|
+          validators = @klass.validators_on(@field).lazy.select do |v|
             (v.kind.to_s == @type) && (!v.options[:on] || on_options_matches?(v)) &&
               if_condition_matches?(actual, v) && unless_condition_matches?(actual, v)
           end
+          validator = select_validator(validators)
 
-          if @validator
+          if validator
             @negative_result_message = +"#{@type.inspect} validator on #{@field.inspect}"
             @positive_result_message = +"#{@type.inspect} validator on #{@field.inspect}"
           else
             @negative_result_message = +"no #{@type.inspect} validator on #{@field.inspect}"
             return false
           end
-          @result = true
-          check_on if @options[:on]
-          check_expected_message if @expected_message
-          @result
+          check_validator(actual, validator)
         end
 
         def failure_message_for_should
@@ -66,6 +64,17 @@ module Mongoid
 
         private
 
+        def check_validator(_actual, validator)
+          @result = true
+          check_on(validator) if @options[:on]
+          check_expected_message(validator) if @expected_message
+          @result
+        end
+
+        def select_validator(validators)
+          validators.first
+        end
+
         def if_condition_matches?(actual, validator)
           return true unless @check_conditions
           return true unless validator.options[:if]
@@ -95,13 +104,13 @@ module Mongoid
           end
         end
 
-        def check_on
-          validator_on_methods = [@validator.options[:on]].flatten
+        def check_on(validator)
+          validator_on_methods = [validator.options[:on]].flatten
 
           if validator_on_methods.any?
             message = +" on methods: #{validator_on_methods}"
 
-            if on_options_covered_by?(@validator)
+            if on_options_covered_by?(validator)
               @positive_result_message << message
             else
               @negative_result_message << message
@@ -118,8 +127,8 @@ module Mongoid
           ([@options[:on]].flatten - [validator.options[:on]].flatten).empty?
         end
 
-        def check_expected_message
-          actual_message = @validator.options[:message]
+        def check_expected_message(validator)
+          actual_message = validator.options[:message]
           if actual_message.nil?
             @negative_result_message << ' with no custom message'
             @result = false

@@ -53,6 +53,14 @@ RSpec.describe 'Validations' do
   describe Person do
     it { is_expected.to custom_validate(:ssn).with_validator(SsnValidator) }
     it { is_expected.not_to custom_validate(:name) }
+
+    it 'describes custom validators independently of the last matched subject' do
+      matcher = custom_validate(:ssn).with_validator(SsnValidator)
+      expect(matcher.description).to include('with custom validator SsnValidator')
+      expect(matcher.matches?(Person)).to be true
+      expect(matcher.matches?(User)).to be false
+      expect(matcher.description).to include('with custom validator SsnValidator')
+    end
   end
 
   describe Message do

@@ -38,23 +38,23 @@ module Mongoid
           self
         end
 
-        def matches?(actual)
-          return false unless result = super(actual)
-
-          @options.each do |comparator, expected_value|
-            result &= (@validator.options[comparator] == expected_value)
-          end
-
-          @positive_result_message <<= options_message(@validator.options)
-          @negative_result_message <<= options_message(@validator.options)
-          result
-        end
-
         def description
           super << options_message(@options)
         end
 
         protected
+
+        def check_validator(actual, validator)
+          return false unless result = super
+
+          @options.each do |comparator, expected_value|
+            result &= (validator.options[comparator] == expected_value)
+          end
+
+          @positive_result_message <<= options_message(validator.options)
+          @negative_result_message <<= options_message(validator.options)
+          result
+        end
 
         def options_message(options)
           type_msg = []

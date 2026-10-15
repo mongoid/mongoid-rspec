@@ -13,23 +13,23 @@ module Mongoid
           self
         end
 
-        def matches?(actual)
-          return false unless (@result = super(actual))
-          check_custom_validator if @custom_validator
-
-          @result
-        end
-
         def description
           options_desc = +"validate field #{@field.inspect}"
-          options_desc << " with custom validator #{@custom_validator.name}" if @validator
+          options_desc << " with custom validator #{@custom_validator.name}" if @custom_validator
           options_desc
         end
 
         private
 
-        def check_custom_validator
-          if @validator.is_a? @custom_validator
+        def check_validator(actual, validator)
+          return false unless (@result = super)
+          check_custom_validator(validator) if @custom_validator
+
+          @result
+        end
+
+        def check_custom_validator(validator)
+          if validator.is_a? @custom_validator
             @positive_result_message << " with custom validator of type #{@custom_validator.name}"
           else
             @negative_result_message << " with custom validator not of type #{@custom_validator.name}"

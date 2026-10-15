@@ -1,6 +1,7 @@
-### 4.3.1 (Next)
+### 4.4.0 (Next)
 
 * [#235](https://github.com/mongoid/mongoid-rspec/issues/235): Remove deprecated RubyForge metadata from the gemspec - [@dblock](https://github.com/dblock).
+* [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
