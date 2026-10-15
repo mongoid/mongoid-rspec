@@ -1,6 +1,7 @@
 ### 4.4.0 (Next)
 
 * [#210](https://github.com/mongoid/mongoid-rspec/issues/210): Support checking nil and blank options on length validators with `to_allow` - [@dblock](https://github.com/dblock).
+* [#161](https://github.com/mongoid/mongoid-rspec/issues/161): Add have_and_belong_to_many_related as a nonconflicting alternative when using shoulda-matchers - [@dblock](https://github.com/dblock).
 * [#235](https://github.com/mongoid/mongoid-rspec/issues/235): Remove deprecated RubyForge metadata from the gemspec - [@dblock](https://github.com/dblock).
 * [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).

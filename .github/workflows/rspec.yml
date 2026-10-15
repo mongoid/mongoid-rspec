@@ -2,6 +2,27 @@ name: Test
 on: [push, pull_request]
 
 jobs:
+  integration:
+    name: Integration (${{ matrix.integration }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        integration: [shoulda_matchers]
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.integration }}.gemfile
+    steps:
+      - name: Set up MongoDB
+        uses: supercharge/mongodb-github-action@1.12.1
+        with:
+          mongodb-version: '8.0'
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: Run integration tests
+        run: bundle exec rspec spec/integration/${{ matrix.integration }}
   test:
     runs-on: ubuntu-latest
     strategy:

@@ -247,6 +247,8 @@ RSpec.describe User do
 
   it { is_expected.to have_and_belong_to_many(:children) }
   it { is_expected.to have_and_belong_to_many(:children).of_type(User) }
+  # nonconflicting alternative when using shoulda-matchers
+  it { is_expected.to have_and_belong_to_many_related(:children).of_type(User) }
 end
 
 RSpec.describe Profile do
@@ -399,6 +401,8 @@ end
 ## Contributing
 
 You're encouraged to contribute to this library. See [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+`bundle exec rake` runs the unit suite without third-party integration dependencies. Each integration has its own Appraisal bundle and directory under `spec/integration/`. For example, run `BUNDLE_GEMFILE=gemfiles/shoulda_matchers.gemfile bundle install`, then `BUNDLE_GEMFILE=gemfiles/shoulda_matchers.gemfile bundle exec rspec spec/integration/shoulda_matchers`. To add an integration, define its dependencies in Appraisals, generate its gemfile, add its specs under a matching directory, and add its name to the integration matrix in `.github/workflows/rspec.yml`. CI runs each listed integration in a separate process and bundle.
 
 ## Copyright and License
 

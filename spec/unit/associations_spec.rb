@@ -15,6 +15,13 @@ RSpec.describe 'Associations' do
     it { is_expected.to embed_one(:profile).as_inverse_of(:user) }
 
     it { is_expected.to have_and_belong_to_many(:children).of_type(User) }
+    it { is_expected.to have_and_belong_to_many_related(:children).of_type(User) }
+
+    it 'supports class subjects through the nonconflicting name' do
+      expect(User).to have_and_belong_to_many_related(:children).of_type(User)
+      expect(User).not_to have_and_belong_to_many_related(:articles)
+      expect(User).not_to have_and_belong_to_many_related(:children).of_type(Article)
+    end
   end
 
   describe Profile do
