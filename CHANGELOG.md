@@ -1,4 +1,4 @@
-### 4.3.0 (Next)
+### 4.3.0 (2026/10/14)
 
 * [#251](https://github.com/mongoid/mongoid-rspec/pull/251): Add SimpleCov and Coveralls reporting in CI and update status badges - [@dblock](https://github.com/dblock).
 * [#250](https://github.com/mongoid/mongoid-rspec/pull/250): Modernize CI actions and MongoDB startup while retaining Ruby 2.6–4.0, Mongoid 4–9, and MongoDB 4.4–8.0 coverage - [@dblock](https://github.com/dblock).
@@ -8,7 +8,6 @@
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Add frozen_string_literal: true to all files and enforce rubocop - [@johnnyshields](https://github.com/johnnyshields).
 * [#248](https://github.com/mongoid/mongoid-rspec/pull/248): Various small CI fixes - [@johnnyshields](https://github.com/johnnyshields).
 * [#247](https://github.com/mongoid/mongoid-rspec/pull/247): Migrate to danger-pr-comment workflow - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 4.2.0 (2024/06/04)
 

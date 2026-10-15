@@ -1,67 +1,51 @@
-Releasing Mongoid::RSpec
-========================
+# Releasing Mongoid::RSpec
 
-There're no particular rules about when to release mongoid-rspec. Release bug fixes frequently, features not so frequently and breaking API changes rarely.
+## Prepare
 
-### Release
+Use the upstream checkout on a clean `master`, verify `origin` points to `mongoid/mongoid-rspec`, and run `git pull --ff-only`. Check the latest [GitHub Actions](https://github.com/mongoid/mongoid-rspec/actions) results for supported platforms. Use patch versions for fixes, minor versions for backward-compatible features, and major versions for breaking changes.
 
-Run tests, check that all tests succeed locally.
+Set the version in `lib/mongoid/rspec/version.rb`, date its changelog section using `YYYY/MM/DD`, and remove that section's contribution placeholder.
 
-```
+```sh
 bundle install
 bundle exec rake
-```
-
-Check that the last build succeeded in [Travis CI](https://travis-ci.org/mongoid/mongoid-rspec) for all supported platforms.
-
-Increment the version, modify [lib/mongoid/rspec/version.rb](lib/mongoid/rspec/version.rb).
-
-*  Increment the third number if the release has bug fixes and/or very minor features, only (eg. change `0.5.1` to `0.5.2`).
-*  Increment the second number if the release contains major features or breaking API changes (eg. change `0.5.1` to `0.4.0`).
-
-Change "Next Release" in [CHANGELOG.md](CHANGELOG.md) to the new version.
-
-```
-### 0.4.0 (2014-01-27)
-```
-
-Remove the line with "Your contribution here.", since there will be no more contributions to this release.
-
-Commit your changes.
-
-```
-git add CHANGELOG.md lib/mongoid/rspec/version.rb
-git commit -m "Preparing for release, 0.4.0."
+bundle exec rubocop
+git add CHANGELOG.md lib/mongoid/rspec/version.rb RELEASING.md
+git commit -m "Preparing for release, 4.3.0."
 git push origin master
 ```
 
-Release.
+Wait for the preparation commit's CI checks to pass.
 
-```
-$ rake release
+## Publish RubyGems and GitHub
 
-mongoid-rspec 0.4.0 built to pkg/mongoid-rspec-0.4.0.gem.
-Tagged v0.4.0.
-Pushed git commits and tags.
-Pushed mongoid-rspec 0.4.0 to rubygems.org.
+```sh
+bundle exec rake release
 ```
 
-### Prepare for the Next Version
+Complete RubyGems MFA when requested. The task builds the gem, pushes its tag, and publishes to RubyGems. If interrupted, inspect the existing tag and gem version before retrying. Never move a published tag. If only gem publication is missing, use `gem push pkg/mongoid-rspec-4.3.0.gem`.
 
-Add the next release to [CHANGELOG.md](CHANGELOG.md).
+Creating the tag does not create a GitHub release. After verifying RubyGems publication, publish a matching GitHub release with the changelog entries:
 
+```sh
+version=4.3.0
+notes="$(mktemp)"
+awk -v version="$version" '
+  /^### / {
+    if (found) exit
+    if ($2 == version) found = 1
+    next
+  }
+  found { print }
+' CHANGELOG.md > "$notes"
+gh release create "v$version" --repo mongoid/mongoid-rspec --verify-tag --title "$version" --notes-file "$notes" --latest
+rm "$notes"
+curl --fail --silent --show-error "https://rubygems.org/api/v2/rubygems/mongoid-rspec/versions/$version.json"
+gh release view "v$version" --repo mongoid/mongoid-rspec
 ```
-### 0.4.1 (Next)
 
-* Your contribution here.
-```
+Both the published gem and non-draft GitHub release must be verified.
 
-Increment the minor version, modify [lib/mongoid/rspec/version.rb](lib/mongoid/rspec/version.rb).
+## Prepare the Next Version
 
-Commit your changes.
-
-```
-git add CHANGELOG.md lib/mongoid/rspec/version.rb
-git commit -m "Preparing for next release, 0.4.1."
-git push origin master
-```
+Increment the development patch version in `lib/mongoid/rspec/version.rb`, for example to `4.3.1`. Add `### 4.3.1 (Next)` and a contribution placeholder above the released changelog section. Commit and push those changes to `master`, leaving the released tag unchanged.
