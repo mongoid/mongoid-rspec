@@ -1,3 +1,7 @@
+### 4.4.1 (Next)
+
+* Your contribution here.
+
 ### 4.4.0 (2026/10/15)
 
 * [#209](https://github.com/mongoid/mongoid-rspec/issues/209): Document and integration-test scoped matchers for mixed Mongoid and ActiveRecord applications using shoulda-matchers - [@dblock](https://github.com/dblock).
