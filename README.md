@@ -209,6 +209,23 @@ end
 
 ### Field Matchers
 
+Chain `.readonly` to check fields declared with Mongoid's `attr_readonly`. This checks the declaration, not whether a new document currently allows writes. Like other field matcher options, it applies to every requested field and accepts class or instance subjects.
+
+```ruby
+class Article
+  include Mongoid::Document
+
+  field :slug, type: String
+  field :external_id, type: String
+  attr_readonly :slug, :external_id
+end
+
+RSpec.describe Article do
+  it { is_expected.to have_field(:slug).of_type(String).readonly }
+  it { is_expected.to have_fields(:slug, :external_id).readonly }
+end
+```
+
 ```ruby
 RSpec.describe Article do
   it { is_expected.to have_field(:published).of_type(Mongoid::Boolean).with_default_value_of(false) }

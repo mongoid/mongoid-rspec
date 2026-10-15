@@ -12,6 +12,11 @@ module Mongoid
         self
       end
 
+      def readonly
+        @readonly = true
+        self
+      end
+
       def of_type(type)
         @type = type
         self
@@ -49,6 +54,10 @@ module Mongoid
               error << " with alias #{@klass.fields[attr].options[:as]}"
             end
 
+            if @readonly && !@klass.readonly_attributes.include?(attr)
+              error << ' that is not readonly'
+            end
+
             @errors.push("field #{attr.inspect}#{error}") unless error.blank?
 
             if @localized
@@ -80,6 +89,7 @@ module Mongoid
         desc << " of type #{@type.inspect}" if @type
         desc << " with alias #{@field_alias}" if @field_alias
         desc << " with default value of #{@default.inspect}" unless @default.nil?
+        desc << ' marked readonly' if @readonly
         desc
       end
     end
