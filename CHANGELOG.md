@@ -4,6 +4,7 @@
 * [#161](https://github.com/mongoid/mongoid-rspec/issues/161): Add have_and_belong_to_many_related as a nonconflicting alternative when using shoulda-matchers - [@dblock](https://github.com/dblock).
 * [#220](https://github.com/mongoid/mongoid-rspec/issues/220): Add `.readonly` to field matchers for fields declared with `attr_readonly` - [@dblock](https://github.com/dblock).
 * [#233](https://github.com/mongoid/mongoid-rspec/issues/233): Add `with_primary_key` for association matchers - [@dblock](https://github.com/dblock).
+* [#225](https://github.com/mongoid/mongoid-rspec/issues/225): Add an `execute_mongodb_command` matcher with optional exact command matching - [@dblock](https://github.com/dblock).
 * [#235](https://github.com/mongoid/mongoid-rspec/issues/235): Remove deprecated RubyForge metadata from the gemspec - [@dblock](https://github.com/dblock).
 * [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).

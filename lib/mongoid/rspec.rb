@@ -32,6 +32,7 @@ require 'matchers/be_mongoid_document'
 require 'matchers/be_dynamic_document'
 require 'matchers/be_stored_in'
 require 'matchers/have_field'
+require 'matchers/execute_mongodb_command'
 require 'matchers/indexes/have_index_for'
 if Mongoid::Compatibility::Version.mongoid3?
   require 'matchers/indexes/v3/have_index_for'
