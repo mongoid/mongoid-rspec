@@ -243,6 +243,31 @@ end
 
 ### Association Matchers
 
+Use `with_primary_key` to check an association's primary key, including the default `_id`. Like `with_foreign_key`, it accepts a symbol or string and can be chained with other association options:
+
+```ruby
+class Author
+  include Mongoid::Document
+
+  field :code, type: String
+  has_many :posts, primary_key: :code, foreign_key: :author_code
+end
+
+class Post
+  include Mongoid::Document
+
+  belongs_to :author, primary_key: :code, foreign_key: :author_code
+end
+
+RSpec.describe Author do
+  it { is_expected.to have_many(:posts).with_primary_key(:code).with_foreign_key(:author_code) }
+end
+
+RSpec.describe Post do
+  it { is_expected.to belong_to(:author).with_primary_key('code') }
+end
+```
+
 ```ruby
 RSpec.describe User do
   it { is_expected.to have_many(:articles).with_foreign_key(:author_id).ordered_by(:title) }
