@@ -44,6 +44,33 @@ RSpec.configure do |config|
 end
 ```
 
+### Using Mongoid and ActiveRecord with shoulda-matchers
+
+Both libraries define matcher names such as `validate_length_of` and `belong_to`, but their chain methods and implementations differ. In an application with both Mongoid and ActiveRecord models, include Mongoid matchers only for a custom `:mongoid_model` type instead of all `:model` examples. Keep Shoulda's ActiveModel and ActiveRecord matchers scoped to `:model`:
+
+```ruby
+require 'mongoid-rspec'
+require 'shoulda/matchers'
+
+RSpec.configure do |config|
+  config.include Mongoid::Matchers, type: :mongoid_model
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+  config.include Shoulda::Matchers::ActiveRecord, type: :model
+end
+
+RSpec.describe MongoidAddress, type: :mongoid_model do
+  it { is_expected.to validate_length_of(:name).with_maximum(255) }
+  it { is_expected.to belong_to(:city).as_inverse_of(:addresses) }
+end
+
+RSpec.describe ActiveRecordAddress, type: :model do
+  it { is_expected.to validate_length_of(:name).is_at_most(255) }
+  it { is_expected.to belong_to(:city).inverse_of(:addresses) }
+end
+```
+
+Replace the existing unscoped or `type: :model` inclusion of `Mongoid::Matchers`; do not keep it alongside the scoped configuration. Explicitly tag Mongoid example groups with `type: :mongoid_model`, including those under `spec/models`, where rspec-rails would otherwise infer `:model`. Do not include Shoulda's model matcher modules globally or directly in those Mongoid groups. This avoids depending on module inclusion order and preserves each library's existing matcher API.
+
 ### Other
 
 Add to your `spec_helper.rb` file.

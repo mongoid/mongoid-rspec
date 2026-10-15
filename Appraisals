@@ -3,6 +3,7 @@
 appraise 'shoulda-matchers' do
   gem 'mongoid', '~> 9.0'
   gem 'shoulda-matchers', '~> 8.0', require: false
+  gem 'sqlite3', '~> 2.0', require: false
 end
 
 appraise 'mongoid-9' do
