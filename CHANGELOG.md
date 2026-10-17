@@ -1,5 +1,6 @@
 ### 4.4.1 (Next)
 
+* [#263](https://github.com/mongoid/mongoid-rspec/pull/263): Expand matcher behavior and diagnostic coverage, run the storage matcher specs in the default suite, combine Mongoid 6 and 9 coverage in Coveralls, and document isolated MongoDB test databases - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 4.4.0 (2026/10/15)
