@@ -32,6 +32,14 @@ bundle install
 bundle exec rake
 ```
 
+To use a dedicated MongoDB database (including a server on a nondefault port), set `MONGODB_URI`. The suite purges its configured database after each example group, so never point it at a database containing data you need.
+
+```
+MONGODB_URI=mongodb://localhost:27017/mongoid_rspec_coverage COVERAGE=true bundle exec rake
+```
+
+`COVERAGE=true` enables SimpleCov for every file under `lib/`; the HTML report is written to `coverage/index.html`.
+
 #### Write Tests
 
 Try to write a test that reproduces the problem you're trying to fix or describes a feature that you want to build. Add to [spec/mongoid-rspec](spec/mongoid-rspec).
