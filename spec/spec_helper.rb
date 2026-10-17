@@ -25,7 +25,18 @@ require 'rspec/core'
 require 'rspec/expectations'
 require 'mongoid/compatibility'
 
-Mongoid::Config.connect_to('mongoid-rspec-test') if Mongoid::Compatibility::Version.mongoid3_or_newer?
+if ENV['MONGODB_URI']
+  Mongoid.configure do |config|
+    connection = { uri: ENV.fetch('MONGODB_URI') }
+    if Mongoid::Compatibility::Version.mongoid5_or_newer?
+      config.clients[:default] = connection
+    else
+      config.sessions[:default] = connection
+    end
+  end
+elsif Mongoid::Compatibility::Version.mongoid3_or_newer?
+  Mongoid::Config.connect_to('mongoid-rspec-test')
+end
 Mongo::Logger.logger.level = ::Logger::INFO if Mongoid::Compatibility::Version.mongoid5_or_newer?
 
 Dir[File.join(MODELS, '*.rb')].sort.each { |file| require File.basename(file) }

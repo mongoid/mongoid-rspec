@@ -31,18 +31,18 @@ jobs:
         entry:
           - { ruby: '2.6', mongodb: '4.4', gemfile: 'mongoid_4', bundler: '1.17.3' }
           - { ruby: '2.6', mongodb: '4.4', gemfile: 'mongoid_5', bundler: '1.17.3' }
-          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_6' }
+          - { ruby: '2.7', mongodb: '4.4', gemfile: 'mongoid_6', coverage: true }
           - { ruby: '2.7', mongodb: '5.0', gemfile: 'mongoid_7' }
           - { ruby: '2.7', mongodb: '5.0', gemfile: 'mongoid_8' }
           - { ruby: '3.0', mongodb: '6.0', gemfile: 'mongoid_8' }
           - { ruby: '3.1', mongodb: '6.0', gemfile: 'mongoid_8' }
           - { ruby: '3.2', mongodb: '7.0', gemfile: 'mongoid_8' }
           - { ruby: '3.3', mongodb: '7.0', gemfile: 'mongoid_9' }
-          - { ruby: '3.4', mongodb: '8.0', gemfile: 'mongoid_9' }
+          - { ruby: '3.4', mongodb: '8.0', gemfile: 'mongoid_9', coverage: true }
           - { ruby: '4.0', mongodb: '8.0', gemfile: 'mongoid_9' }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
-      COVERAGE: ${{ matrix.entry.ruby == '3.4' }}
+      COVERAGE: ${{ matrix.entry.coverage }}
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
     steps:
       - name: Set up MongoDB ${{ matrix.entry.mongodb }}
@@ -59,9 +59,22 @@ jobs:
       - name: Run tests
         run: bundle exec rake
       - name: Coveralls
-        if: matrix.entry.ruby == '3.4'
+        if: matrix.entry.coverage
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/.resultset.json
           format: simplecov
+          parallel: true
+          flag-name: ${{ matrix.entry.gemfile }}
+  coverage:
+    name: Finalize coverage
+    needs: test
+    if: always() && needs.test.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finish parallel Coveralls reporting
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
