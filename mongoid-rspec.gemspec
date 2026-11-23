@@ -3,7 +3,7 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'mongoid/rspec/version'
+require_relative 'lib/mongoid/rspec/version'
 
 Gem::Specification.new do |s|
   s.name        = 'mongoid-rspec'

@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Optional release version overriding the checked-in version.
+        type: string
+        required: false
+      dry-run:
+        description: Check release prerequisites, such as RubyGems Trusted Publishing, without releasing.
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    if: github.repository == 'mongoid/mongoid-rspec' && github.ref == 'refs/heads/master'
+    uses: dblock/ruby-gem-release/.github/workflows/release.yml@v0.9.0
+    with:
+      ruby-version: '3.3'
+      version: ${{ inputs.version }}
+      dry-run: ${{ inputs.dry-run }}
+      test: |
+        docker run --detach --name mongodb --publish 27017:27017 mongo:8.0
+        until docker exec mongodb mongosh --quiet --eval 'db.adminCommand({ping: 1})'; do sleep 1; done
+        bundle exec rake

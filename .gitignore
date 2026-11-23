@@ -7,3 +7,4 @@ pkg/*
 .idea/
 .ruby-lsp/
 coverage/
+/vendor/bundle
