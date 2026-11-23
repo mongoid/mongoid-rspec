@@ -1,10 +1,17 @@
 name: Test
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   integration:
     name: Integration (${{ matrix.integration }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -26,6 +33,7 @@ jobs:
         run: bundle exec rspec spec/integration/${{ matrix.integration }}
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -59,7 +67,7 @@ jobs:
           bundler: ${{ matrix.entry.bundler || 'default' }}
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rake
+        run: bundle exec rake spec
       - name: Coveralls
         if: matrix.entry.coverage
         uses: coverallsapp/github-action@v2
@@ -74,6 +82,7 @@ jobs:
     needs: test
     if: always() && needs.test.result == 'success'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Finish parallel Coveralls reporting
         uses: coverallsapp/github-action@v2
