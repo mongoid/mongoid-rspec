@@ -21,7 +21,7 @@ RSpec.describe Mongoid::Matchers::HaveIndexFor do
     is_expected.to have_index_for(foo: 1)
   end
 
-  it 'detects an index for multipple fields key' do
+  it 'detects an index for multiple fields key' do
     is_expected.to have_index_for(foo: 1, bar: -1)
   end
 
