@@ -3,6 +3,7 @@
 * [#263](https://github.com/mongoid/mongoid-rspec/pull/263): Expand matcher behavior and diagnostic coverage, run the storage matcher specs in the default suite, combine Mongoid 6 and 9 coverage in Coveralls, and document isolated MongoDB test databases - [@dblock](https://github.com/dblock).
 * Your contribution here.
 * [#264](https://github.com/mongoid/mongoid-rspec/pull/264): Lint Markdown, YAML, and spelling with rubocop-md, rubocop-prose, rubocop-spellcheck, and rubocop-yaml in a separate Lint workflow, and clean up documentation - [@dblock](https://github.com/dblock).
+* [#265](https://github.com/mongoid/mongoid-rspec/pull/265): Run CI pushes only on the default branch, cancel superseded pull request runs, skip duplicate lint in the test matrix, and bound job times - [@dblock](https://github.com/dblock).
 
 ### 4.4.0 (2026/10/15)
 
