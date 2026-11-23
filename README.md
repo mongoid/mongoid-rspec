@@ -1,15 +1,15 @@
-# [mongoid-rspec](https://github.com/mongoid/mongoid-rspec "A collection of RSpec-compatible matchers that help to test Mongoid documents.")
+# Mongoid RSpec
 
-[![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec)
-[![Test Status](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml?query=branch%3Amaster)
-[![Rubocop Status](https://github.com/mongoid/mongoid-rspec/actions/workflows/rubocop.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/rubocop.yml?query=branch%3Amaster)
-[![Coverage Status](https://coveralls.io/repos/github/mongoid/mongoid-rspec/badge.svg?branch=master)](https://coveralls.io/github/mongoid/mongoid-rspec?branch=master)
+A collection of RSpec-compatible matchers that help to test Mongoid documents.
+
+[![Gem Version](https://badge.fury.io/rb/mongoid-rspec.svg)](https://badge.fury.io/rb/mongoid-rspec) [![Test Status](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml?query=branch%3Amaster) [![Lint](https://github.com/mongoid/mongoid-rspec/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-rspec/actions/workflows/lint.yml?query=branch%3Amaster) [![Coverage Status](https://coveralls.io/repos/github/mongoid/mongoid-rspec/badge.svg?branch=master)](https://coveralls.io/github/mongoid/mongoid-rspec?branch=master)
 
 CI collects SimpleCov coverage on Ruby 3.4 with Mongoid 9 and MongoDB 8.0 and submits one report to Coveralls using GitHub's workflow token. To generate a local report, run `COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid_9.gemfile bundle install` followed by `COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid_9.gemfile bundle exec rake spec`. Reports are written to `coverage/`.
 
 The mongoid-rspec library provides a collection of RSpec-compatible matchers that help to test Mongoid documents.
 
 [Tested](https://github.com/mongoid/mongoid-rspec/actions/workflows/rspec.yml) against:
+
 - MRI: `2.6.x`, `2.7.x`, `3.0.x`, `3.1.x`, `3.2.x`
 - Mongoid: `4`, `5`, `6`, `7`, `8`, `9`
 
@@ -44,7 +44,7 @@ RSpec.configure do |config|
 end
 ```
 
-### Using Mongoid and ActiveRecord with shoulda-matchers
+### Using Mongoid and ActiveRecord with Shoulda-Matchers
 
 Both libraries define matcher names such as `validate_length_of` and `belong_to`, but their chain methods and implementations differ. In an application with both Mongoid and ActiveRecord models, include Mongoid matchers only for a custom `:mongoid_model` type instead of all `:model` examples. Keep Shoulda's ActiveModel and ActiveRecord matchers scoped to `:model`:
 
@@ -85,7 +85,7 @@ end
 
 ## Matchers
 
-### be_mongoid_document
+### The `be_mongoid_document` Matcher
 
 ```ruby
 class Post
@@ -97,7 +97,7 @@ RSpec.describe Post, type: :model do
 end
 ```
 
-### be_dynamic_document
+### The `be_dynamic_document` Matcher
 
 ```ruby
 class User
@@ -110,7 +110,7 @@ RSpec.describe User, type: :model do
 end
 ```
 
-### have_timestamps
+### The `have_timestamps` Matcher
 
 With full timestamps.
 
@@ -166,7 +166,7 @@ RSpec.describe Short, type: :model do
 end
 ```
 
-### be_stored_in
+### The `be_stored_in` Matcher
 
 ```ruby
 class Post
@@ -200,7 +200,7 @@ It works fine with lambdas and procs.
 class User
   include Mongoid::Document
 
-  store_in database: ->{ Thread.current[:database] }
+  store_in database: -> { Thread.current[:database] }
 end
 
 RSpec.describe Post, type: :model do
@@ -214,7 +214,7 @@ RSpec.describe Post, type: :model do
 end
 ```
 
-### have_index_for
+### The `have_index_for` Matcher
 
 ```ruby
 class Article
@@ -234,7 +234,7 @@ RSpec.describe Article, type: :model do
 end
 ```
 
-### execute_mongodb_command
+### The `execute_mongodb_command` Matcher
 
 Use `execute_mongodb_command` with a block expectation to verify that code issues a MongoDB command. Without an argument, the matcher passes when any command is issued on the block's thread. An expected command matches the entire application command document exactly, not just a subset or query selector; nested String and Symbol keys are normalized to Strings. Driver-added top-level `$db`, `lsid`, and `$clusterTime` fields are excluded from comparison, while all other command fields and values must match. The matcher ignores unrelated background-thread activity and raises `NotImplementedError` when the driver does not expose command monitoring, including the legacy driver used with Mongoid 4.
 
@@ -261,7 +261,7 @@ RSpec.describe Article do
 end
 ```
 
-### be_covered_query
+### The `be_covered_query` Matcher
 
 Check that MongoDB's winning plan uses an index without fetching documents:
 
@@ -392,7 +392,7 @@ describe Comment do
 end
 
 describe Permalink do
-  it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link).with_touch(false) } 
+  it { is_expected.to be_embedded_in(:linkable).as_inverse_of(:link).with_touch(false) }
 end
 
 # touch can also take a symbol representing a field on the parent to touch
@@ -433,18 +433,18 @@ end
 RSpec.describe User do
   it { is_expected.to validate_presence_of(:login) }
   it { is_expected.to validate_uniqueness_of(:login).scoped_to(:site) }
-  it { is_expected.to validate_uniqueness_of(:email).case_insensitive.with_message("is already taken") }
-  it { is_expected.to validate_format_of(:login).to_allow("valid_login").not_to_allow("invalid login") }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive.with_message('is already taken') }
+  it { is_expected.to validate_format_of(:login).to_allow('valid_login').not_to_allow('invalid login') }
   it { is_expected.to validate_associated(:profile) }
-  it { is_expected.to validate_exclusion_of(:login).to_not_allow("super", "index", "edit") }
-  it { is_expected.to validate_inclusion_of(:role).to_allow("admin", "member") }
+  it { is_expected.to validate_exclusion_of(:login).to_not_allow('super', 'index', 'edit') }
+  it { is_expected.to validate_inclusion_of(:role).to_allow('admin', 'member') }
   it { is_expected.to validate_confirmation_of(:email) }
   it { is_expected.to validate_presence_of(:age).on(:create, :update) }
   it { is_expected.to validate_numericality_of(:age).on(:create, :update) }
-  it { is_expected.to validate_inclusion_of(:age).to_allow(23..42).on([:create, :update]) }
+  it { is_expected.to validate_inclusion_of(:age).to_allow(23..42).on(%i[create update]) }
   it { is_expected.to validate_presence_of(:password).on(:create) }
   it { is_expected.to validate_presence_of(:provider_uid).on(:create) }
-  it { is_expected.to validate_inclusion_of(:locale).to_allow([:en, :ru]) }
+  it { is_expected.to validate_inclusion_of(:locale).to_allow(%i[en ru]) }
 end
 
 RSpec.describe Article do
@@ -461,8 +461,8 @@ RSpec.describe Profile do
 end
 
 RSpec.describe MovieArticle do
-  it { is_expected.to validate_numericality_of(:rating).to_allow(:greater_than => 0).less_than_or_equal_to(5) }
-  it { is_expected.to validate_numericality_of(:classification).to_allow(:even => true, :only_integer => true, :nil => false) }
+  it { is_expected.to validate_numericality_of(:rating).to_allow(greater_than: 0).less_than_or_equal_to(5) }
+  it { is_expected.to validate_numericality_of(:classification).to_allow(even: true, only_integer: true, nil: false) }
 end
 
 RSpec.describe Person do
@@ -518,9 +518,7 @@ end
 
 ## Contributing
 
-You're encouraged to contribute to this library. See [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-`bundle exec rake` runs the unit suite without third-party integration dependencies. Each integration has its own Appraisal bundle and directory under `spec/integration/`. For example, run `BUNDLE_GEMFILE=gemfiles/shoulda_matchers.gemfile bundle install`, then `BUNDLE_GEMFILE=gemfiles/shoulda_matchers.gemfile bundle exec rspec spec/integration/shoulda_matchers`. To add an integration, define its dependencies in Appraisals, generate its gemfile, add its specs under a matching directory, and add its name to the integration matrix in `.github/workflows/rspec.yml`. CI runs each listed integration in a separate process and bundle.
+See [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md), and [RELEASING.md](RELEASING.md).
 
 ## Copyright and License
 

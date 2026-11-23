@@ -10,6 +10,7 @@ jobs:
       matrix:
         integration: [shoulda_matchers]
     env:
+      BUNDLE_BUILD__BSON: --with-cflags=-Wno-error=implicit-function-declaration
       BUNDLE_GEMFILE: gemfiles/${{ matrix.integration }}.gemfile
     steps:
       - name: Set up MongoDB
@@ -42,6 +43,7 @@ jobs:
           - { ruby: '4.0', mongodb: '8.0', gemfile: 'mongoid_9' }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
+      BUNDLE_BUILD__BSON: --with-cflags=-Wno-error=implicit-function-declaration
       COVERAGE: ${{ matrix.entry.coverage }}
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
     steps:

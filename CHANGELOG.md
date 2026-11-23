@@ -2,6 +2,7 @@
 
 * [#263](https://github.com/mongoid/mongoid-rspec/pull/263): Expand matcher behavior and diagnostic coverage, run the storage matcher specs in the default suite, combine Mongoid 6 and 9 coverage in Coveralls, and document isolated MongoDB test databases - [@dblock](https://github.com/dblock).
 * Your contribution here.
+* [#264](https://github.com/mongoid/mongoid-rspec/pull/264): Lint Markdown, YAML, and spelling with rubocop-md, rubocop-prose, rubocop-spellcheck, and rubocop-yaml in a separate Lint workflow, and clean up documentation - [@dblock](https://github.com/dblock).
 
 ### 4.4.0 (2026/10/15)
 
@@ -15,6 +16,7 @@
 * [#135](https://github.com/mongoid/mongoid-rspec/issues/135): Match requested length options against all applicable validators instead of only the first - [@dblock](https://github.com/dblock).
 * [#238](https://github.com/mongoid/mongoid-rspec/issues/238): Add a `be_covered_query` matcher for index-only query plans with optional `using_index` and `using_indexes` constraints - [@Startouf](https://github.com/Startouf).
 * [#252](https://github.com/mongoid/mongoid-rspec/pull/252): Fill in historical changelog entries and correct release attribution - [@dblock](https://github.com/dblock).
+
 ### 4.3.0 (2026/10/14)
 
 * [#251](https://github.com/mongoid/mongoid-rspec/pull/251): Add SimpleCov and Coveralls reporting in CI and update status badges - [@dblock](https://github.com/dblock).

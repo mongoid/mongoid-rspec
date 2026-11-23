@@ -1,17 +1,156 @@
+plugins:
+- rubocop-md
+- rubocop-prose
+- rubocop-rake
+- rubocop-spellcheck
+- rubocop-yaml
+
+inherit_from: ".rubocop_todo.yml"
+
 AllCops:
   NewCops: enable
   Exclude:
-    - vendor/**/*
-    - bin/**/*
-    - data/**/*
+  - vendor/**/*
+  - bin/**/*
+  - data/**/*
+  - coverage/**/*
+  - pkg/**/*
+  SuggestExtensions: false
+  inherit_mode:
+    merge:
+    - Include
+  Include:
+  - ".github/**/*.yml"
+  - ".rubocop.yml"
 
 Metrics:
   Enabled: false
 
 Layout/LineLength:
   Max: 256
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - ".github/workflows/*.yml"
 
 Style/Documentation:
   Enabled: false
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
 
-inherit_from: .rubocop_todo.yml
+YAML/Lint/InvalidSyntax:
+  Include:
+  - "**/*.yml"
+  - "**/*.yaml"
+
+YAML/Lint/DuplicateKey:
+  Include:
+  - "**/*.yml"
+  - "**/*.yaml"
+
+Naming/FileName:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+  - ".github/workflows/*.yml"
+  - lib/mongoid-rspec.rb
+
+Metrics/MethodLength:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Metrics/AbcSize:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Naming/HeredocDelimiterNaming:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Style/SafeNavigation:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Style/OneClassPerFile:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Lint/UselessAssignment:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Style/MultilineBlockChain:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Style/SymbolProc:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Lint/Void:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - "**/*.md"
+
+Metrics/BlockLength:
+  inherit_mode:
+    merge:
+    - Exclude
+  Exclude:
+  - Gemfile
+
+Markdown/HeadingCapitalization:
+  inherit_mode:
+    merge:
+    - Exclude
+  Enabled: true
+  Style: title_case
+  Exclude:
+  - CHANGELOG.md
+
+Prose/MaxLength:
+  Max: false
+  Exclude:
+  - LICENSE
+
+Spellcheck:
+  DictionaryFiles:
+    en:
+    - gem:rubocop-spellcheck/data/en/en.dic
+    - ".spellcheck.txt"
+
+Spellcheck/Spelling:
+  Exclude:
+  - LICENSE
