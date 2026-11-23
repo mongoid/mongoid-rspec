@@ -129,6 +129,7 @@ Metrics/BlockLength:
     merge:
     - Exclude
   Exclude:
+  - 'spec/release/release_spec.rb'
   - Gemfile
 
 Markdown/HeadingCapitalization:

@@ -12,6 +12,7 @@ autosave
 baz
 bernardeli
 bitaculous
+Bundler
 camelcased
 candlewaster
 carloslopes
@@ -54,6 +55,7 @@ javierav
 jeyb
 Jiří
 johnnyshields
+JRuby
 jtescher
 kareemk
 karmi
@@ -77,6 +79,7 @@ md
 Mongoid
 mongoid
 Mongoid's
+MongoidRSpecRelease
 mstarkman
 mukimov
 nanocity
@@ -114,6 +117,7 @@ rodrigopinto
 rodrigues
 RSpec
 rspec
+rspec's
 RuboCop
 rubocop
 RubyForge
